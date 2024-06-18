@@ -1,0 +1,4 @@
+<div id="container">
+    <div id="stencil"></div>
+    <div id="graph-container"></div>
+</div>

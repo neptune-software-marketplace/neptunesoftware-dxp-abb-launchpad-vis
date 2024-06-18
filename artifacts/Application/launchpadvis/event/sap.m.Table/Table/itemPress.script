@@ -1,0 +1,16 @@
+const selectedItem = Table.getSelectedItem();
+
+if (selectedItem) {
+    
+    const context = selectedItem.getBindingContext("Launchpads");
+
+    const name = context.getProperty("name");
+    const id = context.getProperty("id");
+
+    console.log(name,id);
+
+    const json = showUsage(id,name);
+    renderSymmetricGraph(json);
+    App.to(Design);
+
+}

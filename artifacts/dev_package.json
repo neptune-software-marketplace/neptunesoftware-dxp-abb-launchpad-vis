@@ -1,0 +1,75 @@
+{
+	"id": "c05ddc61-813c-4e8d-a97e-fa72b3d210ae",
+	"createdAt": "2024-06-18T07:41:57.000Z",
+	"createdBy": "admin",
+	"git": {
+		"remote": "https://github.com/neptune-software-marketplace/neptunesoftware-launchpad-vis"
+	},
+	"name": "neptunesoftware-launchpad-vis",
+	"description": null,
+	"ver": "24.06.18.0747",
+	"enableCICD": true,
+	"apps": [
+		{
+			"id": "5d5c5acb-bea0-4001-84f2-356d90d37007",
+			"application": "launchpadvis",
+			"title": "",
+			"description": "",
+			"package": {
+				"id": "c05ddc61-813c-4e8d-a97e-fa72b3d210ae"
+			}
+		}
+	],
+	"api": [
+		{
+			"id": "22d01e25-fa5b-4236-89e2-4ed7e3aa1ca7",
+			"name": "Vertex",
+			"description": null,
+			"apiGroup": null
+		}
+	],
+	"odataSource": [],
+	"odataMock": [],
+	"dictionary": [],
+	"jsclass": [
+		{
+			"id": "4abda06c-373d-4984-8df8-2d388b0b9c4e",
+			"name": "Scraper",
+			"description": null
+		},
+		{
+			"id": "1c3f589f-1481-40d2-b9e6-83a7a15145e5",
+			"name": "Vertex",
+			"description": null
+		}
+	],
+	"jsscript_group": [
+		{
+			"id": "f87497ff-c597-4f65-baab-ab152f6e0816",
+			"name": "Vertex",
+			"description": ""
+		}
+	],
+	"theme": [],
+	"pdf": [],
+	"rulesengine": [],
+	"reports": [],
+	"api_authentication": [],
+	"api_group": [],
+	"tile": [],
+	"category": [],
+	"launchpad": [],
+	"certificates": [],
+	"role": [],
+	"systems": [],
+	"doc": [],
+	"wf_notifications": [],
+	"department": [],
+	"script_scheduler": [],
+	"wf_definition": [],
+	"connector": [],
+	"events": [],
+	"code_snippets": [],
+	"wf_determination": [],
+	"wf_taskaction": []
+}

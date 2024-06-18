@@ -1,0 +1,21 @@
+{
+	"id": "4abda06c-373d-4984-8df8-2d388b0b9c4e",
+	"createdAt": "2024-06-18T07:35:44.000Z",
+	"createdBy": "admin",
+	"globalScripts": [],
+	"externalModules": [],
+	"entitySets": [],
+	"apis": [],
+	"name": "Scraper",
+	"ver": "24.06.18.0737",
+	"description": null,
+	"folder": "",
+	"content": "file:///content.ts",
+	"useAsGlobalScript": true,
+	"transpiledContent": "file:///transpiledContent.ts",
+	"lastRunSuccessful": false,
+	"isTypescript": false,
+	"language": "typescript",
+	"jsscriptGroup": "f87497ff-c597-4f65-baab-ab152f6e0816",
+	"package": "c05ddc61-813c-4e8d-a97e-fa72b3d210ae"
+}
