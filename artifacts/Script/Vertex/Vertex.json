@@ -2,12 +2,18 @@
 	"id": "1c3f589f-1481-40d2-b9e6-83a7a15145e5",
 	"createdAt": "2024-06-18T07:37:51.000Z",
 	"createdBy": "admin",
-	"globalScripts": [],
+	"globalScripts": [
+		{
+			"id": "4abda06c-373d-4984-8df8-2d388b0b9c4e",
+			"name": "Vertex - Scraper",
+			"contextname": "Scraper"
+		}
+	],
 	"externalModules": [],
 	"entitySets": [],
 	"apis": [],
 	"name": "Vertex",
-	"ver": "24.06.18.0738",
+	"ver": "24.06.18.0808",
 	"description": null,
 	"folder": "",
 	"content": "file:///content.js",

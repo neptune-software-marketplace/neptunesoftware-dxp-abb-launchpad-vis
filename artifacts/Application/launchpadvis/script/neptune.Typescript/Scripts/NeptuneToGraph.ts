@@ -93,37 +93,37 @@ function isRecursive(tree, nodeId, objectId) {
     return isRecursive(tree, node.parent, objectId);
 }
 
-function addNodeToGraph(graph, parentNode, nodeData) {
-    const newNode = graph.addNode({
-        id: nodeData.id,
-        shape: nodeData.shape,
-        attrs: {
-            text: {
-                text: nodeData.name || "",
-            },
-        },
-    });
-    if (parentNode) {
-        graph.addEdge({
-            source: { cell: parentNode.id, port: "out-port" },
-            target: { cell: newNode.id, port: "in-port" },
-        });
-    }
+// function addNodeToGraph(graph, parentNode, nodeData) {
+//     const newNode = graph.addNode({
+//         id: nodeData.id,
+//         shape: nodeData.shape,
+//         attrs: {
+//             text: {
+//                 text: nodeData.name || "",
+//             },
+//         },
+//     });
+//     if (parentNode) {
+//         graph.addEdge({
+//             source: { cell: parentNode.id, port: "out-port" },
+//             target: { cell: newNode.id, port: "in-port" },
+//         });
+//     }
 
-    nodeData.children.forEach((childData) => {
-        addNodeToGraph(graph, newNode, childData);
-    });
+//     nodeData.children.forEach((childData) => {
+//         addNodeToGraph(graph, newNode, childData);
+//     });
 
-    return newNode;
-}
+//     return newNode;
+// }
 
-function generateGraphFromJSON(graph, jsonData) {
-    if (!jsonData || Object.keys(jsonData).length === 0) {
-        return;
-    }
-    clear(); // clears previous graph
-    addNodeToGraph(graph, null, jsonData);
-}
+// function generateGraphFromJSON(graph, jsonData) {
+//     if (!jsonData || Object.keys(jsonData).length === 0) {
+//         return;
+//     }
+//     clear(); // clears previous graph
+//     addNodeToGraph(graph, null, jsonData);
+// }
 
 function renderSymmetricGraph(data) {
     clear();
@@ -149,8 +149,8 @@ function renderSymmetricGraph(data) {
             model.nodes?.push({
                 id: data.data.id,
                 shape: data.data.shape,
-                x: data.x + 600,
-                y: data.y + 250,
+                x: data.x, // 600
+                y: data.y, // 250
                 attrs: {
                     text: {
                         text: data.data.name,

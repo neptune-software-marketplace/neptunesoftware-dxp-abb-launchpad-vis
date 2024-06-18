@@ -8,8 +8,11 @@ function addLaunchpadNode() {
 
 function centerContent() {
     if (graph) {
-        // graph.centerContent();
-        graph.zoomToFit({ padding: 10, maxScale: 1 });
+        graph.centerContent();
+        graph.zoomToFit({
+            padding: 20,
+            maxScale: 2,
+        });
     }
 }
 
@@ -25,9 +28,11 @@ function FormClearData() {
 }
 function clear() {
     FormClearData();
-    graph.clearCells();
-    addLaunchpadNode();
-    centerContent();
+    if (graph) {
+        graph.clearCells();
+        addLaunchpadNode();
+        centerContent();
+    }
 }
 
 function buildNestedStructure(nodeId) {

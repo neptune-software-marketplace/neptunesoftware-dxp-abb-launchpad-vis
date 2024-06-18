@@ -774,6 +774,26 @@
 												}
 											],
 											"data": []
+										},
+										{
+											"fieldNo": "670751be-53e2-4c3b-f051-d765b04b8a98",
+											"fieldName": "BtnBack",
+											"fieldParent": "5c603111-5102-4415-e542-2eb0068f2ad9",
+											"fieldType": "sap.m.Button",
+											"script": "",
+											"customComponent": false,
+											"request": [],
+											"response": [],
+											"attributes": [
+												{
+													"attribute": "press",
+													"grouping": "Events",
+													"value": "App.to(Main);",
+													"script": "App.to(Main);",
+													"translation": []
+												}
+											],
+											"data": []
 										}
 									]
 								}
@@ -1287,7 +1307,7 @@
 		}
 	],
 	"componentInterface": [],
-	"ver": "24.06.18.0744",
+	"ver": "24.06.18.1304",
 	"application": "launchpadvis",
 	"title": "",
 	"description": "",
