@@ -1,0 +1,355 @@
+{
+	"id": "9e47c219-3511-474a-94e2-cd3e72deaa16",
+	"createdAt": "2024-06-18T07:50:36.000Z",
+	"createdBy": "admin",
+	"name": "neptunesoftware-launchpad-vis",
+	"description": "Launchpad Visualizer",
+	"ver": "24.06.18.0750",
+	"package": "c05ddc61-813c-4e8d-a97e-fa72b3d210ae",
+	"acl": [
+		{
+			"id": "workflowtaskaction_E",
+			"name": "Task Action"
+		},
+		{
+			"id": "workflowsubstitution_E",
+			"name": "Substitutions"
+		},
+		{
+			"id": "workflowmonitor_E",
+			"name": "Overview"
+		},
+		{
+			"id": "workflowdetermination_E",
+			"name": "Approvers"
+		},
+		{
+			"id": "workflowdefinition_E",
+			"name": "Definition"
+		},
+		{
+			"id": "workflow_E",
+			"name": "Workflow"
+		},
+		{
+			"id": "toolssystemreport_E",
+			"name": "System Reports"
+		},
+		{
+			"id": "toolsscripteditor_E",
+			"name": "Script Editor"
+		},
+		{
+			"id": "toolsrestore_E",
+			"name": "Application Trashbin"
+		},
+		{
+			"id": "toolsnpmmodules_E",
+			"name": "NPM Modules"
+		},
+		{
+			"id": "toolsjobschedulerlog_E",
+			"name": "Job Log"
+		},
+		{
+			"id": "toolsjobscheduler_E",
+			"name": "Job Manage"
+		},
+		{
+			"id": "toolshousekeeping_E",
+			"name": "Housekeeping"
+		},
+		{
+			"id": "toolsevents_E",
+			"name": "Events"
+		},
+		{
+			"id": "toolsdbdefinition_E",
+			"name": "Table Definition"
+		},
+		{
+			"id": "toolsdbbrowser_E",
+			"name": "Table Browser"
+		},
+		{
+			"id": "tools_E",
+			"name": "Tools"
+		},
+		{
+			"id": "testing_E",
+			"name": "Testing"
+		},
+		{
+			"id": "settingssystems_E",
+			"name": "Remote Systems"
+		},
+		{
+			"id": "settingssystem_E",
+			"name": "System Settings"
+		},
+		{
+			"id": "settingsimportldapgroup_E",
+			"name": "Import LDAP "
+		},
+		{
+			"id": "settingscustomizing_E",
+			"name": "Custom Settings"
+		},
+		{
+			"id": "settings_E",
+			"name": "Settings"
+		},
+		{
+			"id": "securityuser_E",
+			"name": "User"
+		},
+		{
+			"id": "securitytableaudit_E",
+			"name": "Table Audit"
+		},
+		{
+			"id": "securityrole_E",
+			"name": "Role"
+		},
+		{
+			"id": "securitydepartment_E",
+			"name": "Security Group"
+		},
+		{
+			"id": "securityauditlog_E",
+			"name": "Audit Log"
+		},
+		{
+			"id": "security_E",
+			"name": "Security"
+		},
+		{
+			"id": "runtranslation_E",
+			"name": "Translation"
+		},
+		{
+			"id": "runtileblackout_E",
+			"name": "Tile Blackout"
+		},
+		{
+			"id": "runtile_E",
+			"name": "Tile"
+		},
+		{
+			"id": "runpushusers_E",
+			"name": "Push Notification Users"
+		},
+		{
+			"id": "runmobiledebug_E",
+			"name": "Mobile Debug"
+		},
+		{
+			"id": "runmobile_E",
+			"name": "Mobile Client"
+		},
+		{
+			"id": "runlaunchpadtrace_E",
+			"name": "Launchpad Trace"
+		},
+		{
+			"id": "runlaunchpad_E",
+			"name": "Launchpad"
+		},
+		{
+			"id": "rungroup_E",
+			"name": "Tile Group"
+		},
+		{
+			"id": "runfav_E",
+			"name": "Favorite Management"
+		},
+		{
+			"id": "runapps_E",
+			"name": "Application Management"
+		},
+		{
+			"id": "runapplog_E",
+			"name": "Application Log"
+		},
+		{
+			"id": "monitorsystemlogs_E",
+			"name": "System Logs"
+		},
+		{
+			"id": "monitorsmtplog_E",
+			"name": "SMTP Log"
+		},
+		{
+			"id": "monitorsessions_E",
+			"name": "User Sessions"
+		},
+		{
+			"id": "monitorperformance_E",
+			"name": "Load Test"
+		},
+		{
+			"id": "monitorpdfarchive_E",
+			"name": "PDF Archive"
+		},
+		{
+			"id": "monitoroverview_E",
+			"name": "System Processes"
+		},
+		{
+			"id": "monitorlocking_E",
+			"name": "Lock Entries"
+		},
+		{
+			"id": "monitoring_E",
+			"name": "Monitoring"
+		},
+		{
+			"id": "help_E",
+			"name": "Help"
+		},
+		{
+			"id": "developmentthemeimport_E",
+			"name": "Theme Import "
+		},
+		{
+			"id": "developmentthemedesigner_E",
+			"name": "Theme Designer "
+		},
+		{
+			"id": "developmenttestsunit_E",
+			"name": "Test Unit"
+		},
+		{
+			"id": "developmenttestsrun_E",
+			"name": "Test Run"
+		},
+		{
+			"id": "developmenttestsplan_E",
+			"name": "Test Plan"
+		},
+		{
+			"id": "developmentrulesengine_E",
+			"name": "Rules Engine"
+		},
+		{
+			"id": "developmentpdfdesigner_E",
+			"name": "PDF Designer"
+		},
+		{
+			"id": "developmentpackage_E",
+			"name": "Development Package"
+		},
+		{
+			"id": "developmentmedia_E",
+			"name": "Media Library"
+		},
+		{
+			"id": "developmentmarketplace_E",
+			"name": "DXP Marketplace"
+		},
+		{
+			"id": "developmentjshelpers_E",
+			"name": "Code Snippets"
+		},
+		{
+			"id": "developmentemailtemplate_E",
+			"name": "Email Template"
+		},
+		{
+			"id": "developmentdoc_E",
+			"name": "Documentation"
+		},
+		{
+			"id": "developmentdeploytransfer_E",
+			"name": "Deployment Transfer"
+		},
+		{
+			"id": "developmentdeployroutes_E",
+			"name": "Deployment Routes"
+		},
+		{
+			"id": "developmentdeploylog_E",
+			"name": "Deployment Log"
+		},
+		{
+			"id": "developmentdeployapprove_E",
+			"name": "Deployment Approve"
+		},
+		{
+			"id": "developmentdeploy_E",
+			"name": "Deployment Create"
+		},
+		{
+			"id": "developmentappeditor_E",
+			"name": "App Editor"
+		},
+		{
+			"id": "developmentappdesigner_E",
+			"name": "App Designer"
+		},
+		{
+			"id": "developmentadaptivedesigner_E",
+			"name": "Adaptive Designer"
+		},
+		{
+			"id": "development_E",
+			"name": "Development"
+		},
+		{
+			"id": "design_E",
+			"name": "Design"
+		},
+		{
+			"id": "deployment_E",
+			"name": "Deployment"
+		},
+		{
+			"id": "connectivityswaggerui_E",
+			"name": "Swagger UI"
+		},
+		{
+			"id": "connectivityodatasource_E",
+			"name": "OData Source"
+		},
+		{
+			"id": "connectivityodatamock_E",
+			"name": "OData Mock Data"
+		},
+		{
+			"id": "connectivityconnector_E",
+			"name": "Connector"
+		},
+		{
+			"id": "connectivitycertificates_E",
+			"name": "Certificates"
+		},
+		{
+			"id": "connectivityauthentication_E",
+			"name": "Proxy Authentication"
+		},
+		{
+			"id": "connectivityapitrace_E",
+			"name": "API Trace"
+		},
+		{
+			"id": "connectivityapigroup_E",
+			"name": "Connectivity Group"
+		},
+		{
+			"id": "connectivityapidesigner_E",
+			"name": "API Designer"
+		},
+		{
+			"id": "connectivityapiclient_E",
+			"name": "API Client"
+		},
+		{
+			"id": "connectivity_E",
+			"name": "Connectivity"
+		},
+		{
+			"id": "administration_E",
+			"name": "Administration"
+		}
+	]
+}
