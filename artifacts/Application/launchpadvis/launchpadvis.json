@@ -786,6 +786,13 @@
 											"response": [],
 											"attributes": [
 												{
+													"attribute": "text",
+													"grouping": "Properties",
+													"value": "Back",
+													"script": "",
+													"translation": []
+												},
+												{
 													"attribute": "press",
 													"grouping": "Events",
 													"value": "App.to(Main);",
