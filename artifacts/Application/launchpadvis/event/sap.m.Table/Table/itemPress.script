@@ -10,7 +10,7 @@ if (selectedItem) {
     console.log(name,id);
 
     const json = showUsage(id,name);
-    renderSymmetricGraph(json);
     App.to(Design);
+    await renderSymmetricGraph(json);
 
 }

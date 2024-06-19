@@ -93,8 +93,8 @@ function isRecursive(tree, nodeId, objectId) {
     return isRecursive(tree, node.parent, objectId);
 }
 
-function renderSymmetricGraph(data) {
-    clear();
+async function renderSymmetricGraph(data) {
+    await render();
     const result = Hierarchy.compactBox(data, {
         direction: "TB",
         getHeight() {
@@ -146,33 +146,33 @@ function renderSymmetricGraph(data) {
     traverse(result);
     graph.fromJSON(model);
     setTimeout(() => {
-        centerGraph();
+        centerContent();
     }, 100);
 }
-function centerGraph() {
-    const graphBBox = graph.getContentBBox();
-    const graphWidth = graphBBox.width;
-    const graphHeight = graphBBox.height;
+// function centerGraph() {
+//     const graphBBox = graph.getContentBBox();
+//     const graphWidth = graphBBox.width;
+//     const graphHeight = graphBBox.height;
 
-    // Get the container dimensions
-    const container = document.getElementById("graph-container");
-    const containerWidth = container.clientWidth;
-    const containerHeight = container.clientHeight;
+//     // Get the container dimensions
+//     const container = document.getElementById("graph-container");
+//     const containerWidth = container.clientWidth;
+//     const containerHeight = container.clientHeight;
 
-    // Add padding around the graph content
-    const padding = 20;
-    const paddedGraphWidth = graphWidth + 2 * padding;
-    const paddedGraphHeight = graphHeight + 2 * padding;
+//     // Add padding around the graph content
+//     const padding = 20;
+//     const paddedGraphWidth = graphWidth + 2 * padding;
+//     const paddedGraphHeight = graphHeight + 2 * padding;
 
-    // Calculate the scale to fit the graph content into the container
-    const scaleX = containerWidth / paddedGraphWidth;
-    const scaleY = containerHeight / paddedGraphHeight;
-    const scale = Math.min(scaleX, scaleY, 1); // Ensure we don't scale above 1 (original size)
+//     // Calculate the scale to fit the graph content into the container
+//     const scaleX = containerWidth / paddedGraphWidth;
+//     const scaleY = containerHeight / paddedGraphHeight;
+//     const scale = Math.min(scaleX, scaleY, 1); // Ensure we don't scale above 1 (original size)
 
-    // Center the graph content
-    const offsetX = (containerWidth - paddedGraphWidth * scale) / 2 - (graphBBox.x - padding) * scale;
-    const offsetY = (containerHeight - paddedGraphHeight * scale) / 2 - (graphBBox.y - padding) * scale;
+//     // Center the graph content
+//     const offsetX = (containerWidth - paddedGraphWidth * scale) / 2 - (graphBBox.x - padding) * scale;
+//     const offsetY = (containerHeight - paddedGraphHeight * scale) / 2 - (graphBBox.y - padding) * scale;
 
-    graph.translate(offsetX, offsetY);
-    graph.scale(scale);
-}
+//     graph.translate(offsetX, offsetY);
+//     graph.scale(scale);
+// }

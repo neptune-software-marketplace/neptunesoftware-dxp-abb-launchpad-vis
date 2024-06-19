@@ -8,12 +8,12 @@ function addLaunchpadNode() {
 
 function centerContent() {
     if (graph) {
-        centerGraph()
-        // graph.centerContent();
-        // graph.zoomToFit({
-        //     padding: 20,
-        //     maxScale: 2,
-        // });
+        // centerGraph()
+        graph.centerContent();
+        graph.zoomToFit({
+            padding: 20,
+            maxScale: 2,
+        });
     }
 }
 

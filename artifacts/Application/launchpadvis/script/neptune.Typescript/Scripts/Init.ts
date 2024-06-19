@@ -58,6 +58,11 @@ async function init() {
 
 async function render() {
     
+    if (graph) {
+        graph.dispose();
+        graph = null;
+    }
+
     preWork();
 
     graph = new Graph({
