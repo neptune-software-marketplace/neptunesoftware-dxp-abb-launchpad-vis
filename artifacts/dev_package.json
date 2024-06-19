@@ -7,7 +7,7 @@
 	},
 	"name": "neptunesoftware-launchpad-vis",
 	"description": null,
-	"ver": "24.06.18.1305",
+	"ver": "24.06.19.0942",
 	"enableCICD": true,
 	"apps": [
 		{
@@ -67,12 +67,18 @@
 	"api_group": [],
 	"tile": [
 		{
-			"id": "c00b83ea-d2b2-4b3a-94d5-2ca912e5059e",
-			"description": "Launchpad Visualizer",
-			"name": "launchpad-vis"
+			"id": "be5c0724-5b24-4d25-8620-5fe9c781c285",
+			"description": "APP",
+			"name": "APP"
 		}
 	],
-	"category": [],
+	"category": [
+		{
+			"id": "4f558f41-74a3-4fe6-8caf-1d708554c25f",
+			"description": "",
+			"name": "APP"
+		}
+	],
 	"launchpad": [],
 	"certificates": [],
 	"role": [

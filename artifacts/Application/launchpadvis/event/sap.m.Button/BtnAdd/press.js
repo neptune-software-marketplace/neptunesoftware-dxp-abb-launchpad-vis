@@ -1,2 +1,2 @@
 App.to(Design);
-await render();
+clear();

@@ -37,7 +37,7 @@ processPackages(packages);
 
 processArtifactLists(artifactLists, "", 0, "T");
 
-console.log(timestamp);
+console.log(artifactTree);
 
 result.data = { artifactTree, whereUsed, using, timestamp };
 

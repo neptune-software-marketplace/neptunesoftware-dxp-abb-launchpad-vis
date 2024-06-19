@@ -1,66 +1,48 @@
-const tilePorts = {
+const ports = {
     groups: {
-        top: {
+        in: {
             position: "top",
+            markup: [
+                {
+                    tagName: "circle",
+                    selector: "circle",
+                    className: "port-in",
+                },
+            ],
             attrs: {
                 circle: {
-                    r: 4,
+                    r: 8,
                     magnet: true,
-                    stroke: "#5F95FF",
-                    strokeWidth: 1,
-                    fill: "#fff",
-                    style: {
-                        visibility: "hidden",
-                    },
+                    fill: "var(--nepHighlightColor)",
                 },
             },
         },
-        bottom: {
+        out: {
             position: "bottom",
+            markup: [
+                {
+                    tagName: "circle",
+                    selector: "circle",
+                    className: "port-out",
+                },
+            ],
             attrs: {
                 circle: {
-                    r: 4,
+                    r: 8,
                     magnet: true,
-                    stroke: "#5F95FF",
-                    strokeWidth: 1,
-                    fill: "#fff",
-                    style: {
-                        visibility: "hidden",
-                    },
+                    fill: "var(--nepHighlightColor)",
                 },
             },
         },
     },
     items: [
         {
-            group: "top",
+            id: "in-port",
+            group: "in",
         },
         {
-            group: "bottom",
-        },
-    ],
-};
-const launchpadPorts = {
-    groups: {
-        bottom: {
-            position: "bottom",
-            attrs: {
-                circle: {
-                    r: 4,
-                    magnet: true,
-                    stroke: "#5F95FF",
-                    strokeWidth: 1,
-                    fill: "#fff",
-                    style: {
-                        visibility: "hidden",
-                    },
-                },
-            },
-        },
-    },
-    items: [
-        {
-            group: "bottom",
+            id: "out-port",
+            group: "out",
         },
     ],
 };

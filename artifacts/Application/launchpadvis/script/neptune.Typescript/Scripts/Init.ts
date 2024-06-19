@@ -22,7 +22,6 @@ function insertCss(css: any) {
     var style = document.createElement("style");
     style.setAttribute("type", "text/css");
     if (style.styleSheet) {
-        // For IE
         style.styleSheet.cssText = css;
     } else {
         style.appendChild(document.createTextNode(css));
@@ -58,9 +57,7 @@ async function init() {
 }
 
 async function render() {
-    // console.log("render");
-    // await init();
-    // console.log("init done");
+    
     preWork();
 
     graph = new Graph({

@@ -124,7 +124,7 @@
 														{
 															"attribute": "src",
 															"grouping": "Properties",
-															"value": "/media/root/datamodeller/datamodeller.png",
+															"value": "/media/root/eLearningMedia/contruction.png",
 															"script": "",
 															"translation": []
 														},
@@ -574,7 +574,7 @@
 														{
 															"attribute": "src",
 															"grouping": "Properties",
-															"value": "/media/root/datamodeller/datamodeller.png",
+															"value": "/media/root/eLearningMedia/contruction.png",
 															"script": "",
 															"translation": []
 														},
@@ -1027,35 +1027,11 @@
 							"data": []
 						},
 						{
-							"fieldNo": "ba2a7af1-dd70-4085-89e1-3c98d3de017f",
-							"fieldName": "Schema",
-							"fieldParent": "923cab81-383e-45ba-d0a0-cb32b406c9f5",
-							"fieldType": "neptune.Typescript",
-							"script": "file://script/neptune.Typescript/Scripts/Schema.ts",
-							"customComponent": false,
-							"request": [],
-							"response": [],
-							"attributes": [],
-							"data": []
-						},
-						{
-							"fieldNo": "1aa5cbb5-9545-4b2b-9f06-b6ec4d044e8a",
+							"fieldNo": "d6d5ad4b-ca82-48e2-dd93-d604aca9dde4",
 							"fieldName": "Ports",
 							"fieldParent": "923cab81-383e-45ba-d0a0-cb32b406c9f5",
 							"fieldType": "neptune.Typescript",
 							"script": "file://script/neptune.Typescript/Scripts/Ports.ts",
-							"customComponent": false,
-							"request": [],
-							"response": [],
-							"attributes": [],
-							"data": []
-						},
-						{
-							"fieldNo": "d6d5ad4b-ca82-48e2-dd93-d604aca9dde4",
-							"fieldName": "NewPorts",
-							"fieldParent": "923cab81-383e-45ba-d0a0-cb32b406c9f5",
-							"fieldType": "neptune.Typescript",
-							"script": "file://script/neptune.Typescript/Scripts/NewPorts.ts",
 							"customComponent": false,
 							"request": [],
 							"response": [],
@@ -1314,7 +1290,7 @@
 		}
 	],
 	"componentInterface": [],
-	"ver": "24.06.18.1304",
+	"ver": "24.06.18.1910",
 	"application": "launchpadvis",
 	"title": "",
 	"description": "",

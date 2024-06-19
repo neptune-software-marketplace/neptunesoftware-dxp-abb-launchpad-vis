@@ -93,38 +93,6 @@ function isRecursive(tree, nodeId, objectId) {
     return isRecursive(tree, node.parent, objectId);
 }
 
-// function addNodeToGraph(graph, parentNode, nodeData) {
-//     const newNode = graph.addNode({
-//         id: nodeData.id,
-//         shape: nodeData.shape,
-//         attrs: {
-//             text: {
-//                 text: nodeData.name || "",
-//             },
-//         },
-//     });
-//     if (parentNode) {
-//         graph.addEdge({
-//             source: { cell: parentNode.id, port: "out-port" },
-//             target: { cell: newNode.id, port: "in-port" },
-//         });
-//     }
-
-//     nodeData.children.forEach((childData) => {
-//         addNodeToGraph(graph, newNode, childData);
-//     });
-
-//     return newNode;
-// }
-
-// function generateGraphFromJSON(graph, jsonData) {
-//     if (!jsonData || Object.keys(jsonData).length === 0) {
-//         return;
-//     }
-//     clear(); // clears previous graph
-//     addNodeToGraph(graph, null, jsonData);
-// }
-
 function renderSymmetricGraph(data) {
     clear();
     const result = Hierarchy.compactBox(data, {
@@ -146,9 +114,10 @@ function renderSymmetricGraph(data) {
     const model: Model.FromJSONData = { nodes: [], edges: [] };
     const traverse = (data: HierarchyResult) => {
         if (data) {
+            const nodeShape = data.data.shape;
             model.nodes?.push({
                 id: data.data.id,
-                shape: data.data.shape,
+                shape: nodeShape,
                 x: data.x, // 600
                 y: data.y, // 250
                 attrs: {
@@ -156,11 +125,17 @@ function renderSymmetricGraph(data) {
                         text: data.data.name,
                     },
                 },
+                ports: {
+                    groups: ports.groups,
+                    items: ports.items.filter(
+                        (item) => item.group === (nodeShape === "launchpad" ? "out" : "in")
+                    ),
+                },
             });
         }
         if (data.children) {
             data.children.forEach((item: HierarchyResult) => {
-                model.edges?.push({
+                model.edges.push({
                     source: { cell: data.data.id, port: "out-port" },
                     target: { cell: item.id, port: "in-port" },
                 });
@@ -170,5 +145,34 @@ function renderSymmetricGraph(data) {
     };
     traverse(result);
     graph.fromJSON(model);
-    centerContent();
+    setTimeout(() => {
+        centerGraph();
+    }, 100);
+}
+function centerGraph() {
+    const graphBBox = graph.getContentBBox();
+    const graphWidth = graphBBox.width;
+    const graphHeight = graphBBox.height;
+
+    // Get the container dimensions
+    const container = document.getElementById("graph-container");
+    const containerWidth = container.clientWidth;
+    const containerHeight = container.clientHeight;
+
+    // Add padding around the graph content
+    const padding = 20;
+    const paddedGraphWidth = graphWidth + 2 * padding;
+    const paddedGraphHeight = graphHeight + 2 * padding;
+
+    // Calculate the scale to fit the graph content into the container
+    const scaleX = containerWidth / paddedGraphWidth;
+    const scaleY = containerHeight / paddedGraphHeight;
+    const scale = Math.min(scaleX, scaleY, 1); // Ensure we don't scale above 1 (original size)
+
+    // Center the graph content
+    const offsetX = (containerWidth - paddedGraphWidth * scale) / 2 - (graphBBox.x - padding) * scale;
+    const offsetY = (containerHeight - paddedGraphHeight * scale) / 2 - (graphBBox.y - padding) * scale;
+
+    graph.translate(offsetX, offsetY);
+    graph.scale(scale);
 }
