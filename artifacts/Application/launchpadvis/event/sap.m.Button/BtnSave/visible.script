@@ -1,0 +1,6 @@
+if (typeof mode === "undefined" || mode === null || mode === "") { return; }  
+if (mode === "edit") {
+    return true;
+} else {
+    return false;
+}

@@ -8,7 +8,6 @@ function addLaunchpadNode() {
 
 function centerContent() {
     if (graph) {
-        // centerGraph()
         graph.centerContent();
         graph.zoomToFit({
             padding: 20,
@@ -17,18 +16,14 @@ function centerContent() {
     }
 }
 
-function FormSetData(data: object) {
-    LabelID.setText(data.id);
-    TextShape.setText(data.shape);
-    InputName.setValue(data.name);
-}
-function FormClearData() {
-    LabelID.setText(null);
-    TextShape.setText(null);
-    InputName.setValue(null);
-}
+
+function stencilVisibility(val:boolean) {
+    const stencilDiv = document.getElementById('stencil');
+    stencilDiv.style.display = val ? 'block' : 'none';
+} 
 function clear() {
-    FormClearData();
+    // FormClearData();
+    modelselectedNode.setData({ id: "", shape: "", name: "" });
     if (graph) {
         graph.clearCells();
         addLaunchpadNode();
@@ -280,6 +275,7 @@ function diffJson(before, after, path = "") {
 }
 
 function refreshMainPage() {
+    apiartifactTree();
     $.ajax({
         url: "/api/functions/Launchpad/List",
         method: "POST",

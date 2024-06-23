@@ -21,7 +21,9 @@ function showUsage(id: string, name: string) {
 
     const neptuneGraph = processGraph(preProcessedJSON);
 
-    modelData.setData(neptuneGraph);
+    const appData = modelData.getData();
+    appData.intial = neptuneGraph;
+    modelData.refresh();
 
     return neptuneGraph;
 }
@@ -51,8 +53,7 @@ function processGraph(data) {
 
 function getUsingTree(objectId, parent, level, tree) {
     const source = modelusingData.getData().find((x) => x.objectId === objectId);
-    const sourceArtifact = modelartifactsData.getData().find((z) => z.objectId === objectId);
-    console.log(sourceArtifact.name + ":" + sourceArtifact.type);
+    // const sourceArtifact = modelartifactsData.getData().find((z) => z.objectId === objectId);
     // find users
     const usingTabData = source?.using.map((y) => {
         const artifact = modelartifactsData.getData().find((z) => z.objectId === y.id);
@@ -145,34 +146,5 @@ async function renderSymmetricGraph(data) {
     };
     traverse(result);
     graph.fromJSON(model);
-    setTimeout(() => {
-        centerContent();
-    }, 100);
+    centerContent();
 }
-// function centerGraph() {
-//     const graphBBox = graph.getContentBBox();
-//     const graphWidth = graphBBox.width;
-//     const graphHeight = graphBBox.height;
-
-//     // Get the container dimensions
-//     const container = document.getElementById("graph-container");
-//     const containerWidth = container.clientWidth;
-//     const containerHeight = container.clientHeight;
-
-//     // Add padding around the graph content
-//     const padding = 20;
-//     const paddedGraphWidth = graphWidth + 2 * padding;
-//     const paddedGraphHeight = graphHeight + 2 * padding;
-
-//     // Calculate the scale to fit the graph content into the container
-//     const scaleX = containerWidth / paddedGraphWidth;
-//     const scaleY = containerHeight / paddedGraphHeight;
-//     const scale = Math.min(scaleX, scaleY, 1); // Ensure we don't scale above 1 (original size)
-
-//     // Center the graph content
-//     const offsetX = (containerWidth - paddedGraphWidth * scale) / 2 - (graphBBox.x - padding) * scale;
-//     const offsetY = (containerHeight - paddedGraphHeight * scale) / 2 - (graphBBox.y - padding) * scale;
-
-//     graph.translate(offsetX, offsetY);
-//     graph.scale(scale);
-// }

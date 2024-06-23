@@ -1,0 +1,14 @@
+const context = this.getContextByIndex(this.getSelectedIndex());
+
+if (context) {
+    const data = context.getObject();
+    const json = showUsage(data.id, data.name);
+
+    const appData = modelData.getData();
+    appData.mode = "view";
+    stencilVisibility(false);
+    modelData.refresh();
+
+    App.to(Design);
+    await renderSymmetricGraph(json);
+}

@@ -7,7 +7,7 @@
 	},
 	"name": "neptunesoftware-launchpad-vis",
 	"description": null,
-	"ver": "24.06.19.0942",
+	"ver": "24.06.19.1023",
 	"enableCICD": true,
 	"apps": [
 		{
@@ -68,15 +68,15 @@
 	"tile": [
 		{
 			"id": "be5c0724-5b24-4d25-8620-5fe9c781c285",
-			"description": "APP",
-			"name": "APP"
+			"description": "Visualize and create launchpads",
+			"name": "launchpad-vis-tile"
 		}
 	],
 	"category": [
 		{
 			"id": "4f558f41-74a3-4fe6-8caf-1d708554c25f",
 			"description": "",
-			"name": "APP"
+			"name": "launchpad-vis-tilegroup"
 		}
 	],
 	"launchpad": [],

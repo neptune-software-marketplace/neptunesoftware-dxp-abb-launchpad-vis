@@ -10,7 +10,7 @@
 	"configMessage": {
 		"type": "None"
 	},
-	"title": "APP",
+	"title": "Launchpad visualizer",
 	"subTitle": "",
 	"description": "",
 	"titleAlignment": null,
@@ -29,7 +29,7 @@
 	"enableShadeCalc": false,
 	"numTiles": null,
 	"enableMessage": false,
-	"ver": "24.06.19.0938",
+	"ver": "24.06.23.1027",
 	"headColor": null,
 	"headTxtClr": null,
 	"subheadTxtClr": null,
@@ -43,7 +43,7 @@
 	"imageMobileHeight": null,
 	"imageTabletHeight": null,
 	"imageHeight": null,
-	"name": "APP",
+	"name": "launchpad-vis-tilegroup",
 	"cardContentWidth": null,
 	"cardContentAlign": null,
 	"cardPerRow": null,
@@ -72,9 +72,9 @@
 	"tiles": [
 		{
 			"id": "be5c0724-5b24-4d25-8620-5fe9c781c285",
-			"name": "APP",
-			"title": "APP",
-			"ver": "24.06.19.0939"
+			"name": "launchpad-vis-tile",
+			"title": "Launchpad visualizer",
+			"ver": "24.06.23.1028"
 		}
 	],
 	"tilegroups": []

@@ -1,0 +1,18 @@
+const appData = modelData.getData();
+const mode = appData.mode;
+
+switch (mode) {
+    case 'edit':
+        appData.mode = "view";
+        stencilVisibility(false);
+        modelData.refresh();
+        break;
+
+    case 'view':
+        appData.mode = "edit";
+        stencilVisibility(true);
+        modelData.refresh();
+        break;
+    default:
+        return;
+}

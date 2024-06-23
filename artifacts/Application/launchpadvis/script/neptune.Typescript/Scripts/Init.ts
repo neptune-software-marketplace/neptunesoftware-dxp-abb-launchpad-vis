@@ -8,6 +8,7 @@ let Selection = null;
 let Snapline = null;
 
 let graph = null;
+let stencil = null;
 let clickedSource = null;
 let previousSource = null;
 
@@ -15,7 +16,7 @@ refreshMainPage();
 
 (async () => {
     await init();
-    await render();
+    // await render();
 })();
 
 function insertCss(css: any) {
@@ -30,7 +31,6 @@ function insertCss(css: any) {
 }
 
 async function init() {
-    console.log("init start");
     //@ts-ignore
     const X6Objects = await getX6Object();
     //@ts-ignore
@@ -54,30 +54,34 @@ async function init() {
     //@ts-ignore
     Model = X6Objects.Model;
     apiartifactTree();
+    modelData.setData({
+        mode: "none", // none, create, view and edit
+        intial: null,
+        current: null,
+        changes: null,
+    });
 }
 
 async function render() {
+    stencil = null;
     
     if (graph) {
         graph.dispose();
         graph = null;
     }
 
-    preWork();
-
     graph = new Graph({
         container: document.getElementById("graph-container")!,
         grid: true,
         mousewheel: {
             enabled: true,
-            zoomAtMousePosition: true,
-            modifiers: "ctrl",
-            minScale: 0.5,
-            maxScale: 3,
+            // zoomAtMousePosition: true,
+            // minScale: 0.5,
+            // maxScale: 3,
         },
         panning: {
             enabled: true,
-            modifiers: ["shift"],
+            // modifiers: ["leftMouse"],
         },
         connecting: {
             router: "manhattan",
@@ -162,14 +166,18 @@ async function render() {
         .use(new History())
         .use(
             new Selection({
+                enabled: true,
+                multiple: true,
                 rubberband: true,
+                movable: true,
                 showNodeSelectionBox: true,
+                modifiers: "shift",
             })
         )
         .use(new Snapline());
 
-    const stencil = new Stencil({
-        title: "Something",
+    stencil = new Stencil({
+        title: "",
         target: graph,
         stencilGraphWidth: 400,
         stencilGraphHeight: 180,
@@ -186,7 +194,14 @@ async function render() {
             rowHeight: 80,
         },
     });
-    document.getElementById("stencil")!.appendChild(stencil.container);
+
+    const stencilElement = document.getElementById("stencil");
+    if (stencilElement.childNodes.length === 0) {
+        stencilElement.appendChild(stencil.container);
+    } else {
+        stencilElement.textContent = '';
+        stencilElement.appendChild(stencil.container);
+    }
 
     const showPorts = (ports: NodeListOf<SVGElement>, show: boolean) => {
         for (let i = 0, len = ports.length; i < len; i += 1) {
@@ -380,6 +395,7 @@ async function render() {
     });
     graph.on("cell:click", ({ cell, node }) => {
         if (cell.isNode()) {
+            Form.setVisible(true);
             if (previousSource && previousSource.hasTool("boundary")) {
                 previousSource.removeTool("boundary");
             }
@@ -387,7 +403,8 @@ async function render() {
             const nodeId = cell.id;
             const nodeShape = cell.shape;
             const nodeText = cell.attr("text/text") || "";
-            FormSetData({ id: nodeId, shape: nodeShape, name: nodeText });
+            // FormSetData({ id: nodeId, shape: nodeShape, name: nodeText });
+            modelselectedNode.setData({ id: nodeId, shape: nodeShape, name: nodeText });
             if (!node.hasTool("boundary")) {
                 node.addTools({
                     name: "boundary",
@@ -437,7 +454,8 @@ async function render() {
             previousSource.removeTool("boundary");
         }
         previousSource = null;
-        FormClearData();
+        Form.setVisible(false);
+        modelselectedNode.setData({ id: "", shape: "", name: "" });
     });
 
     function zoom(event) {
@@ -445,10 +463,10 @@ async function render() {
 
         const zoomDirection = event.deltaY < 0 ? "zoom-in" : "zoom-out";
         if (zoomDirection === "zoom-in") {
-            graph.zoom(0.1);
+            graph.zoom(0.05);
         }
         if (zoomDirection === "zoom-out") {
-            graph.zoom(-0.1);
+            graph.zoom(-0.05);
         }
     }
     const graphContainer = graph.container;
@@ -461,18 +479,18 @@ function preWork() {
     insertCss(`
     #container {
       display: flex;
-      height: 500px;
+      height: calc(100%);
       border: 1px solid #dfe3e8;
     }
     #stencil {
       width: 250px;
-      height: 500px;
       position: relative;
+      height: calc(100%);
       border-right: 1px solid #dfe3e8;
     }
     #graph-container {
       flex-grow: 1;
-      height: 500px;
+      height: calc(100%) !important;
     }
     .x6-widget-stencil  {
       background-color: #fff;
@@ -508,3 +526,4 @@ function preWork() {
     }
   `);
 }
+preWork();
