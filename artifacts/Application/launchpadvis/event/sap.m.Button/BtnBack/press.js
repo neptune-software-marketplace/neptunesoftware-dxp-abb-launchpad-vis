@@ -8,6 +8,7 @@ if (appData.mode !== "view") {
             if (answer === "NO") {
                 return;
             } else {
+                removeGraphEvents();
                 appData.mode = "none";
                 modelData.refresh();
                 App.to(Main);
@@ -15,6 +16,7 @@ if (appData.mode !== "view") {
         },
     });
 } else {
+    removeGraphEvents();
     appData.mode = "none";
     modelData.refresh();
     App.to(Main);

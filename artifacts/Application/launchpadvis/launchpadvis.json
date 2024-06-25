@@ -83,7 +83,7 @@
 							"data": [
 								{
 									"fieldNo": "1cf02ffd-4aed-4f26-99b2-2fc00375bb43",
-									"fieldName": "pageHeaderMain",
+									"fieldName": "pageHeaderMainContent",
 									"fieldParent": "57219aba-fa51-4216-852e-d35cc8a54904",
 									"fieldType": "neptune.DynamicPageTitleContent",
 									"script": "",
@@ -1900,6 +1900,18 @@
 							"data": []
 						},
 						{
+							"fieldNo": "58b71a96-38fe-4b71-89ec-3ea64c1bb5bd",
+							"fieldName": "EventHadlers",
+							"fieldParent": "923cab81-383e-45ba-d0a0-cb32b406c9f5",
+							"fieldType": "neptune.Typescript",
+							"script": "file://script/neptune.Typescript/Scripts/EventHadlers.ts",
+							"customComponent": false,
+							"request": [],
+							"response": [],
+							"attributes": [],
+							"data": []
+						},
+						{
 							"fieldNo": "d6d5ad4b-ca82-48e2-dd93-d604aca9dde4",
 							"fieldName": "Ports",
 							"fieldParent": "923cab81-383e-45ba-d0a0-cb32b406c9f5",
@@ -2082,7 +2094,7 @@
 		}
 	],
 	"componentInterface": [],
-	"ver": "24.06.23.1523",
+	"ver": "24.06.25.0856",
 	"application": "launchpadvis",
 	"title": "",
 	"description": "",

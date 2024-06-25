@@ -11,4 +11,5 @@ if (context) {
 
     App.to(Design);
     await renderSymmetricGraph(json);
+    removeGraphEvents();
 }

@@ -64,7 +64,7 @@ async function init() {
 
 async function render() {
     stencil = null;
-    
+
     if (graph) {
         graph.dispose();
         graph = null;
@@ -199,7 +199,7 @@ async function render() {
     if (stencilElement.childNodes.length === 0) {
         stencilElement.appendChild(stencil.container);
     } else {
-        stencilElement.textContent = '';
+        stencilElement.textContent = "";
         stencilElement.appendChild(stencil.container);
     }
 
@@ -381,81 +381,6 @@ async function render() {
                 text: "",
             },
         },
-    });
-
-    graph.on("node:mouseenter", () => {
-        const container = document.getElementById("graph-container")!;
-        const ports = container.querySelectorAll(".x6-port-body") as NodeListOf<SVGElement>;
-        showPorts(ports, true);
-    });
-    graph.on("node:mouseleave", () => {
-        const container = document.getElementById("graph-container")!;
-        const ports = container.querySelectorAll(".x6-port-body") as NodeListOf<SVGElement>;
-        showPorts(ports, false);
-    });
-    graph.on("cell:click", ({ cell, node }) => {
-        if (cell.isNode()) {
-            Form.setVisible(true);
-            if (previousSource && previousSource.hasTool("boundary")) {
-                previousSource.removeTool("boundary");
-            }
-            clickedSource = cell;
-            const nodeId = cell.id;
-            const nodeShape = cell.shape;
-            const nodeText = cell.attr("text/text") || "";
-            // FormSetData({ id: nodeId, shape: nodeShape, name: nodeText });
-            modelselectedNode.setData({ id: nodeId, shape: nodeShape, name: nodeText });
-            if (!node.hasTool("boundary")) {
-                node.addTools({
-                    name: "boundary",
-                    args: {
-                        attrs: {
-                            fill: "#7c68fc",
-                            stroke: "#9254de",
-                            strokeWidth: 1,
-                            fillOpacity: 0.2,
-                        },
-                    },
-                });
-            }
-            previousSource = cell;
-        }
-    });
-    graph.on("node:mouseenter", ({ node }) => {
-        if (node.store.previous.shape !== "launchpad") {
-            node.addTools({
-                name: "button-remove",
-                args: {
-                    x: 0,
-                    y: 0,
-                    offset: { x: 10, y: 10 },
-                },
-            });
-        }
-    });
-
-    graph.on("node:mouseleave", ({ node }) => {
-        if (node.store.previous.shape !== "launchpad") {
-            node.removeTool("button-remove");
-        }
-    });
-    graph.on("edge:mouseenter", ({ edge }) => {
-        edge.addTools({
-            name: "button-remove",
-            args: { distance: -40 },
-        });
-    });
-    graph.on("edge:mouseleave", ({ edge }) => {
-        edge.removeTool("button-remove");
-    });
-
-    graph.on("blank:click", ({ cell, node }) => {
-        if (previousSource && previousSource.hasTool("boundary")) {
-            previousSource.removeTool("boundary");
-        }
-        previousSource = null;
-        Form.setVisible(false);
-        modelselectedNode.setData({ id: "", shape: "", name: "" });
     });
 
     function zoom(event) {
