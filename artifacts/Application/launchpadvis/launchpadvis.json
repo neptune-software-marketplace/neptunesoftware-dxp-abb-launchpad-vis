@@ -1865,10 +1865,10 @@
 			"fieldNo": 99999,
 			"data": [
 				{
-					"fieldNo": "3e0bb976-7e8f-4923-e1d5-b268227df3df",
+					"fieldNo": "e5cf19bf-0ad7-4686-9d25-8fdfd912bd3d",
 					"fieldName": "Modules",
 					"fieldParent": 99999,
-					"fieldType": "selection",
+					"fieldType": "launchpadviscustomcomp",
 					"script": "",
 					"customComponent": true,
 					"request": [],
@@ -2094,7 +2094,7 @@
 		}
 	],
 	"componentInterface": [],
-	"ver": "24.06.25.0856",
+	"ver": "24.07.04.0802",
 	"application": "launchpadvis",
 	"title": "",
 	"description": "",
@@ -2138,8 +2138,8 @@
 	"apis": [
 		{
 			"id": "22d01e25-fa5b-4236-89e2-4ed7e3aa1ca7",
-			"name": "Vertex",
-			"ver": "24.06.18.0743"
+			"name": "launchpad-vis-apis",
+			"ver": "24.07.04.0756"
 		}
 	],
 	"package": "c05ddc61-813c-4e8d-a97e-fa72b3d210ae"

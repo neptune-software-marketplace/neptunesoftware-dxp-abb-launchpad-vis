@@ -7,12 +7,12 @@
 	},
 	"name": "neptunesoftware-launchpad-vis",
 	"description": null,
-	"ver": "24.06.25.0859",
+	"ver": "24.07.04.0820",
 	"enableCICD": true,
 	"apps": [
 		{
-			"id": "bc784a39-0a98-470e-9531-3db6346a182a",
-			"application": "selection",
+			"id": "eb4fec4b-6f91-42d6-8929-2371f36b8d6f",
+			"application": "launchpadviscustomcomp",
 			"title": "",
 			"description": "",
 			"package": {
@@ -32,7 +32,7 @@
 	"api": [
 		{
 			"id": "22d01e25-fa5b-4236-89e2-4ed7e3aa1ca7",
-			"name": "Vertex",
+			"name": "launchpad-vis-apis",
 			"description": null,
 			"apiGroup": null
 		}
@@ -43,19 +43,19 @@
 	"jsclass": [
 		{
 			"id": "4abda06c-373d-4984-8df8-2d388b0b9c4e",
-			"name": "Scraper",
+			"name": "launchpadVisScraper",
 			"description": null
 		},
 		{
 			"id": "1c3f589f-1481-40d2-b9e6-83a7a15145e5",
-			"name": "Vertex",
+			"name": "launchpadVisVertex",
 			"description": null
 		}
 	],
 	"jsscript_group": [
 		{
 			"id": "f87497ff-c597-4f65-baab-ab152f6e0816",
-			"name": "Vertex",
+			"name": "launchpadVisProject",
 			"description": ""
 		}
 	],

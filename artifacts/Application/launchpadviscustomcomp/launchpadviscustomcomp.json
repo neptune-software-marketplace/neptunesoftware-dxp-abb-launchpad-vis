@@ -1,6 +1,6 @@
 {
-	"id": "bc784a39-0a98-470e-9531-3db6346a182a",
-	"createdAt": "2024-05-27T10:43:31.000Z",
+	"id": "eb4fec4b-6f91-42d6-8929-2371f36b8d6f",
+	"createdAt": "2024-07-04T08:01:50.000Z",
 	"createdBy": "admin",
 	"objects": [
 		{
@@ -40,8 +40,8 @@
 		"attributes": [],
 		"topLevelObjects": []
 	},
-	"ver": "24.06.18.0810",
-	"application": "selection",
+	"ver": "24.07.04.0801",
+	"application": "launchpadviscustomcomp",
 	"title": "",
 	"description": "",
 	"enableFileStorage": false,
