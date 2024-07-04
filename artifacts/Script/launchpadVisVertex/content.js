@@ -6,6 +6,7 @@ const artifactTypeNames = {
     launchpad: "Launchpad",
     tile_group: "Tile Group",
     tile: "Tile",
+    app: "Application",
 }
 
 let artifacts = [];

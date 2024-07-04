@@ -6,14 +6,13 @@ switch (mode) {
         appData.mode = "view";
         stencilVisibility(false);
         modelData.refresh();
-        removeGraphEvents();
         break;
 
     case 'view':
         appData.mode = "edit";
         stencilVisibility(true);
         modelData.refresh();
-        addGraphEvents();
+        // addGraphEvents();
         break;
     default:
         return;

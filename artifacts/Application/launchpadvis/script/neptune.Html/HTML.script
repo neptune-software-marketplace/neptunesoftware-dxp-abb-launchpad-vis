@@ -1,4 +1,4 @@
 <div id="container">
-    <div id="stencil"></div>
+    <div id="stencil" data-function="stencilVisibility" data-params="stencilVisibility"></div>
     <div id="graph-container"></div>
 </div>

@@ -54,6 +54,14 @@ var ArtifactScraperDirect;
         "settings",
         "actionType"
     ], artifactInfoTitle, true);
+    var artifactInfoApp = [
+        "id",
+        "package",
+        "application",
+        "title",
+        "description",
+        "objects",
+    ];
     var artifactScrapers = [
         {
             artifactType: "launchpad",
@@ -82,10 +90,51 @@ var ArtifactScraperDirect;
             artifactMapFn: mapLaunchpad,
             usingFn: [{ propertyExtractFn: function (x) { return x.roles; }, artifactType: "role" }, mapTileChildren],
         },
+        {
+            artifactType: "app",
+            repositoryName: "app_runtime",
+            selectInfo: artifactInfoApp,
+            artifactMapFn: mapApp,
+            usingFn: [mapAppUsing],
+        },
     ];
+    var apps = [];
     complete({
         scrapeArtifacts: scrapeArtifacts,
     });
+    function mapAppUsing(application) {
+        var using = [];
+        var apiObjects = application.objects.filter(function (object) { return object.fieldType === "neptune.restapi"; });
+        for (var i = 0; i < apiObjects.length; i++) {
+            using.push({
+                id: apiObjects[i].restOperation,
+                type: "api_operation",
+                parentId: apiObjects[i].restSource,
+                parentType: "api",
+            });
+        }
+        return using;
+    }
+    function mapApp(_a) {
+        var id = _a.id, application = _a.application, package = _a.package, title = _a.title, description = _a.description;
+        var app = apps.find(function (x) { return x.id === id; });
+        return [
+            {
+                type: "",
+                packageId: app === null || app === void 0 ? void 0 : app.package,
+                packageName: null,
+                objectId: id,
+                name: application,
+                id: uuid(),
+                parents: [package],
+                children: [],
+                using: [],
+                used_by: [],
+                title: title,
+                description: description,
+            },
+        ];
+    }
     function mapLaunchpadApp(data) {
         var using = [];
         if (data.startApp && data.startApp.length > 0) {
@@ -132,30 +181,44 @@ var ArtifactScraperDirect;
     }
     function scrapeArtifacts() {
         return __awaiter(this, void 0, void 0, function () {
-            var manager, allArtifacts, _i, artifactScrapers_1, scraper, res, final;
+            var manager, allArtifacts, _i, artifactScrapers_1, scraper, res, artifactsUsingApps, final;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         manager = p9.manager ? p9.manager : modules.typeorm.getConnection().manager;
+                        return [4 /*yield*/, manager.find('app', { select: ["id", "package"] })];
+                    case 1:
+                        apps = _a.sent();
+                        log.info(apps);
                         allArtifacts = [];
                         _i = 0, artifactScrapers_1 = artifactScrapers;
-                        _a.label = 1;
-                    case 1:
-                        if (!(_i < artifactScrapers_1.length)) return [3 /*break*/, 4];
+                        _a.label = 2;
+                    case 2:
+                        if (!(_i < artifactScrapers_1.length)) return [3 /*break*/, 5];
                         scraper = artifactScrapers_1[_i];
                         return [4 /*yield*/, scrapeIt(scraper, manager)];
-                    case 2:
+                    case 3:
                         res = _a.sent();
                         allArtifacts.push(res);
-                        _a.label = 3;
-                    case 3:
-                        _i++;
-                        return [3 /*break*/, 1];
+                        _a.label = 4;
                     case 4:
+                        _i++;
+                        return [3 /*break*/, 2];
+                    case 5:
+                        artifactsUsingApps = ['tile'];
                         final = allArtifacts.reduce(function (acc, x) { return __spreadArray(__spreadArray([], acc, true), x, true); }, []);
                         final.forEach(function (x) {
                             var _a;
                             var _b;
+                            if (artifactsUsingApps.includes(x.type)) {
+                                x.using
+                                    .filter(function (x) { return x.type === "app"; })
+                                    .forEach(function (x) {
+                                    var _a;
+                                    var app = final.find(function (y) { return y.type === "app" && y.name === x.id; });
+                                    x.id = (_a = app === null || app === void 0 ? void 0 : app.objectId) !== null && _a !== void 0 ? _a : x.id;
+                                });
+                            }
                             if (x.type === "package") {
                                 (_a = x.children).push.apply(_a, final
                                     .filter(function (y) { return y.packageId === x.objectId; })

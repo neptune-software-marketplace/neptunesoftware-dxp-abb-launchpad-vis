@@ -10,6 +10,9 @@ if (context) {
     modelData.refresh();
 
     App.to(Design);
-    await renderSymmetricGraph(json);
-    removeGraphEvents();
+
+    setTimeout(async function () {
+        await renderSymmetricGraph(json);
+        addGraphEvents();
+    }, 200);
 }

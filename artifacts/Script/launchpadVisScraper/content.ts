@@ -30,6 +30,14 @@ namespace ArtifactScraperDirect {
         "actionType",
         ...artifactInfoTitle,
     ];
+    const artifactInfoApp: SelectInfo = [
+        "id",
+        "package",
+        "application",
+        "title",
+        "description",
+        "objects",
+    ];
 
     const artifactScrapers: ArtifactScraper[] = [
         {
@@ -59,11 +67,59 @@ namespace ArtifactScraperDirect {
             artifactMapFn: mapLaunchpad,
             usingFn: [{ propertyExtractFn: (x) => x.roles, artifactType: "role" }, mapTileChildren],
         },
+        {
+            artifactType: "app",
+            repositoryName: "app_runtime",
+            selectInfo: artifactInfoApp,
+            artifactMapFn: mapApp,
+            usingFn: [mapAppUsing],
+        },
     ];
+
+    let apps = [];
 
     complete({
         scrapeArtifacts,
     });
+
+    function mapAppUsing(application) {
+        const using = [];
+
+        const apiObjects = application.objects.filter(
+            (object) => object.fieldType === "neptune.restapi"
+        );
+
+        for (let i = 0; i < apiObjects.length; i++) {
+            using.push({
+                id: apiObjects[i].restOperation,
+                type: "api_operation",
+                parentId: apiObjects[i].restSource,
+                parentType: "api",
+            });
+        }
+
+        return using;
+    }
+
+    function mapApp({ id, application, package, title, description }) {
+        const app = apps.find((x) => x.id === id);
+        return [
+            {
+                type: "",
+                packageId: app?.package,
+                packageName: null,
+                objectId: id,
+                name: application,
+                id: uuid(),
+                parents: [package],
+                children: [],
+                using: [],
+                used_by: [],
+                title: title,
+                description: description,
+            },
+        ];
+    }
 
     function mapLaunchpadApp(data) {
         const using = [];
@@ -116,17 +172,30 @@ namespace ArtifactScraperDirect {
     async function scrapeArtifacts() {
         const manager = p9.manager ? p9.manager : modules.typeorm.getConnection().manager;
 
+        apps = await manager.find('app', { select: ["id", "package"] });
+
+        log.info(apps);
+
         const allArtifacts = [];
 
         for (const scraper of artifactScrapers) {
             const res = await scrapeIt(scraper, manager);
             allArtifacts.push(res);
         }
-
+        const artifactsUsingApps = ['tile'];
         // flatten array of arrays
         const final = allArtifacts.reduce((acc, x) => [...acc, ...x], []);
 
         final.forEach((x) => {
+            if (artifactsUsingApps.includes(x.type)) {
+                x.using
+                    .filter((x) => x.type === "app")
+                    .forEach((x) => {
+                        const app = final.find((y) => y.type === "app" && y.name === x.id);
+                        x.id = app?.objectId ?? x.id;
+                    });
+            }
+
             if (x.type === "package") {
                 x.children.push(
                     ...final

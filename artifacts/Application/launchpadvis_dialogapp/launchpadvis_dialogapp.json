@@ -1,0 +1,267 @@
+{
+	"id": "80791cb2-643b-45e0-8081-ec301c2a8fe8",
+	"createdAt": "2024-07-04T18:26:41.000Z",
+	"createdBy": "john@neptune-software.com",
+	"objects": [
+		{
+			"fieldNo": 99999,
+			"data": [
+				{
+					"fieldNo": "a457c529-0eb2-43b7-9141-6b3e0c26042c",
+					"fieldName": "namespace",
+					"fieldParent": 99999,
+					"fieldType": "neptune.Typescript",
+					"script": "file://script/neptune.Typescript/namespace.ts",
+					"customComponent": false,
+					"request": [],
+					"response": [],
+					"attributes": [],
+					"data": []
+				},
+				{
+					"fieldNo": "8c2ab412-769b-48df-f4a8-2d8424f5d289",
+					"fieldName": "dialogApp",
+					"fieldParent": 99999,
+					"fieldType": "launchpadvis_table",
+					"script": "",
+					"customComponent": true,
+					"request": [],
+					"response": [],
+					"attributes": [
+						{
+							"attribute": "iconStyleClass",
+							"grouping": "Header",
+							"value": "nepCockpitAppIcon",
+							"script": "",
+							"fieldId": "12c1686e-f4f9-45d3-f50c-13e4b407b660",
+							"translation": []
+						}
+					],
+					"data": []
+				}
+			]
+		},
+		{
+			"fieldNo": 99998,
+			"data": []
+		}
+	],
+	"componentInterface": {
+		"attributes": [
+			{
+				"id": "a9d15ae5-85f5-4066-ec94-9ca90b92fb3d",
+				"objectType": "group",
+				"attribute": {
+					"ATTRIBUTE": "Header",
+					"GROUPING": ""
+				}
+			},
+			{
+				"id": "df975cbf-e11f-4d36-a511-24f012146230",
+				"objectType": "group",
+				"attribute": {
+					"ATTRIBUTE": "Events",
+					"GROUPING": ""
+				}
+			},
+			{
+				"id": "b9fac74f-56cd-46f6-bfe6-98b06e90a047",
+				"objectType": "group",
+				"attribute": {
+					"ATTRIBUTE": "itemPress",
+					"GROUPING": ""
+				}
+			},
+			{
+				"id": "fd970852-a026-4dd4-81e5-d733e7cbe028",
+				"objectType": "attribute",
+				"fieldId": "8c2ab412-769b-48df-f4a8-2d8424f5d289",
+				"parent": "b9fac74f-56cd-46f6-bfe6-98b06e90a047",
+				"attribute": {
+					"ATTRIBUTE": "packageValueHelpRequest",
+					"GROUPING": "itemPress",
+					"PARENT": "itemPress"
+				},
+				"original": {
+					"FIELD_ID": "8c2ab412-769b-48df-f4a8-2d8424f5d289",
+					"ATTRIBUTE": "packageValueHelpRequest",
+					"VALUE_TABLE": 0,
+					"GROUPING": "Filter",
+					"PARENT": "Filter",
+					"SHOW_LABEL": false,
+					"DEFAULT": "",
+					"ENABLE_VALUES": false,
+					"VALUEHELPONLY": false,
+					"SCRIPT_ICON": "sap-icon://document-text",
+					"SHOW_SCRIPT": true,
+					"ENABLE_SCRIPT": false,
+					"DESCRIPTION": "Package value help request",
+					"FIELD_TYPE": "neptune_template_dialog_toolbar",
+					"fieldId": "5e6b85d9-2f84-4484-b916-2074c6118f6b",
+					"children": []
+				},
+				"fieldType": "launchpadvis_table"
+			},
+			{
+				"id": "8ebb5e50-6b67-4908-bbee-0c119c766cf7",
+				"objectType": "attribute",
+				"fieldId": "8c2ab412-769b-48df-f4a8-2d8424f5d289",
+				"parent": "df975cbf-e11f-4d36-a511-24f012146230",
+				"attribute": {
+					"ATTRIBUTE": "clearPress",
+					"GROUPING": "Events",
+					"PARENT": "Events"
+				},
+				"original": {
+					"FIELD_ID": "8c2ab412-769b-48df-f4a8-2d8424f5d289",
+					"ATTRIBUTE": "clearPress",
+					"VALUE_TABLE": 0,
+					"GROUPING": "Select",
+					"PARENT": "Select",
+					"SHOW_LABEL": false,
+					"DEFAULT": "",
+					"ENABLE_VALUES": false,
+					"VALUEHELPONLY": false,
+					"SCRIPT_ICON": "sap-icon://document-text",
+					"SHOW_SCRIPT": true,
+					"ENABLE_SCRIPT": false,
+					"FIELD_TYPE": "sap.m.Button",
+					"fieldId": "666df9e2-808d-4fb3-8bdd-1d41872e71be",
+					"children": []
+				},
+				"fieldType": "launchpadvis_table"
+			},
+			{
+				"id": "c17a8f2f-2175-4b72-fc7c-ad618525d4dc",
+				"objectType": "attribute",
+				"fieldId": "8c2ab412-769b-48df-f4a8-2d8424f5d289",
+				"parent": "df975cbf-e11f-4d36-a511-24f012146230",
+				"attribute": {
+					"ATTRIBUTE": "itemPress",
+					"GROUPING": "Events",
+					"PARENT": "Events"
+				},
+				"original": {
+					"FIELD_ID": "8c2ab412-769b-48df-f4a8-2d8424f5d289",
+					"ATTRIBUTE": "itemPress",
+					"VALUE_TABLE": 0,
+					"GROUPING": "Select",
+					"PARENT": "Select",
+					"SHOW_LABEL": false,
+					"DEFAULT": "",
+					"ENABLE_VALUES": false,
+					"VALUEHELPONLY": false,
+					"SCRIPT_ICON": "sap-icon://document-text",
+					"SHOW_SCRIPT": true,
+					"ENABLE_SCRIPT": false,
+					"FIELD_TYPE": "sap.m.Table",
+					"fieldId": "0bb4ac17-521f-4840-8f66-9a299fcf867c",
+					"children": []
+				},
+				"fieldType": "launchpadvis_table"
+			},
+			{
+				"id": "f2a57337-7c5b-4670-9eec-f8cebb938ea0",
+				"objectType": "attribute",
+				"fieldId": "8c2ab412-769b-48df-f4a8-2d8424f5d289",
+				"parent": "a9d15ae5-85f5-4066-ec94-9ca90b92fb3d",
+				"attribute": {
+					"ATTRIBUTE": "title",
+					"GROUPING": "Header",
+					"PARENT": "Header"
+				},
+				"original": {
+					"FIELD_ID": "8c2ab412-769b-48df-f4a8-2d8424f5d289",
+					"ATTRIBUTE": "title",
+					"VALUE_TABLE": 0,
+					"GROUPING": "Header",
+					"PARENT": "Header",
+					"SHOW_LABEL": false,
+					"DEFAULT": "",
+					"ENABLE_VALUES": false,
+					"VALUEHELPONLY": false,
+					"SCRIPT_ICON": "sap-icon://connected",
+					"SHOW_SCRIPT": false,
+					"ENABLE_SCRIPT": true,
+					"FIELD_TYPE": "neptune_template_dialog_header",
+					"fieldId": "20655263-f169-441d-d744-7d43c745d665",
+					"children": []
+				},
+				"fieldType": "launchpadvis_table"
+			},
+			{
+				"id": "acee9297-cdfd-4d86-bbd0-2af94be56207",
+				"objectType": "attribute",
+				"fieldId": "8c2ab412-769b-48df-f4a8-2d8424f5d289",
+				"parent": "a9d15ae5-85f5-4066-ec94-9ca90b92fb3d",
+				"attribute": {
+					"ATTRIBUTE": "subTitle",
+					"GROUPING": "Header",
+					"PARENT": "Header"
+				},
+				"original": {
+					"FIELD_ID": "8c2ab412-769b-48df-f4a8-2d8424f5d289",
+					"ATTRIBUTE": "subTitle",
+					"VALUE_TABLE": 0,
+					"GROUPING": "Header",
+					"PARENT": "Header",
+					"SHOW_LABEL": false,
+					"DEFAULT": "",
+					"ENABLE_VALUES": false,
+					"VALUEHELPONLY": false,
+					"SCRIPT_ICON": "sap-icon://connected",
+					"SHOW_SCRIPT": false,
+					"ENABLE_SCRIPT": true,
+					"FIELD_TYPE": "neptune_template_dialog_header",
+					"fieldId": "20655263-f169-441d-d744-7d43c745d665",
+					"children": []
+				},
+				"fieldType": "launchpadvis_table"
+			}
+		],
+		"topLevelObjects": []
+	},
+	"ver": "24.07.04.1959",
+	"application": "launchpadvis_dialogapp",
+	"title": "",
+	"description": "",
+	"enableFileStorage": true,
+	"enableManifest": false,
+	"enableStylesheet": false,
+	"enableObfuscate": false,
+	"onlyRunLaunchpad": false,
+	"disabled": false,
+	"loadLaunchpadCode": null,
+	"loadApplicationCode": null,
+	"appType": "E",
+	"ui5_m": false,
+	"ui5_f": false,
+	"ui5_table": false,
+	"ui5_tnt": false,
+	"ui5_uxap": false,
+	"ui5_chart": false,
+	"ui5_theme": "sap_fiori_3",
+	"ui5_version": "",
+	"ui5_language": null,
+	"ui5_url": "",
+	"cus_theme": "",
+	"css": "",
+	"compiledCss": null,
+	"header": "",
+	"manifest": "",
+	"globalScript": null,
+	"deleted": false,
+	"libHighchart": false,
+	"libHighmap": false,
+	"publicAccess": false,
+	"ui5_bootstrap": false,
+	"ui5_ionic": false,
+	"useV2AppHandler": true,
+	"compilerTarget": 3,
+	"tabWidth": null,
+	"printWidth": null,
+	"generateVersionOnActivation": false,
+	"activationHistoryCount": 0,
+	"apis": [],
+	"package": "c05ddc61-813c-4e8d-a97e-fa72b3d210ae"
+}

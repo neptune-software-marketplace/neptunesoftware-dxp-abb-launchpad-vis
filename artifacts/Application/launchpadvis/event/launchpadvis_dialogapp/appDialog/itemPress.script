@@ -1,0 +1,14 @@
+(() => {
+    const item = oEvent.oSource.getSelectedItem();
+    const data = item.getBindingContext().getObject();
+    if (data?.id) {
+        clickedSource.attr("text/text") = data.application;
+        clickedSource.attr("metadata/id") = data.id;
+        const nodeData = modelselectedNode.getData();
+        nodeData.name = data.application;
+        nodeData.appID = data.id;
+        modelselectedNode.setData(nodeData);
+        appDialog.close();
+    }
+})();
+

@@ -43,6 +43,9 @@ function processGraph(data) {
     if (data.shape === "tile_group") {
         data.shape = "tile-group";
     }
+    if (data.shape === "app") {
+        data.shape = "application";
+    }
     if (data.children.length !== 0) {
         data.children.forEach((child) => {
             processGraph(child);
@@ -52,11 +55,11 @@ function processGraph(data) {
 }
 
 function getUsingTree(objectId, parent, level, tree) {
-    const source = modelusingData.getData().find((x) => x.objectId === objectId);
+    const source = modelArtifactRelations.getData().usingData.find((x) => x.objectId === objectId);
     // const sourceArtifact = modelartifactsData.getData().find((z) => z.objectId === objectId);
     // find users
-    const usingTabData = source?.using.map((y) => {
-        const artifact = modelartifactsData.getData().find((z) => z.objectId === y.id);
+    const usingTabData = source?.using.map((y:any) => {
+        const artifact = modelArtifactRelations.getData().artifactsData.find((z:any) => z.objectId === y.id);
         if (artifact) {
             return { objectId: artifact.objectId, name: artifact.name, type: artifact.type };
         }
@@ -111,7 +114,7 @@ async function renderSymmetricGraph(data) {
             return 60;
         },
     });
-
+    //@ts-ignore
     const model: Model.FromJSONData = { nodes: [], edges: [] };
     const traverse = (data: HierarchyResult) => {
         if (data) {
@@ -124,6 +127,9 @@ async function renderSymmetricGraph(data) {
                 attrs: {
                     text: {
                         text: data.data.name,
+                    },
+                    metadata: {
+                        id: data.data.id
                     },
                 },
                 ports: {
@@ -146,5 +152,6 @@ async function renderSymmetricGraph(data) {
     };
     traverse(result);
     graph.fromJSON(model);
+    //@ts-ignore
     centerContent();
 }

@@ -1,6 +1,8 @@
 let eventHandlers: { [key: string]: Function } = {};
 
 function addGraphEvents() {
+    removeGraphEvents();
+
     if (Object.keys(eventHandlers).length > 0) return;
     const showPorts = (ports: NodeListOf<SVGElement>, show: boolean) => {
         for (let i = 0, len = ports.length; i < len; i += 1) {
@@ -22,7 +24,6 @@ function addGraphEvents() {
 
     eventHandlers.cellClick = ({ cell, node }) => {
         if (cell.isNode()) {
-            Form.setVisible(true);
             if (previousSource && previousSource.hasTool("boundary")) {
                 previousSource.removeTool("boundary");
             }
@@ -45,6 +46,7 @@ function addGraphEvents() {
                 });
             }
             previousSource = cell;
+            previousSource.removeTool("button-remove");
         }
     };
 
@@ -83,18 +85,45 @@ function addGraphEvents() {
             previousSource.removeTool("boundary");
         }
         previousSource = null;
-        Form.setVisible(false);
         modelselectedNode.setData({ id: "", shape: "", name: "" });
+        if (clickedSource) {
+            clickedSource.removeTool("button-remove");
+        }
+        const container = document.getElementById("graph-container")!;
+        const ports = container.querySelectorAll(".x6-port-body") as NodeListOf<SVGElement>;
+        showPorts(ports, true);
     };
+    const mode = modelData.getData().mode;
 
-    graph.on("node:mouseenter", eventHandlers.nodeMouseEnter);
-    graph.on("node:mouseleave", eventHandlers.nodeMouseLeave);
-    graph.on("cell:click", eventHandlers.cellClick);
-    graph.on("node:mouseenter", eventHandlers.nodeMouseEnterWithNode);
-    graph.on("node:mouseleave", eventHandlers.nodeMouseLeaveWithNode);
-    graph.on("edge:mouseenter", eventHandlers.edgeMouseEnter);
-    graph.on("edge:mouseleave", eventHandlers.edgeMouseLeave);
-    graph.on("blank:click", eventHandlers.blankClick);
+    if (mode === "create") {
+        graph.on("node:mouseenter", eventHandlers.nodeMouseEnter);
+        graph.on("node:mouseleave", eventHandlers.nodeMouseLeave);
+        graph.on("node:mouseenter", eventHandlers.nodeMouseEnterWithNode);
+        graph.on("node:mouseleave", eventHandlers.nodeMouseLeaveWithNode);
+        graph.on("edge:mouseenter", eventHandlers.edgeMouseEnter);
+        graph.on("edge:mouseleave", eventHandlers.edgeMouseLeave);
+        graph.on("cell:click", eventHandlers.cellClick);
+        graph.on("blank:click", eventHandlers.blankClick);
+    } else if (mode === "view") {
+        graph.on("cell:click", eventHandlers.cellClick);
+        graph.on("blank:click", eventHandlers.blankClick);
+
+        const nodes = graph.getNodes();
+
+        nodes.forEach((node) => {
+            const ports = node.getPorts();
+
+            ports.forEach((port) => {
+                node.portProp(port.id, "attrs/circle", {
+                    stroke: "none",
+                    fill: "none",
+                    magnet: false,
+                });
+            });
+        });
+    } else {
+        return;
+    }
 }
 
 function removeGraphEvents() {

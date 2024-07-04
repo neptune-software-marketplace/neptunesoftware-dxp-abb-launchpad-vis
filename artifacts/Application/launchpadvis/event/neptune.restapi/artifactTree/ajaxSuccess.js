@@ -1,3 +1,5 @@
-modelartifactsData.setData(xhr.responseJSON.artifactTree);
-modelwhereUsedData.setData(xhr.responseJSON.whereUsed);
-modelusingData.setData(xhr.responseJSON.using);
+modelArtifactRelations.setData({
+    usingData: xhr.responseJSON.using,
+    artifactsData: xhr.responseJSON.artifactTree,
+    whereUsedData: xhr.responseJSON.whereUsed,
+});

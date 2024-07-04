@@ -11,8 +11,44 @@
 	"enableCICD": true,
 	"apps": [
 		{
-			"id": "eb4fec4b-6f91-42d6-8929-2371f36b8d6f",
-			"application": "launchpadviscustomcomp",
+			"id": "efc888cf-518b-458b-89b5-b5bf15314ede",
+			"application": "launchpadvis_modules",
+			"title": "",
+			"description": "",
+			"package": {
+				"id": "c05ddc61-813c-4e8d-a97e-fa72b3d210ae"
+			}
+		},
+		{
+			"id": "ecb12b6a-37fe-45d8-bf25-2a25f0cb3bd0",
+			"application": "launchpadvis_table",
+			"title": "",
+			"description": "",
+			"package": {
+				"id": "c05ddc61-813c-4e8d-a97e-fa72b3d210ae"
+			}
+		},
+		{
+			"id": "9674bdd5-68a2-407c-f94f-727afb9cc843",
+			"application": "launchpadvis_header",
+			"title": "",
+			"description": "",
+			"package": {
+				"id": "c05ddc61-813c-4e8d-a97e-fa72b3d210ae"
+			}
+		},
+		{
+			"id": "80791cb2-643b-45e0-8081-ec301c2a8fe8",
+			"application": "launchpadvis_dialogapp",
+			"title": "",
+			"description": "",
+			"package": {
+				"id": "c05ddc61-813c-4e8d-a97e-fa72b3d210ae"
+			}
+		},
+		{
+			"id": "6fa63206-89c0-4f80-9e88-b77ea2a04c44",
+			"application": "launchpadvis_toolbar",
 			"title": "",
 			"description": "",
 			"package": {

@@ -12,23 +12,9 @@ let stencil = null;
 let clickedSource = null;
 let previousSource = null;
 
-refreshMainPage();
-
 (async () => {
     await init();
-    // await render();
 })();
-
-function insertCss(css: any) {
-    var style = document.createElement("style");
-    style.setAttribute("type", "text/css");
-    if (style.styleSheet) {
-        style.styleSheet.cssText = css;
-    } else {
-        style.appendChild(document.createTextNode(css));
-    }
-    document.head.appendChild(style);
-}
 
 async function init() {
     //@ts-ignore
@@ -53,7 +39,7 @@ async function init() {
     History = X6Objects.History;
     //@ts-ignore
     Model = X6Objects.Model;
-    apiartifactTree();
+    refreshMainPage();
     modelData.setData({
         mode: "none", // none, create, view and edit
         intial: null,
@@ -75,13 +61,9 @@ async function render() {
         grid: true,
         mousewheel: {
             enabled: true,
-            // zoomAtMousePosition: true,
-            // minScale: 0.5,
-            // maxScale: 3,
         },
         panning: {
             enabled: true,
-            // modifiers: ["leftMouse"],
         },
         connecting: {
             router: "manhattan",
@@ -108,11 +90,6 @@ async function render() {
                                 width: 12,
                                 height: 8,
                             },
-                            // sourceMarker: {
-                            //     name: "ellipse",
-                            //     width: 12,
-                            //     height: 8,
-                            // },
                         },
                     },
                     zIndex: 0,
@@ -134,11 +111,62 @@ async function render() {
                     ) {
                         return false;
                     }
+
                     if (
                         args.sourceCell.store.data.shape === "tile-group" &&
-                        args.targetCell.store.data.shape === "launchpad"
+                        args.targetCell.store.data.shape === "application"
                     ) {
                         return false;
+                    }
+
+                    if (
+                        args.sourceCell.store.data.shape === "tile-group" &&
+                        args.targetCell.store.data.shape === "tile-group"
+                    ) {
+                        return false;
+                    }
+
+                    if (
+                        args.sourceCell.store.data.shape === "tile" &&
+                        args.targetCell.store.data.shape === "tile"
+                    ) {
+                        return false;
+                    }
+
+                    if (
+                        args.sourceCell.store.data.shape === "tile" &&
+                        args.targetCell.store.data.shape === "tile-group"
+                    ) {
+                        return false;
+                    }
+
+                    if (
+                        args.sourceCell.store.data.shape === "launchpad" &&
+                        args.targetCell.store.data.shape === "application"
+                    ) {
+                        return false;
+                    }
+
+                    if (args.targetCell) {
+                        const cellSource = graph.getCellById(args.sourceCell.id);
+                        const edgesOut = graph.getConnectedEdges(cellSource);
+
+                        let count = 0;
+                        edgesOut.forEach((edge: any) => {
+                            const sourceNodeId = edge.getSourceCellId();
+                            const targetNodeId = edge.getTargetCellId();
+
+                            if (
+                                sourceNodeId === args.sourceCell.id &&
+                                targetNodeId === args.targetCell.id
+                            ) {
+                                count += 1;
+                            }
+                        });
+
+                        if (count > 0) {
+                            return false;
+                        }
                     }
 
                     return true;
@@ -147,7 +175,24 @@ async function render() {
                 return false;
             },
             validateMagnet: function (this, args) {
-                return args.magnet.classList.contains("port-out");
+                const isOutPort = args.magnet.classList.contains("port-out");
+
+                if (!isOutPort) {
+                    return false;
+                }
+
+                const shape = args.cell.store.data.shape;
+                const nodeID = args.cell.store.data.id;
+                if (shape === "tile") {
+                    const node = graph.getCellById(nodeID);
+                    const connectedEdges = graph.getConnectedEdges(node, {
+                        incoming: false,
+                        outgoing: true,
+                    });
+                    return connectedEdges.length === 0;
+                } else {
+                    return isOutPort;
+                }
             },
         },
         highlighting: {
@@ -180,7 +225,7 @@ async function render() {
         title: "",
         target: graph,
         stencilGraphWidth: 400,
-        stencilGraphHeight: 180,
+        stencilGraphHeight: 300,
         collapsable: false,
         groups: [
             {
@@ -190,8 +235,8 @@ async function render() {
         ],
         layoutOptions: {
             columns: 1,
-            columnWidth: 190,
-            rowHeight: 80,
+            columnWidth: 180,
+            rowHeight: 100,
         },
     });
 
@@ -208,6 +253,62 @@ async function render() {
             ports[i].style.visibility = show ? "visible" : "hidden";
         }
     };
+    Graph.registerNode(
+        "application",
+        {
+            width: 170,
+            height: 60,
+            attrs: {
+                body: {
+                    stroke: "#5F95FF",
+                    strokeWidth: 1,
+                    fill: "rgba(95,149,255,0.05)",
+                    refWidth: 1,
+                    refHeight: 1,
+                },
+                title: {
+                    text: "Application",
+                    refX: 20,
+                    refY: 14,
+                    fill: "rgba(0,0,0,0.85)",
+                    fontSize: 18,
+                    "text-anchor": "start",
+                },
+                text: {
+                    text: "",
+                    refX: 20,
+                    refY: 40,
+                    fontSize: 12,
+                    fill: "rgba(0,0,0,0.6)",
+                    "text-anchor": "start",
+                },
+                metadata: {
+                    id: ""
+                },
+            },
+            markup: [
+                {
+                    tagName: "rect",
+                    selector: "body",
+                },
+                {
+                    tagName: "text",
+                    selector: "title",
+                },
+                {
+                    tagName: "text",
+                    selector: "text",
+                },
+            ],
+            ports: {
+                groups: {
+                    in: ports.groups.in,
+                },
+                items: ports.items.filter((item) => item.group === "in"),
+            },
+        },
+        true
+    );
 
     Graph.registerNode(
         "tile",
@@ -231,7 +332,7 @@ async function render() {
                     "text-anchor": "start",
                 },
                 text: {
-                    text: "No name given",
+                    text: "",
                     refX: 20,
                     refY: 40,
                     fontSize: 12,
@@ -253,12 +354,13 @@ async function render() {
                     selector: "text",
                 },
             ],
-            ports: {
-                groups: {
-                    in: ports.groups.in,
-                },
-                items: ports.items.filter((item) => item.group === "in"),
-            }, // tilePorts
+            ports: { ...ports },
+            // ports: {
+            //     groups: {
+            //         in: ports.groups.in,
+            //     },
+            //     items: ports.items.filter((item) => item.group === "in"),
+            // }, // tilePorts
         },
         true
     );
@@ -285,7 +387,7 @@ async function render() {
                     "text-anchor": "start",
                 },
                 text: {
-                    text: "No name given",
+                    text: "",
                     refX: 20,
                     refY: 40,
                     fontSize: 12,
@@ -334,7 +436,7 @@ async function render() {
                     "text-anchor": "start",
                 },
                 text: {
-                    text: "No name given",
+                    text: "",
                     refX: 20,
                     refY: 40,
                     fontSize: 12,
@@ -383,6 +485,15 @@ async function render() {
         },
     });
 
+    const r0 = graph.createNode({
+        shape: "application",
+        attrs: {
+            text: {
+                text: "",
+            },
+        },
+    });
+
     function zoom(event) {
         event.preventDefault();
 
@@ -397,58 +508,6 @@ async function render() {
     const graphContainer = graph.container;
     graphContainer.onwheel = zoom;
 
-    stencil.load([r1, r2], "group1");
+    stencil.load([r0, r1, r2], "group1");
     addLaunchpadNode();
 }
-function preWork() {
-    insertCss(`
-    #container {
-      display: flex;
-      height: calc(100%);
-      border: 1px solid #dfe3e8;
-    }
-    #stencil {
-      width: 250px;
-      position: relative;
-      height: calc(100%);
-      border-right: 1px solid #dfe3e8;
-    }
-    #graph-container {
-      flex-grow: 1;
-      height: calc(100%) !important;
-    }
-    .x6-widget-stencil  {
-      background-color: #fff;
-    }
-    .x6-widget-stencil-title {
-      background-color: #fff;
-    }
-    .x6-widget-stencil-group-title {
-      background-color: #fff !important;
-    }
-    .x6-widget-transform {
-      margin: -1px 0 0 -1px;
-      padding: 0px;
-      border: 1px solid #239edd;
-    }
-    .x6-widget-transform > div {
-      border: 1px solid #239edd;
-    }
-    .x6-widget-transform > div:hover {
-      background-color: #3dafe4;
-    }
-    .x6-widget-transform-active-handle {
-      background-color: #3dafe4;
-    }
-    .x6-widget-transform-resize {
-      border-radius: 0;
-    }
-    .x6-widget-selection-inner {
-      border: 1px solid #239edd;
-    }
-    .x6-widget-selection-box {
-      opacity: 0;
-    }
-  `);
-}
-preWork();

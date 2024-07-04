@@ -1,0 +1,10 @@
+if (typeof (updatedAt) === 'undefined' || updatedAt === null || updatedAt === '') { return; }
+let formattedDate;
+if (sap?.n?.Planet9?.formatDate) {
+    formattedDate = sap.n.Planet9.formatDate(updatedAt);
+} else if (typeof nwd !== 'undefined' && nwd?.Planet9?.formatDate) {
+    formattedDate = nwd.Planet9.formatDate(updatedAt);
+} else if (typeof scriptEditor !== 'undefined' && scriptEditor?.helpers) {
+    formattedDate = scriptEditor.helpers.formatDate(updatedAt);
+}
+return formattedDate ?? updatedAt;

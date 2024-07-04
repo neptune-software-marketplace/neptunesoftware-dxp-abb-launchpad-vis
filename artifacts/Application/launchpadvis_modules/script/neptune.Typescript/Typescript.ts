@@ -24,12 +24,6 @@ namespace CustomComponent {
                     typeof window.Keyboard !== "undefined" &&
                     typeof window.Hierarchy !== "undefined"
                 ) {
-                    console.log({
-                        Keyboard: window.Keyboard,
-                        Hierarchy: window.Hierarchy,
-                        Selection: window.Selection,
-                        Snapline: window.Snapline,
-                    });
                     resolve({
                         Keyboard: window.Keyboard,
                         Hierarchy: window.Hierarchy,

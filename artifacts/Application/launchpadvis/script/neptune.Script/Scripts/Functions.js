@@ -17,16 +17,14 @@ function centerContent() {
 }
 
 
-function stencilVisibility(val:boolean) {
+function stencilVisibility(val) {
     const stencilDiv = document.getElementById('stencil');
     stencilDiv.style.display = val ? 'block' : 'none';
 } 
 function clear() {
-    // FormClearData();
     modelselectedNode.setData({ id: "", shape: "", name: "" });
     if (graph) {
         graph.clearCells();
-        addLaunchpadNode();
         centerContent();
     }
 }
@@ -286,4 +284,15 @@ function refreshMainPage() {
             console.error(er);
         },
     });
+}
+
+function checkBeforeCreate() {
+    const state = graph.getNodes();
+    for (const node of state) {
+        const name = node.store.data.attrs.text.text;
+        if (name === "" || name === undefined) {
+            return false;
+        }
+    }
+    return true;
 }

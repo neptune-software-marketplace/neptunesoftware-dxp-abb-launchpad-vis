@@ -1,0 +1,8 @@
+.artifactHeader {
+    width: 100%;
+}
+
+.artifactHeader div:first-child {
+    background: none;
+    box-shadow: none;
+}

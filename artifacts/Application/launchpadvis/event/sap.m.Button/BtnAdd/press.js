@@ -2,8 +2,10 @@ const appData = modelData.getData();
 appData.mode = "create";
 stencilVisibility(true);
 modelData.refresh();
-Form.setVisible(false);
 App.to(Design);
-await render();
-addGraphEvents();
-centerContent();
+
+setTimeout(async function () {
+    await render();
+    addGraphEvents();
+    centerContent();
+}, 200);
