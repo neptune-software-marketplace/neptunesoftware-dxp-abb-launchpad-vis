@@ -10,7 +10,7 @@ function centerContent() {
     if (graph) {
         graph.centerContent();
         graph.zoomToFit({
-            padding: 20,
+            padding: 50,
             maxScale: 2,
         });
     }
@@ -301,5 +301,21 @@ function checkBeforeCreate() {
         }
     });
 
-    return { namesCondition: namesCondition, edgesCondition: edgesCondition };
+    // check 3
+    const requiredShapes = new Set(["application", "launchpad", "tile", "tile-group"]);
+    const foundShapes = new Set();
+
+    nodes.forEach((node) => {
+        if (requiredShapes.has(node.shape)) {
+            foundShapes.add(node.shape);
+        }
+    });
+
+    const shapeCondition = requiredShapes.size === foundShapes.size;
+
+    return {
+        namesCondition: namesCondition,
+        edgesCondition: edgesCondition,
+        shapeCondition: shapeCondition
+    };
 }

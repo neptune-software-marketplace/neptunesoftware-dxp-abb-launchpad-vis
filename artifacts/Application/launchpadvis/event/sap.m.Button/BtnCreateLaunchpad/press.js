@@ -1,6 +1,6 @@
-const {namesCondition,edgesCondition} = checkBeforeCreate();
+const {namesCondition, edgesCondition, shapeCondition} = checkBeforeCreate();
 
-if (namesCondition && edgesCondition) {
+if (namesCondition && edgesCondition && shapeCondition) {
     const nestedGraph = graphToJSON();
     console.log(nestedGraph);
     graphToNeptune(nestedGraph)
@@ -33,13 +33,19 @@ if (namesCondition && edgesCondition) {
             console.error("Error processing graph", error);
         });
 } else {
-    if (!namesCondition && !edgesCondition) {
-        sap.m.MessageBox.warning("There are necessary fields missing and some nodes might not connected to the main graph.");
-    }
-    if (!namesCondition && edgesCondition) {
-        sap.m.MessageBox.warning("There are necessary fields missing. Please fill them.");
-    }
-    if (namesCondition && !edgesCondition) {
-        sap.m.MessageBox.warning("There are nodes not connected to the main graph.");
+    if (!namesCondition && !edgesCondition && !shapeCondition) {
+        sap.m.MessageBox.warning("Necessary fields are missing, some nodes are not connected, and required artifacts are missing.");
+    } else if (!namesCondition && !edgesCondition && shapeCondition) {
+        sap.m.MessageBox.warning("Necessary fields are missing and some nodes are not connected.");
+    } else if (!namesCondition && edgesCondition && !shapeCondition) {
+        sap.m.MessageBox.warning("Necessary fields are missing and required artifacts are missing.");
+    } else if (namesCondition && !edgesCondition && !shapeCondition) {
+        sap.m.MessageBox.warning("Some nodes are not connected and required artifacts are missing.");
+    } else if (!namesCondition && edgesCondition && shapeCondition) {
+        sap.m.MessageBox.warning("Necessary fields are missing. Please fill them.");
+    } else if (namesCondition && !edgesCondition && shapeCondition) {
+        sap.m.MessageBox.warning("Please complete the graph by connecting the nodes.");
+    } else if (namesCondition && edgesCondition && !shapeCondition) {
+        sap.m.MessageBox.warning("Required artifacts are missing. Please add the missing artifacts.");
     }
 }
