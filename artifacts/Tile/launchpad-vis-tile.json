@@ -56,7 +56,7 @@
 	"helpText": null,
 	"helpEnabled": false,
 	"openClickTile": false,
-	"ver": "24.06.23.1028",
+	"ver": "24.07.05.1840",
 	"actionWebApp": null,
 	"name": "launchpad-vis-tile",
 	"cardWidth": null,
@@ -77,11 +77,5 @@
 	"actionType": "A",
 	"cockpitTile": true,
 	"package": "c05ddc61-813c-4e8d-a97e-fa72b3d210ae",
-	"roles": [
-		{
-			"id": "9e47c219-3511-474a-94e2-cd3e72deaa16",
-			"name": "neptunesoftware-launchpad-vis",
-			"ver": "24.06.18.0750"
-		}
-	]
+	"roles": []
 }
