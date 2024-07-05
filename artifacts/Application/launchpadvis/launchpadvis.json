@@ -1342,37 +1342,57 @@
 									]
 								},
 								{
-									"fieldNo": "0767e2d8-5a70-44f6-b102-7a3b7e2a1ad4",
-									"fieldName": "FormCreate",
+									"fieldNo": "773550b9-0b1d-450f-c63d-7b91c7f3dd0b",
+									"fieldName": "VBox",
 									"fieldParent": "ae45558d-f358-4b5a-af23-e6be9a266ba0",
-									"fieldType": "sap.ui.layout.form.SimpleForm",
+									"fieldType": "sap.m.VBox",
 									"script": "",
 									"customComponent": false,
-									"bindingType": "h",
 									"request": [],
 									"response": [],
 									"attributes": [
 										{
-											"attribute": "visible",
+											"attribute": "styleClass",
 											"grouping": "Properties",
-											"value": "{Data>/focusedCell}",
+											"value": "launchpadvis-VBox",
 											"script": "",
 											"translation": []
 										},
 										{
-											"attribute": "editable",
+											"attribute": "renderType",
+											"grouping": "Properties",
+											"value": "Bare",
+											"script": "",
+											"translation": []
+										},
+										{
+											"attribute": "justifyContent",
+											"grouping": "Properties",
+											"value": "Center",
+											"script": "",
+											"translation": []
+										},
+										{
+											"attribute": "fitContainer",
 											"grouping": "Properties",
 											"value": "true",
+											"script": "",
+											"translation": []
+										},
+										{
+											"attribute": "alignItems",
+											"grouping": "Properties",
+											"value": "Center",
 											"script": "",
 											"translation": []
 										}
 									],
 									"data": [
 										{
-											"fieldNo": "e6563397-f7c7-49cb-c228-c96f3b34e5b8",
-											"fieldName": "NodeID",
-											"fieldParent": "0767e2d8-5a70-44f6-b102-7a3b7e2a1ad4",
-											"fieldType": "sap.m.Label",
+											"fieldNo": "97beea5c-89fc-4bc8-9986-10bad0572b6b",
+											"fieldName": "TitlePressCell",
+											"fieldParent": "773550b9-0b1d-450f-c63d-7b91c7f3dd0b",
+											"fieldType": "sap.m.Title",
 											"script": "",
 											"customComponent": false,
 											"bindingType": "h",
@@ -1382,97 +1402,26 @@
 												{
 													"attribute": "visible",
 													"grouping": "Properties",
-													"value": "false",
+													"value": "{= !${Data>/focusedCell}}",
 													"script": "",
 													"translation": []
 												},
 												{
 													"attribute": "text",
 													"grouping": "Properties",
-													"value": "{SelectedNode>/nodeID}",
-													"script": "",
-													"translation": []
-												}
-											],
-											"data": []
-										},
-										{
-											"fieldNo": "78f14335-d061-432c-c4b9-3423bc9ef2ec",
-											"fieldName": "LabelName",
-											"fieldParent": "0767e2d8-5a70-44f6-b102-7a3b7e2a1ad4",
-											"fieldType": "sap.m.Label",
-											"script": "",
-											"customComponent": false,
-											"bindingType": "h",
-											"request": [],
-											"response": [],
-											"attributes": [
-												{
-													"attribute": "visible",
-													"grouping": "Properties",
-													"value": "{= ${selectedNode>/shape} === 'application' ? false : true }",
+													"value": "Please select a node to view its content",
 													"script": "",
 													"translation": []
 												},
 												{
-													"attribute": "text",
+													"attribute": "styleClass",
 													"grouping": "Properties",
-													"value": "Name",
+													"value": "launchpadvis-TitlePressCell",
 													"script": "",
 													"translation": []
 												},
 												{
-													"attribute": "required",
-													"grouping": "Properties",
-													"value": "{= ${Data>/mode} === 'create' ? true : false }",
-													"script": "",
-													"translation": []
-												}
-											],
-											"data": []
-										},
-										{
-											"fieldNo": "8adc5fe6-3b42-4fb3-88c3-f747ffeabfa0",
-											"fieldName": "InputName",
-											"fieldParent": "0767e2d8-5a70-44f6-b102-7a3b7e2a1ad4",
-											"fieldType": "sap.m.Input",
-											"script": "",
-											"customComponent": false,
-											"bindingType": "h",
-											"request": [],
-											"response": [],
-											"attributes": [
-												{
-													"attribute": "visible",
-													"grouping": "Properties",
-													"value": "{= ${SelectedNode>/shape} === 'application' ? false : true }",
-													"script": "",
-													"translation": []
-												},
-												{
-													"attribute": "value",
-													"grouping": "Properties",
-													"value": "{SelectedNode>/name}",
-													"script": "",
-													"translation": []
-												},
-												{
-													"attribute": "editable",
-													"grouping": "Properties",
-													"value": "{= ${Data>/mode} === 'create' ? true : false}",
-													"script": "",
-													"translation": []
-												},
-												{
-													"attribute": "liveChange",
-													"grouping": "Events",
-													"value": "Anonymous Function",
-													"script": "file://event/sap.m.Input/InputName/liveChange.js",
-													"language": "javascript",
-													"translation": []
-												},
-												{
-													"attribute": "required",
+													"attribute": "wrapping",
 													"grouping": "Properties",
 													"value": "true",
 													"script": "",
@@ -1482,10 +1431,10 @@
 											"data": []
 										},
 										{
-											"fieldNo": "69dbc008-2367-4f9c-deab-2961b1f4414f",
-											"fieldName": "LabelTitle",
-											"fieldParent": "0767e2d8-5a70-44f6-b102-7a3b7e2a1ad4",
-											"fieldType": "sap.m.Label",
+											"fieldNo": "0767e2d8-5a70-44f6-b102-7a3b7e2a1ad4",
+											"fieldName": "FormCreate",
+											"fieldParent": "773550b9-0b1d-450f-c63d-7b91c7f3dd0b",
+											"fieldType": "sap.ui.layout.form.SimpleForm",
 											"script": "",
 											"customComponent": false,
 											"bindingType": "h",
@@ -1495,224 +1444,373 @@
 												{
 													"attribute": "visible",
 													"grouping": "Properties",
-													"value": "{= ${selectedNode>/shape} === 'application' ? false : true }",
+													"value": "{Data>/focusedCell}",
 													"script": "",
 													"translation": []
 												},
 												{
-													"attribute": "text",
+													"attribute": "title",
 													"grouping": "Properties",
-													"value": "Title",
-													"script": "",
-													"translation": []
-												}
-											],
-											"data": []
-										},
-										{
-											"fieldNo": "af5b0cdb-f9cf-4cdc-bb7f-7bd8875ef91b",
-											"fieldName": "InputTitle",
-											"fieldParent": "0767e2d8-5a70-44f6-b102-7a3b7e2a1ad4",
-											"fieldType": "sap.m.Input",
-											"script": "",
-											"customComponent": false,
-											"bindingType": "h",
-											"request": [],
-											"response": [],
-											"attributes": [
-												{
-													"attribute": "visible",
-													"grouping": "Properties",
-													"value": "{= ${SelectedNode>/shape} === 'application' ? false : true }",
-													"script": "",
-													"translation": []
-												},
-												{
-													"attribute": "value",
-													"grouping": "Properties",
-													"value": "{SelectedNode>/title}",
+													"value": "Artifact information",
 													"script": "",
 													"translation": []
 												},
 												{
 													"attribute": "editable",
-													"grouping": "Properties",
-													"value": "{= ${Data>/mode} === 'create' ? true : false}",
-													"script": "",
-													"translation": []
-												},
-												{
-													"attribute": "liveChange",
-													"grouping": "Events",
-													"value": "Anonymous Function",
-													"script": "file://event/sap.m.Input/InputTitle/liveChange.js",
-													"language": "javascript",
-													"translation": []
-												}
-											],
-											"data": []
-										},
-										{
-											"fieldNo": "6df96655-cc56-4b39-d547-778296ca9877",
-											"fieldName": "LabelDescription",
-											"fieldParent": "0767e2d8-5a70-44f6-b102-7a3b7e2a1ad4",
-											"fieldType": "sap.m.Label",
-											"script": "",
-											"customComponent": false,
-											"bindingType": "h",
-											"request": [],
-											"response": [],
-											"attributes": [
-												{
-													"attribute": "visible",
-													"grouping": "Properties",
-													"value": "{= ${selectedNode>/shape} === 'application' ? false : true }",
-													"script": "",
-													"translation": []
-												},
-												{
-													"attribute": "text",
-													"grouping": "Properties",
-													"value": "Description",
-													"script": "",
-													"translation": []
-												}
-											],
-											"data": []
-										},
-										{
-											"fieldNo": "6421496d-94d7-4dfc-ced7-6a5d8c4e7c9a",
-											"fieldName": "InputDescription",
-											"fieldParent": "0767e2d8-5a70-44f6-b102-7a3b7e2a1ad4",
-											"fieldType": "sap.m.Input",
-											"script": "",
-											"customComponent": false,
-											"bindingType": "h",
-											"request": [],
-											"response": [],
-											"attributes": [
-												{
-													"attribute": "visible",
-													"grouping": "Properties",
-													"value": "{= ${SelectedNode>/shape} === 'application' ? false : true }",
-													"script": "",
-													"translation": []
-												},
-												{
-													"attribute": "value",
-													"grouping": "Properties",
-													"value": "{SelectedNode>/description}",
-													"script": "",
-													"translation": []
-												},
-												{
-													"attribute": "editable",
-													"grouping": "Properties",
-													"value": "{= ${Data>/mode} === 'create' ? true : false}",
-													"script": "",
-													"translation": []
-												},
-												{
-													"attribute": "liveChange",
-													"grouping": "Events",
-													"value": "Anonymous Function",
-													"script": "file://event/sap.m.Input/InputDescription/liveChange.js",
-													"language": "javascript",
-													"translation": []
-												}
-											],
-											"data": []
-										},
-										{
-											"fieldNo": "253a4c99-ac74-402b-bd13-a23f1b87c6df",
-											"fieldName": "LabelAppName",
-											"fieldParent": "0767e2d8-5a70-44f6-b102-7a3b7e2a1ad4",
-											"fieldType": "sap.m.Label",
-											"script": "",
-											"customComponent": false,
-											"bindingType": "h",
-											"request": [],
-											"response": [],
-											"attributes": [
-												{
-													"attribute": "visible",
-													"grouping": "Properties",
-													"value": "{= ${selectedNode>/shape} === 'application' ? true : false }",
-													"script": "",
-													"translation": []
-												},
-												{
-													"attribute": "text",
-													"grouping": "Properties",
-													"value": "Application",
-													"script": "",
-													"translation": []
-												},
-												{
-													"attribute": "required",
-													"grouping": "Properties",
-													"value": "{= ${Data>/mode} === 'create' ? true : false }",
-													"script": "",
-													"translation": []
-												}
-											],
-											"data": []
-										},
-										{
-											"fieldNo": "06ee4d4f-d34b-480b-df2a-ac1723fd3b13",
-											"fieldName": "InputAppName",
-											"fieldParent": "0767e2d8-5a70-44f6-b102-7a3b7e2a1ad4",
-											"fieldType": "sap.m.Input",
-											"script": "",
-											"customComponent": false,
-											"bindingType": "h",
-											"request": [],
-											"response": [],
-											"attributes": [
-												{
-													"attribute": "visible",
-													"grouping": "Properties",
-													"value": "{= ${SelectedNode>/shape} === 'application' ? true : false }",
-													"script": "",
-													"translation": []
-												},
-												{
-													"attribute": "valueHelpOnly",
 													"grouping": "Properties",
 													"value": "true",
 													"script": "",
 													"translation": []
-												},
-												{
-													"attribute": "value",
-													"grouping": "Properties",
-													"value": "{SelectedNode>/name}",
-													"script": "",
-													"translation": []
-												},
-												{
-													"attribute": "showValueHelp",
-													"grouping": "Properties",
-													"value": "true",
-													"script": "",
-													"translation": []
-												},
-												{
-													"attribute": "editable",
-													"grouping": "Properties",
-													"value": "{= ${Data>/mode} === 'create' ? true : false}",
-													"script": "",
-													"translation": []
-												},
-												{
-													"attribute": "valueHelpRequest",
-													"grouping": "Events",
-													"value": "appDialog.open();",
-													"script": "appDialog.open();",
-													"translation": []
 												}
 											],
-											"data": []
+											"data": [
+												{
+													"fieldNo": "e6563397-f7c7-49cb-c228-c96f3b34e5b8",
+													"fieldName": "NodeID",
+													"fieldParent": "0767e2d8-5a70-44f6-b102-7a3b7e2a1ad4",
+													"fieldType": "sap.m.Label",
+													"script": "",
+													"customComponent": false,
+													"bindingType": "h",
+													"request": [],
+													"response": [],
+													"attributes": [
+														{
+															"attribute": "visible",
+															"grouping": "Properties",
+															"value": "false",
+															"script": "",
+															"translation": []
+														},
+														{
+															"attribute": "text",
+															"grouping": "Properties",
+															"value": "{SelectedNode>/nodeID}",
+															"script": "",
+															"translation": []
+														}
+													],
+													"data": []
+												},
+												{
+													"fieldNo": "78f14335-d061-432c-c4b9-3423bc9ef2ec",
+													"fieldName": "LabelName",
+													"fieldParent": "0767e2d8-5a70-44f6-b102-7a3b7e2a1ad4",
+													"fieldType": "sap.m.Label",
+													"script": "",
+													"customComponent": false,
+													"bindingType": "h",
+													"request": [],
+													"response": [],
+													"attributes": [
+														{
+															"attribute": "visible",
+															"grouping": "Properties",
+															"value": "{= ${selectedNode>/shape} === 'application' ? false : true }",
+															"script": "",
+															"translation": []
+														},
+														{
+															"attribute": "text",
+															"grouping": "Properties",
+															"value": "Name",
+															"script": "",
+															"translation": []
+														},
+														{
+															"attribute": "required",
+															"grouping": "Properties",
+															"value": "{= ${Data>/mode} === 'create' ? true : false }",
+															"script": "",
+															"translation": []
+														}
+													],
+													"data": []
+												},
+												{
+													"fieldNo": "8adc5fe6-3b42-4fb3-88c3-f747ffeabfa0",
+													"fieldName": "InputName",
+													"fieldParent": "0767e2d8-5a70-44f6-b102-7a3b7e2a1ad4",
+													"fieldType": "sap.m.Input",
+													"script": "",
+													"customComponent": false,
+													"bindingType": "h",
+													"request": [],
+													"response": [],
+													"attributes": [
+														{
+															"attribute": "visible",
+															"grouping": "Properties",
+															"value": "{= ${SelectedNode>/shape} === 'application' ? false : true }",
+															"script": "",
+															"translation": []
+														},
+														{
+															"attribute": "value",
+															"grouping": "Properties",
+															"value": "{SelectedNode>/name}",
+															"script": "",
+															"translation": []
+														},
+														{
+															"attribute": "editable",
+															"grouping": "Properties",
+															"value": "{= ${Data>/mode} === 'create' ? true : false}",
+															"script": "",
+															"translation": []
+														},
+														{
+															"attribute": "liveChange",
+															"grouping": "Events",
+															"value": "Anonymous Function",
+															"script": "file://event/sap.m.Input/InputName/liveChange.js",
+															"language": "javascript",
+															"translation": []
+														},
+														{
+															"attribute": "required",
+															"grouping": "Properties",
+															"value": "true",
+															"script": "",
+															"translation": []
+														}
+													],
+													"data": []
+												},
+												{
+													"fieldNo": "69dbc008-2367-4f9c-deab-2961b1f4414f",
+													"fieldName": "LabelTitle",
+													"fieldParent": "0767e2d8-5a70-44f6-b102-7a3b7e2a1ad4",
+													"fieldType": "sap.m.Label",
+													"script": "",
+													"customComponent": false,
+													"bindingType": "h",
+													"request": [],
+													"response": [],
+													"attributes": [
+														{
+															"attribute": "visible",
+															"grouping": "Properties",
+															"value": "{= ${selectedNode>/shape} === 'application' ? false : true }",
+															"script": "",
+															"translation": []
+														},
+														{
+															"attribute": "text",
+															"grouping": "Properties",
+															"value": "Title",
+															"script": "",
+															"translation": []
+														}
+													],
+													"data": []
+												},
+												{
+													"fieldNo": "af5b0cdb-f9cf-4cdc-bb7f-7bd8875ef91b",
+													"fieldName": "InputTitle",
+													"fieldParent": "0767e2d8-5a70-44f6-b102-7a3b7e2a1ad4",
+													"fieldType": "sap.m.Input",
+													"script": "",
+													"customComponent": false,
+													"bindingType": "h",
+													"request": [],
+													"response": [],
+													"attributes": [
+														{
+															"attribute": "visible",
+															"grouping": "Properties",
+															"value": "{= ${SelectedNode>/shape} === 'application' ? false : true }",
+															"script": "",
+															"translation": []
+														},
+														{
+															"attribute": "value",
+															"grouping": "Properties",
+															"value": "{SelectedNode>/title}",
+															"script": "",
+															"translation": []
+														},
+														{
+															"attribute": "editable",
+															"grouping": "Properties",
+															"value": "{= ${Data>/mode} === 'create' ? true : false}",
+															"script": "",
+															"translation": []
+														},
+														{
+															"attribute": "liveChange",
+															"grouping": "Events",
+															"value": "Anonymous Function",
+															"script": "file://event/sap.m.Input/InputTitle/liveChange.js",
+															"language": "javascript",
+															"translation": []
+														}
+													],
+													"data": []
+												},
+												{
+													"fieldNo": "6df96655-cc56-4b39-d547-778296ca9877",
+													"fieldName": "LabelDescription",
+													"fieldParent": "0767e2d8-5a70-44f6-b102-7a3b7e2a1ad4",
+													"fieldType": "sap.m.Label",
+													"script": "",
+													"customComponent": false,
+													"bindingType": "h",
+													"request": [],
+													"response": [],
+													"attributes": [
+														{
+															"attribute": "visible",
+															"grouping": "Properties",
+															"value": "{= ${selectedNode>/shape} === 'application' ? false : true }",
+															"script": "",
+															"translation": []
+														},
+														{
+															"attribute": "text",
+															"grouping": "Properties",
+															"value": "Description",
+															"script": "",
+															"translation": []
+														}
+													],
+													"data": []
+												},
+												{
+													"fieldNo": "6421496d-94d7-4dfc-ced7-6a5d8c4e7c9a",
+													"fieldName": "InputDescription",
+													"fieldParent": "0767e2d8-5a70-44f6-b102-7a3b7e2a1ad4",
+													"fieldType": "sap.m.Input",
+													"script": "",
+													"customComponent": false,
+													"bindingType": "h",
+													"request": [],
+													"response": [],
+													"attributes": [
+														{
+															"attribute": "visible",
+															"grouping": "Properties",
+															"value": "{= ${SelectedNode>/shape} === 'application' ? false : true }",
+															"script": "",
+															"translation": []
+														},
+														{
+															"attribute": "value",
+															"grouping": "Properties",
+															"value": "{SelectedNode>/description}",
+															"script": "",
+															"translation": []
+														},
+														{
+															"attribute": "editable",
+															"grouping": "Properties",
+															"value": "{= ${Data>/mode} === 'create' ? true : false}",
+															"script": "",
+															"translation": []
+														},
+														{
+															"attribute": "liveChange",
+															"grouping": "Events",
+															"value": "Anonymous Function",
+															"script": "file://event/sap.m.Input/InputDescription/liveChange.js",
+															"language": "javascript",
+															"translation": []
+														}
+													],
+													"data": []
+												},
+												{
+													"fieldNo": "253a4c99-ac74-402b-bd13-a23f1b87c6df",
+													"fieldName": "LabelAppName",
+													"fieldParent": "0767e2d8-5a70-44f6-b102-7a3b7e2a1ad4",
+													"fieldType": "sap.m.Label",
+													"script": "",
+													"customComponent": false,
+													"bindingType": "h",
+													"request": [],
+													"response": [],
+													"attributes": [
+														{
+															"attribute": "visible",
+															"grouping": "Properties",
+															"value": "{= ${selectedNode>/shape} === 'application' ? true : false }",
+															"script": "",
+															"translation": []
+														},
+														{
+															"attribute": "text",
+															"grouping": "Properties",
+															"value": "Application",
+															"script": "",
+															"translation": []
+														},
+														{
+															"attribute": "required",
+															"grouping": "Properties",
+															"value": "{= ${Data>/mode} === 'create' ? true : false }",
+															"script": "",
+															"translation": []
+														}
+													],
+													"data": []
+												},
+												{
+													"fieldNo": "06ee4d4f-d34b-480b-df2a-ac1723fd3b13",
+													"fieldName": "InputAppName",
+													"fieldParent": "0767e2d8-5a70-44f6-b102-7a3b7e2a1ad4",
+													"fieldType": "sap.m.Input",
+													"script": "",
+													"customComponent": false,
+													"bindingType": "h",
+													"request": [],
+													"response": [],
+													"attributes": [
+														{
+															"attribute": "visible",
+															"grouping": "Properties",
+															"value": "{= ${SelectedNode>/shape} === 'application' ? true : false }",
+															"script": "",
+															"translation": []
+														},
+														{
+															"attribute": "valueHelpOnly",
+															"grouping": "Properties",
+															"value": "true",
+															"script": "",
+															"translation": []
+														},
+														{
+															"attribute": "value",
+															"grouping": "Properties",
+															"value": "{SelectedNode>/name}",
+															"script": "",
+															"translation": []
+														},
+														{
+															"attribute": "showValueHelp",
+															"grouping": "Properties",
+															"value": "true",
+															"script": "",
+															"translation": []
+														},
+														{
+															"attribute": "editable",
+															"grouping": "Properties",
+															"value": "{= ${Data>/mode} === 'create' ? true : false}",
+															"script": "",
+															"translation": []
+														},
+														{
+															"attribute": "valueHelpRequest",
+															"grouping": "Events",
+															"value": "appDialog.open();",
+															"script": "appDialog.open();",
+															"translation": []
+														}
+													],
+													"data": []
+												}
+											]
 										}
 									]
 								}
@@ -1975,7 +2073,7 @@
 		}
 	],
 	"componentInterface": [],
-	"ver": "24.07.05.1836",
+	"ver": "24.07.05.1912",
 	"application": "launchpadvis",
 	"title": "",
 	"description": "",

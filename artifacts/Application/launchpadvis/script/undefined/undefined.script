@@ -1,6 +1,14 @@
+.launchpadvis-VBox {
+  background-image: url("/public/images/background.svg");
+}
+
 .launchpadvis-headerIcon {
   background-color: rgba(255, 210, 94, 0.15);
   color: #ff9e33;
+}
+
+.launchpadvis-TitlePressCell {
+  font-size: 1.2rem;
 }
 
 #container {
