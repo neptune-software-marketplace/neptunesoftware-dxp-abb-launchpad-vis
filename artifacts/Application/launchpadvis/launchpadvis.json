@@ -2113,10 +2113,10 @@
 						},
 						{
 							"fieldNo": "58b71a96-38fe-4b71-89ec-3ea64c1bb5bd",
-							"fieldName": "EventHadlers",
+							"fieldName": "EventHandlers",
 							"fieldParent": "923cab81-383e-45ba-d0a0-cb32b406c9f5",
 							"fieldType": "neptune.Typescript",
-							"script": "file://script/neptune.Typescript/Scripts/EventHadlers.ts",
+							"script": "file://script/neptune.Typescript/Scripts/EventHandlers.ts",
 							"customComponent": false,
 							"request": [],
 							"response": [],
@@ -2285,7 +2285,7 @@
 		}
 	],
 	"componentInterface": [],
-	"ver": "24.07.04.1959",
+	"ver": "24.07.05.1221",
 	"application": "launchpadvis",
 	"title": "",
 	"description": "",

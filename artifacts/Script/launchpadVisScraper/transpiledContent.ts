@@ -174,9 +174,6 @@ var ArtifactScraperDirect;
         if ((_d = (_c = tile.settings) === null || _c === void 0 ? void 0 : _c.adaptive) === null || _d === void 0 ? void 0 : _d.idTile) {
             children.push({ id: tile.settings.adaptive.idTile.toUpperCase(), type: "adaptive" });
         }
-        /*for (const role of tile.roles) {
-        children.push({id: role.id, type: "role"});
-    }*/
         return children;
     }
     function scrapeArtifacts() {
@@ -189,7 +186,6 @@ var ArtifactScraperDirect;
                         return [4 /*yield*/, manager.find('app', { select: ["id", "package"] })];
                     case 1:
                         apps = _a.sent();
-                        log.info(apps);
                         allArtifacts = [];
                         _i = 0, artifactScrapers_1 = artifactScrapers;
                         _a.label = 2;

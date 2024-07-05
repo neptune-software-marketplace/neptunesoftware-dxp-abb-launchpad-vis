@@ -163,9 +163,7 @@ namespace ArtifactScraperDirect {
         if (tile.settings?.adaptive?.idTile) {
             children.push({ id: tile.settings.adaptive.idTile.toUpperCase(), type: "adaptive" });
         }
-        /*for (const role of tile.roles) {
-        children.push({id: role.id, type: "role"});
-    }*/
+       
         return children;
     }
 
@@ -174,8 +172,6 @@ namespace ArtifactScraperDirect {
 
         apps = await manager.find('app', { select: ["id", "package"] });
 
-        log.info(apps);
-
         const allArtifacts = [];
 
         for (const scraper of artifactScrapers) {
@@ -183,7 +179,6 @@ namespace ArtifactScraperDirect {
             allArtifacts.push(res);
         }
         const artifactsUsingApps = ['tile'];
-        // flatten array of arrays
         const final = allArtifacts.reduce((acc, x) => [...acc, ...x], []);
 
         final.forEach((x) => {

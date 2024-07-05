@@ -1,5 +1,8 @@
-if (checkBeforeCreate()) {
+const {namesCondition,edgesCondition} = checkBeforeCreate();
+
+if (namesCondition && edgesCondition) {
     const nestedGraph = graphToJSON();
+    console.log(nestedGraph);
     graphToNeptune(nestedGraph)
         .then((response) => {
             console.log("Processing completed", response);
@@ -21,6 +24,8 @@ if (checkBeforeCreate()) {
                         sap.n.HashNavigation.toExternal(redirectDetails);
                     }
                     clear();
+                    addLaunchpadNode();
+                    centerContent();
                 },
             });
         })
@@ -28,5 +33,13 @@ if (checkBeforeCreate()) {
             console.error("Error processing graph", error);
         });
 } else {
-    sap.m.MessageBox.warning("There are necessary fields missing. Please fill them.");
+    if (!namesCondition && !edgesCondition) {
+        sap.m.MessageBox.warning("There are necessary fields missing and nodes not connected to the main graph.");
+    }
+    if (!namesCondition && edgesCondition) {
+        sap.m.MessageBox.warning("There are nodes not connected to the main graph.");
+    }
+    if (namesCondition && !edgesCondition) {
+        sap.m.MessageBox.warning("There are necessary fields missing. Please fill them.");
+    }
 }

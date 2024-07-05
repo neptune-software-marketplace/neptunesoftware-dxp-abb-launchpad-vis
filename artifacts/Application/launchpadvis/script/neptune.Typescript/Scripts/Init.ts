@@ -169,6 +169,15 @@ async function render() {
                         }
                     }
 
+                    if (
+                        graph.getConnectedEdges(args.targetCell, {
+                            incoming: true,
+                            outgoing: false,
+                        }).length >= 1
+                    ) {
+                        return false;
+                    }
+
                     return true;
                 }
 
@@ -283,7 +292,15 @@ async function render() {
                     "text-anchor": "start",
                 },
                 metadata: {
-                    id: ""
+                    id: "",
+                },
+                icon: {
+                    xlinkHref: "/public/images/platform/bare/light/app-designer.svg",
+                    refX: 100, // Adjust as needed
+                    refY: -10, // Adjust as needed
+                    width: 80, // Adjust as needed
+                    height: 80, // Adjust as needed
+                    fill: "#FF5733",
                 },
             },
             markup: [
@@ -298,6 +315,10 @@ async function render() {
                 {
                     tagName: "text",
                     selector: "text",
+                },
+                {
+                    tagName: "image",
+                    selector: "icon",
                 },
             ],
             ports: {
@@ -339,6 +360,17 @@ async function render() {
                     fill: "rgba(0,0,0,0.6)",
                     "text-anchor": "start",
                 },
+                metadata: {
+                    id: "",
+                },
+                icon: {
+                    xlinkHref: "/public/images/platform/bare/light/tile.svg",
+                    refX: 100, // Adjust as needed
+                    refY: -10, // Adjust as needed
+                    width: 80, // Adjust as needed
+                    height: 80, // Adjust as needed
+                    fill: "#FF5733",
+                },
             },
             markup: [
                 {
@@ -352,6 +384,10 @@ async function render() {
                 {
                     tagName: "text",
                     selector: "text",
+                },
+                {
+                    tagName: "image",
+                    selector: "icon",
                 },
             ],
             ports: { ...ports },
@@ -394,6 +430,17 @@ async function render() {
                     fill: "rgba(0,0,0,0.6)",
                     "text-anchor": "start",
                 },
+                metadata: {
+                    id: "",
+                },
+                icon: {
+                    xlinkHref: "/public/images/platform/bare/light/tilegroup.svg",
+                    refX: 100, // Adjust as needed
+                    refY: -10, // Adjust as needed
+                    width: 80, // Adjust as needed
+                    height: 80, // Adjust as needed
+                    fill: "#FF5733",
+                },
             },
             markup: [
                 {
@@ -407,6 +454,10 @@ async function render() {
                 {
                     tagName: "text",
                     selector: "text",
+                },
+                {
+                    tagName: "image",
+                    selector: "icon",
                 },
             ],
             ports: { ...ports }, // tileports
@@ -443,6 +494,17 @@ async function render() {
                     fill: "rgba(0,0,0,0.6)",
                     "text-anchor": "start",
                 },
+                metadata: {
+                    id: "",
+                },
+                icon: {
+                    xlinkHref: "/public/images/platform/bare/light/launchpad.svg",
+                    refX: 100, // Adjust as needed
+                    refY: -10, // Adjust as needed
+                    width: 80, // Adjust as needed
+                    height: 80, // Adjust as needed
+                    fill: "#FF5733",
+                },
             },
             markup: [
                 {
@@ -456,6 +518,10 @@ async function render() {
                 {
                     tagName: "text",
                     selector: "text",
+                },
+                {
+                    tagName: "image",
+                    selector: "icon",
                 },
             ],
             ports: {
@@ -508,6 +574,6 @@ async function render() {
     const graphContainer = graph.container;
     graphContainer.onwheel = zoom;
 
-    stencil.load([r0, r1, r2], "group1");
+    stencil.load([r2, r1, r0], "group1");
     addLaunchpadNode();
 }

@@ -35,6 +35,14 @@
 							"script": "",
 							"fieldId": "12c1686e-f4f9-45d3-f50c-13e4b407b660",
 							"translation": []
+						},
+						{
+							"attribute": "mode",
+							"grouping": "Properties",
+							"value": "SingleSelectMaster",
+							"script": "",
+							"fieldId": "0bb4ac17-521f-4840-8f66-9a299fcf867c",
+							"translation": []
 						}
 					],
 					"data": []
@@ -68,7 +76,7 @@
 				"id": "b9fac74f-56cd-46f6-bfe6-98b06e90a047",
 				"objectType": "group",
 				"attribute": {
-					"ATTRIBUTE": "itemPress",
+					"ATTRIBUTE": "Filter",
 					"GROUPING": ""
 				}
 			},
@@ -79,8 +87,8 @@
 				"parent": "b9fac74f-56cd-46f6-bfe6-98b06e90a047",
 				"attribute": {
 					"ATTRIBUTE": "packageValueHelpRequest",
-					"GROUPING": "itemPress",
-					"PARENT": "itemPress"
+					"GROUPING": "Filter",
+					"PARENT": "Filter"
 				},
 				"original": {
 					"FIELD_ID": "8c2ab412-769b-48df-f4a8-2d8424f5d289",
@@ -221,7 +229,7 @@
 		],
 		"topLevelObjects": []
 	},
-	"ver": "24.07.04.1959",
+	"ver": "24.07.05.0755",
 	"application": "launchpadvis_dialogapp",
 	"title": "",
 	"description": "",

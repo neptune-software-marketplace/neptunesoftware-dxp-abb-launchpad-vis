@@ -1,6 +1,6 @@
 const { scrapeArtifacts } = globals.Scraper;
 
-const queryMode = "D"; // cached or "D" = direct
+const queryMode = "D";
 
 const artifactTypeNames = {
     launchpad: "Launchpad",
@@ -38,8 +38,6 @@ processPackages(packages);
 
 processArtifactLists(artifactLists, "", 0, "T");
 
-console.log(artifactTree);
-
 result.data = { artifactTree, whereUsed, using, timestamp };
 
 complete();
@@ -59,16 +57,14 @@ function processPackages(packages) {
     artifactTree.push(packageRootItem);
 
     packages.sort((a, b) => {
-            const nameA = a.name.toUpperCase(); // ignore upper and lowercase
-            const nameB = b.name.toUpperCase(); // ignore upper and lowercase
+            const nameA = a.name.toUpperCase();
+            const nameB = b.name.toUpperCase();
             if (nameA < nameB) {
                 return -1;
             }
             if (nameA > nameB) {
                 return 1;
             }
-
-            // names must be equal
             return 0;
         });
 
@@ -115,22 +111,19 @@ function processArtifactLists(artifacts, parent, level, navMode) {
         artifactTree.push(treeItem);
 
         artifacts[type].sort((a, b) => {
-            const nameA = a.name.toUpperCase(); // ignore upper and lowercase
-            const nameB = b.name.toUpperCase(); // ignore upper and lowercase
+            const nameA = a.name.toUpperCase();
+            const nameB = b.name.toUpperCase();
             if (nameA < nameB) {
                 return -1;
             }
             if (nameA > nameB) {
                 return 1;
             }
-
-            // names must be equal
             return 0;
         });
 
         if (type === "package") {
         } else {
-            // create a reduced artifact list as input for generic tree generation function below
             const artifactIds = artifacts[type].map((artifact) => {
                 return { id: artifact.objectId, type: type };
             });
@@ -138,8 +131,7 @@ function processArtifactLists(artifacts, parent, level, navMode) {
             try {
                 createTree(artifactIds, treeItem.key, level + 1, navMode);
             } catch (e) {
-                //console.log("oops");
-                //console.log(e);
+                log.error(e);
             }
         }
     }
@@ -148,14 +140,10 @@ function processArtifactLists(artifacts, parent, level, navMode) {
 }
 
 function createTree(sourceArray, parentId, level, navMode) {
-    // sanity check
-    //console.log(level);
+
     if (level > 30) {
         return;
-    }
-    //console.log(sourceArray);
-    sourceArray.forEach((sourceItem) => {
-        //console.log(sourceItem.type);
+    }    sourceArray.forEach((sourceItem) => {
         const sourceArtifact = artifactLists[sourceItem.type].find(
             (element) => element.objectId === sourceItem.id || element.name === sourceItem.id
         );
@@ -164,7 +152,7 @@ function createTree(sourceArray, parentId, level, navMode) {
             treeItem.name = sourceArtifact.name;
             treeItem.description = sourceArtifact.description ?? "";
             treeItem.type = sourceArtifact.type;
-            (treeItem.used_by = sourceArtifact.used_by?.length ?? 0), (treeItem.key = uuid()); //sourceArtifact.id;//objectId;
+            (treeItem.used_by = sourceArtifact.used_by?.length ?? 0), (treeItem.key = uuid());
             treeItem.objectId = sourceArtifact.objectId;
             treeItem.parent = parentId;
             treeItem.level = level;

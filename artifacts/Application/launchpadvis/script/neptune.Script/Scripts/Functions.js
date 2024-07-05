@@ -16,16 +16,14 @@ function centerContent() {
     }
 }
 
-
 function stencilVisibility(val) {
-    const stencilDiv = document.getElementById('stencil');
-    stencilDiv.style.display = val ? 'block' : 'none';
-} 
+    const stencilDiv = document.getElementById("stencil");
+    stencilDiv.style.display = val ? "block" : "none";
+}
 function clear() {
     modelselectedNode.setData({ id: "", shape: "", name: "" });
     if (graph) {
         graph.clearCells();
-        centerContent();
     }
 }
 
@@ -88,7 +86,15 @@ async function graphToNeptune(data) {
         }
         let response;
         switch (node.shape) {
+            case "application":
+                break;
             case "tile":
+                let appName = null;
+
+                if (node.children.length > 0) {
+                    appName = node.children[0].name;
+                }
+                
                 const tilePayload = {
                     actionType: "A",
                     storeItem: {},
@@ -99,6 +105,11 @@ async function graphToNeptune(data) {
                     navAction: "",
                     roles: [],
                 };
+
+                if (appName !== null) {
+                    tilePayload.actionApplication = appName;
+                }
+
                 response = await createTile(tilePayload);
                 response.shape = "tile";
                 break;
@@ -154,6 +165,7 @@ async function graphToNeptune(data) {
                 response = await createLaunchpad(launchpadPayload);
                 response.shape = "launchpad";
                 break;
+            
             default:
                 console.log(`Unknown shape: ${node.shape}`);
         }
@@ -287,12 +299,27 @@ function refreshMainPage() {
 }
 
 function checkBeforeCreate() {
-    const state = graph.getNodes();
-    for (const node of state) {
+    const nodes = graph.getNodes();
+
+    // check 1
+    const namesCondition = nodes.every(node => {
         const name = node.store.data.attrs.text.text;
-        if (name === "" || name === undefined) {
-            return false;
+        return name && name.trim().length > 0;
+    });
+
+    // check 2
+    const edgesCondition = nodes.every(node => {
+        switch (node.shape) {
+            case "application":
+            case "launchpad":
+                return graph.getConnectedEdges(node) > 0;
+            case "tile":
+            case "tile-group":
+                return graph.getConnectedEdges(node) >= 2;
+            default:
+                return false;
         }
-    }
-    return true;
+    });
+
+    return {"namesCondition": namesCondition, "edgesCondition": edgesCondition}
 }
