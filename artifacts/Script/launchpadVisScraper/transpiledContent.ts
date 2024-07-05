@@ -245,15 +245,12 @@ var ArtifactScraperDirect;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        console.log(scraper.artifactType);
-                        _a.label = 1;
-                    case 1:
-                        _a.trys.push([1, 4, , 5]);
+                        _a.trys.push([0, 3, , 4]);
                         return [4 /*yield*/, manager.find(scraper.repositoryName, {
                                 select: scraper.selectInfo,
                                 loadRelationIds: scraper.artifactType !== "table",
                             })];
-                    case 2:
+                    case 1:
                         artifactData = _a.sent();
                         return [4 /*yield*/, artifactData
                                 .map(scraper.artifactMapFn)
@@ -262,7 +259,7 @@ var ArtifactScraperDirect;
                                 x.type = scraper.artifactType;
                                 return x;
                             })];
-                    case 3:
+                    case 2:
                         artifacts = _a.sent();
                         if (scraper.usingFn || scraper.childrenFn) {
                             _loop_1 = function (artifact) {
@@ -310,11 +307,11 @@ var ArtifactScraperDirect;
                             }
                         }
                         return [2 /*return*/, artifacts];
-                    case 4:
+                    case 3:
                         requestError_1 = _a.sent();
                         console.error(requestError_1);
                         return [2 /*return*/, []];
-                    case 5: return [2 /*return*/];
+                    case 4: return [2 /*return*/];
                 }
             });
         });

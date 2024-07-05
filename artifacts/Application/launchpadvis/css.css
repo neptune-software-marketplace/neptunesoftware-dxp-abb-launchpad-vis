@@ -1,5 +1,10 @@
-.SplitterClass {
-    display: flex;
+// .SplitterClass {
+//     display: flex;
+// }
+
+.launchpadvis-headerIcon {
+    background-color: rgba(255, 210, 94, 0.15);
+	color: #ff9e33;
 }
 
 #container {

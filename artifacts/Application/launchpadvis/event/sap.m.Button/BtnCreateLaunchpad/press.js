@@ -34,12 +34,12 @@ if (namesCondition && edgesCondition) {
         });
 } else {
     if (!namesCondition && !edgesCondition) {
-        sap.m.MessageBox.warning("There are necessary fields missing and nodes not connected to the main graph.");
+        sap.m.MessageBox.warning("There are necessary fields missing and some nodes might not connected to the main graph.");
     }
     if (!namesCondition && edgesCondition) {
-        sap.m.MessageBox.warning("There are nodes not connected to the main graph.");
+        sap.m.MessageBox.warning("There are necessary fields missing. Please fill them.");
     }
     if (namesCondition && !edgesCondition) {
-        sap.m.MessageBox.warning("There are necessary fields missing. Please fill them.");
+        sap.m.MessageBox.warning("There are nodes not connected to the main graph.");
     }
 }

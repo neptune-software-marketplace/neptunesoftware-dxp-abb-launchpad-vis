@@ -99,7 +99,6 @@ function processArtifactLists(artifacts, parent, level, navMode) {
         return;
     }
     for (const type in artifacts) {
-        
         const treeItem = {};
         treeItem.name = artifactTypeNames[type] + " (" + artifacts[type].length + " )";
         treeItem.objectId = "";
@@ -150,14 +149,14 @@ function createTree(sourceArray, parentId, level, navMode) {
         if (sourceArtifact) {
             const treeItem = {};
             treeItem.name = sourceArtifact.name;
-            treeItem.description = sourceArtifact.description ?? "";
+            treeItem.title = sourceArtifact.title ?? null;
+            treeItem.description = sourceArtifact.description ?? null;
             treeItem.type = sourceArtifact.type;
             (treeItem.used_by = sourceArtifact.used_by?.length ?? 0), (treeItem.key = uuid());
             treeItem.objectId = sourceArtifact.objectId;
             treeItem.parent = parentId;
             treeItem.level = level;
             treeItem.navMode = navMode;
-            
             artifactTree.push(treeItem);
 
             if (sourceArtifact.used_by) {

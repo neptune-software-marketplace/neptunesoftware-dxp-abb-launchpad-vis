@@ -21,7 +21,18 @@ function stencilVisibility(val) {
     stencilDiv.style.display = val ? "block" : "none";
 }
 function clear() {
-    modelselectedNode.setData({ id: "", shape: "", name: "" });
+    clickedSource = null;
+    previousSource = null;
+    modelSelectedNode.setData({
+        nodeID: null,
+        shape: null,
+        name: null,
+        title: null,
+        description: null,
+    });
+    modelData.getData().focusedCell = false;
+    modelSelectedNode.refresh();
+    modelData.refresh();
     if (graph) {
         graph.clearCells();
     }
@@ -48,12 +59,44 @@ function buildNestedStructure(nodeId) {
         }
     });
 
-    return {
-        id: node.id,
-        shape: node.shape,
-        name: node.attr("text/text"),
-        children: children,
-    };
+    switch (node.shape) {
+        case "application":
+            return {
+                id: node.id,
+                shape: node.shape,
+                name: node.attr("metadata/name"),
+                children: children,
+            };
+        case "tile":
+            return {
+                id: node.id,
+                shape: node.shape,
+                name: node.attr("metadata/name"),
+                title: node.attr("metadata/title"),
+                description: node.attr("metadata/description"),
+                children: children,
+            };
+        case "tile-group":
+            return {
+                id: node.id,
+                shape: node.shape,
+                name: node.attr("metadata/name"),
+                title: node.attr("metadata/title"),
+                description: node.attr("metadata/description"),
+                children: children,
+            };
+        case "launchpad":
+            return {
+                id: node.id,
+                shape: node.shape,
+                name: node.attr("metadata/name"),
+                title: node.attr("metadata/title"),
+                description: node.attr("metadata/description"),
+                children: children,
+            };
+        default:
+            break;
+    }
 }
 
 function graphToJSON() {
@@ -79,93 +122,64 @@ async function graphToNeptune(data) {
 
         let payload = { ...node }; // copy of the node
         if (
-            (node.shape === "tile-group" || node.shape === "launchpad") &&
+            (payload.shape === "tile-group" || payload.shape === "launchpad") &&
             childResponses.length > 0
         ) {
             payload.childrenResponses = childResponses;
         }
         let response;
-        switch (node.shape) {
+        switch (payload.shape) {
             case "application":
                 break;
             case "tile":
-                let appName = null;
-
-                if (node.children.length > 0) {
-                    appName = node.children[0].name;
-                }
-                
                 const tilePayload = {
-                    actionType: "A",
-                    storeItem: {},
-                    translation: [],
                     name: payload.name,
-                    tags: "",
-                    navObject: "",
-                    navAction: "",
-                    roles: [],
+                    title: payload.title,
+                    description: payload.description,
+                    actionApplication: payload.children[0].name,
+                    ...apiDefinitions["tile"],
                 };
 
-                if (appName !== null) {
-                    tilePayload.actionApplication = appName;
-                }
-
-                response = await createTile(tilePayload);
+                response = await artifactAPI(tilePayload, "Tile", "Save");
                 response.shape = "tile";
                 break;
             case "tile-group":
-                const tilegroupsForTilegroup = [];
                 const tilesForTilegroup = [];
                 if (childResponses.length > 0) {
                     childResponses.forEach((item) => {
-                        item.shape === "tile-group"
-                            ? tilegroupsForTilegroup.push(item)
-                            : tilesForTilegroup.push(item);
+                        tilesForTilegroup.push(item);
                     });
                 }
                 const groupPayload = {
-                    backgroundType: "cards",
-                    backgroundColor: "",
-                    translation: [],
-                    configMessage: {},
-                    tiles: tilesForTilegroup,
-                    tilegroups: tilegroupsForTilegroup,
                     name: payload.name,
-                    roles: [],
+                    title: payload.title,
+                    description: payload.description,
+                    tiles: tilesForTilegroup,
+                    ...apiDefinitions["tilegroup"],
                 };
-                response = await createGroup(groupPayload);
+
+                response = await artifactAPI(groupPayload, "Category", "Save");
                 response.shape = "tile-group";
                 break;
             case "launchpad":
                 const tilegroupsForLaunch = [];
                 if (childResponses.length > 0) {
                     childResponses.forEach((tilegroup) => {
-                        tilegroupsForLaunch.push({
-                            id: tilegroup.id,
-                        });
+                        tilegroupsForLaunch.push(tilegroup);
                     });
                 }
                 const launchpadPayload = {
-                    launchpadApp: "planet9_launchpad_standard",
-                    enhancement: [],
-                    config: {
-                        showAccessibilityFocusIndicator: true,
-                        enhancement: "",
-                    },
-                    enableNotifications: false,
-                    layout: [],
                     name: payload.name,
-                    extUserRoles: [],
-                    extUserDepartments: [],
+                    title: payload.title,
+                    description: payload.description,
                     cat: tilegroupsForLaunch,
-                    ui5Version: "1.108",
-                    ui5Theme: "sap_horizon",
+                    ...apiDefinitions["launchpad"],
                 };
 
-                response = await createLaunchpad(launchpadPayload);
+                response = await artifactAPI(launchpadPayload, "Launchpad", "Save");
                 response.shape = "launchpad";
                 break;
-            
+
             default:
                 console.log(`Unknown shape: ${node.shape}`);
         }
@@ -176,45 +190,11 @@ async function graphToNeptune(data) {
     return await processNode(data);
 }
 
-async function createTile(payload) {
+async function artifactAPI(payload, tool, method) {
     return new Promise((resolve, reject) => {
         sap.n.Planet9.function({
-            id: "Tile",
-            method: "Save",
-            data: payload,
-            success: function (data) {
-                resolve(data);
-            },
-            error: function (er) {
-                console.error(er);
-                reject(er);
-            },
-        });
-    });
-}
-
-async function createGroup(payload) {
-    return new Promise((resolve, reject) => {
-        sap.n.Planet9.function({
-            id: "Category",
-            method: "Save",
-            data: payload,
-            success: function (data) {
-                resolve(data);
-            },
-            error: function (er) {
-                console.error(er);
-                reject(er);
-            },
-        });
-    });
-}
-
-async function createLaunchpad(payload) {
-    return new Promise((resolve, reject) => {
-        sap.n.Planet9.function({
-            id: "Launchpad",
-            method: "Save",
+            id: tool,
+            method: method,
             data: payload,
             success: function (data) {
                 resolve(data);
@@ -302,24 +282,24 @@ function checkBeforeCreate() {
     const nodes = graph.getNodes();
 
     // check 1
-    const namesCondition = nodes.every(node => {
+    const namesCondition = nodes.every((node) => {
         const name = node.store.data.attrs.text.text;
         return name && name.trim().length > 0;
     });
 
     // check 2
-    const edgesCondition = nodes.every(node => {
+    const edgesCondition = nodes.every((node) => {
         switch (node.shape) {
             case "application":
             case "launchpad":
-                return graph.getConnectedEdges(node) > 0;
+                return graph.getConnectedEdges(node).length > 0;
             case "tile":
             case "tile-group":
-                return graph.getConnectedEdges(node) >= 2;
+                return graph.getConnectedEdges(node).length >= 2;
             default:
                 return false;
         }
     });
 
-    return {"namesCondition": namesCondition, "edgesCondition": edgesCondition}
+    return { namesCondition: namesCondition, edgesCondition: edgesCondition };
 }

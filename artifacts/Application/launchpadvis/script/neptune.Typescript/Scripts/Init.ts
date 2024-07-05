@@ -45,6 +45,7 @@ async function init() {
         intial: null,
         current: null,
         changes: null,
+        focusedCell: false,
     });
 }
 
@@ -231,7 +232,7 @@ async function render() {
         .use(new Snapline());
 
     stencil = new Stencil({
-        title: "",
+        title: "Artifacts",
         target: graph,
         stencilGraphWidth: 400,
         stencilGraphHeight: 300,
@@ -269,9 +270,9 @@ async function render() {
             height: 60,
             attrs: {
                 body: {
-                    stroke: "#5F95FF",
+                    stroke: "#ff9e33",
                     strokeWidth: 1,
-                    fill: "rgba(95,149,255,0.05)",
+                    fill: "rgba(255, 210, 94, 0.05)", //rgba(95,149,255,0.05)
                     refWidth: 1,
                     refHeight: 1,
                 },
@@ -292,14 +293,18 @@ async function render() {
                     "text-anchor": "start",
                 },
                 metadata: {
-                    id: "",
+                    nodeID: null,
+                    shape: null,
+                    name: null,
+                    title: null,
+                    description: null,
                 },
                 icon: {
                     xlinkHref: "/public/images/platform/bare/light/app-designer.svg",
-                    refX: 100, // Adjust as needed
-                    refY: -10, // Adjust as needed
-                    width: 80, // Adjust as needed
-                    height: 80, // Adjust as needed
+                    refX: 100,
+                    refY: -10,
+                    width: 80,
+                    height: 80,
                     fill: "#FF5733",
                 },
             },
@@ -338,9 +343,9 @@ async function render() {
             height: 60,
             attrs: {
                 body: {
-                    stroke: "#5F95FF",
+                    stroke: "#ff9e33",
                     strokeWidth: 1,
-                    fill: "rgba(95,149,255,0.05)",
+                    fill: "rgba(255, 210, 94, 0.05)",
                     refWidth: 1,
                     refHeight: 1,
                 },
@@ -361,14 +366,17 @@ async function render() {
                     "text-anchor": "start",
                 },
                 metadata: {
-                    id: "",
+                    id: null,
+                    name: null,
+                    title: null,
+                    description: null,
                 },
                 icon: {
                     xlinkHref: "/public/images/platform/bare/light/tile.svg",
-                    refX: 100, // Adjust as needed
-                    refY: -10, // Adjust as needed
-                    width: 80, // Adjust as needed
-                    height: 80, // Adjust as needed
+                    refX: 100,
+                    refY: -10,
+                    width: 80,
+                    height: 80,
                     fill: "#FF5733",
                 },
             },
@@ -408,9 +416,9 @@ async function render() {
             height: 60,
             attrs: {
                 body: {
-                    stroke: "#5F95FF",
+                    stroke: "#ff9e33",
                     strokeWidth: 1,
-                    fill: "rgba(95,149,255,0.05)",
+                    fill: "rgba(255, 210, 94, 0.05)",
                     refWidth: 1,
                     refHeight: 1,
                 },
@@ -431,14 +439,17 @@ async function render() {
                     "text-anchor": "start",
                 },
                 metadata: {
-                    id: "",
+                   id: null,
+                    name: null,
+                    title: null,
+                    description: null,
                 },
                 icon: {
                     xlinkHref: "/public/images/platform/bare/light/tilegroup.svg",
-                    refX: 100, // Adjust as needed
-                    refY: -10, // Adjust as needed
-                    width: 80, // Adjust as needed
-                    height: 80, // Adjust as needed
+                    refX: 100,
+                    refY: -10,
+                    width: 80,
+                    height: 80,
                     fill: "#FF5733",
                 },
             },
@@ -472,9 +483,9 @@ async function render() {
             height: 60,
             attrs: {
                 body: {
-                    stroke: "#5F95FF",
+                    stroke: "#ff9e33",
                     strokeWidth: 1,
-                    fill: "rgba(95,149,255,0.05)",
+                    fill: "rgba(255, 210, 94, 0.05)",
                     refWidth: 1,
                     refHeight: 1,
                 },
@@ -495,14 +506,17 @@ async function render() {
                     "text-anchor": "start",
                 },
                 metadata: {
-                    id: "",
+                    id: null,
+                    name: null,
+                    title: null,
+                    description: null,
                 },
                 icon: {
                     xlinkHref: "/public/images/platform/bare/light/launchpad.svg",
-                    refX: 100, // Adjust as needed
-                    refY: -10, // Adjust as needed
-                    width: 80, // Adjust as needed
-                    height: 80, // Adjust as needed
+                    refX: 100,
+                    refY: -10,
+                    width: 80,
+                    height: 80,
                     fill: "#FF5733",
                 },
             },

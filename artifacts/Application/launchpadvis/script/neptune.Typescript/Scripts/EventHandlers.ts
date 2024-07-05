@@ -24,14 +24,33 @@ function addGraphEvents() {
 
     eventHandlers.cellClick = ({ cell, node }) => {
         if (cell.isNode()) {
+            modelData.getData().focusedCell = true;
+            modelData.refresh();
+
             if (previousSource && previousSource.hasTool("boundary")) {
                 previousSource.removeTool("boundary");
             }
+
             clickedSource = cell;
-            const nodeId = cell.id;
-            const nodeShape = cell.shape;
-            const nodeText = cell.attr("text/text") || "";
-            modelselectedNode.setData({ id: nodeId, shape: nodeShape, name: nodeText });
+
+            const nodeID = clickedSource.id;
+            clickedSource.attr("metadata/nodeID", nodeID);
+
+            const nodeShape = clickedSource.shape;
+            clickedSource.attr("metadata/shape", nodeShape);
+
+            const nodeName = clickedSource.attr("metadata/name") || null;
+            const nodeTitle = clickedSource.attr("metadata/title") || null;
+            const nodeDesc = clickedSource.attr("metadata/description") || null;
+
+            modelSelectedNode.setData({
+                nodeID: nodeID,
+                shape: nodeShape,
+                name: nodeName,
+                title: nodeTitle,
+                description: nodeDesc,
+            });
+
             if (!node.hasTool("boundary")) {
                 node.addTools({
                     name: "boundary",
@@ -81,11 +100,19 @@ function addGraphEvents() {
     };
 
     eventHandlers.blankClick = ({ cell, node }) => {
+        modelData.getData().focusedCell = false;
+        modelData.refresh();
         if (previousSource && previousSource.hasTool("boundary")) {
             previousSource.removeTool("boundary");
         }
         previousSource = null;
-        modelselectedNode.setData({ id: "", shape: "", name: "" });
+        modelSelectedNode.setData({
+            nodeID: null,
+            shape: null,
+            name: null,
+            title: null,
+            description: null,
+        });
         if (clickedSource) {
             clickedSource.removeTool("button-remove");
         }

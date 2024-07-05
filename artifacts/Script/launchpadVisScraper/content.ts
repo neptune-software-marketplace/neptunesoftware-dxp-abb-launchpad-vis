@@ -215,7 +215,6 @@ namespace ArtifactScraperDirect {
         return final;
     }
     async function scrapeIt(scraper: ArtifactScraper, manager) {
-        console.log(scraper.artifactType);
         try {
             const artifactData = await manager.find(scraper.repositoryName, {
                 select: scraper.selectInfo,

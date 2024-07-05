@@ -4,10 +4,12 @@ interface HierarchyResult {
     y: number;
     shape: string;
     name: string;
+    title: string | null;
+    description: string | null;
     children: HierarchyResult[];
 }
 
-function showUsage(id: string, name: string) {
+function showUsage(id: string, name: string, title: string, description: string) {
     const tree = [];
 
     getUsingTree(id, "", 0, tree);
@@ -16,6 +18,8 @@ function showUsage(id: string, name: string) {
         id: id,
         name: name,
         shape: "launchpad",
+        title: title,
+        description: description,
         children: _convertFlatToNested(tree, "key", "parent"),
     };
 
@@ -58,10 +62,12 @@ function getUsingTree(objectId, parent, level, tree) {
     const source = modelArtifactRelations.getData().usingData.find((x) => x.objectId === objectId);
     // const sourceArtifact = modelartifactsData.getData().find((z) => z.objectId === objectId);
     // find users
-    const usingTabData = source?.using.map((y:any) => {
-        const artifact = modelArtifactRelations.getData().artifactsData.find((z:any) => z.objectId === y.id);
+    const usingTabData = source?.using.map((y: any) => {
+        const artifact = modelArtifactRelations
+            .getData()
+            .artifactsData.find((z: any) => z.objectId === y.id);
         if (artifact) {
-            return { objectId: artifact.objectId, name: artifact.name, type: artifact.type };
+            return { objectId: artifact.objectId, name: artifact.name, type: artifact.type, title: artifact.title, description: artifact.description,  };
         }
     });
     if (usingTabData) {
@@ -76,6 +82,8 @@ function getUsingTree(objectId, parent, level, tree) {
                     name: name,
                     type: element.type,
                     objectId: element.objectId,
+                    title: element.title,
+                    description: element.description,
                 };
                 tree.push(treeNode);
                 if (!recursive) {
@@ -120,16 +128,20 @@ async function renderSymmetricGraph(data) {
         if (data) {
             const nodeShape = data.data.shape;
             model.nodes?.push({
-                id: data.data.id,
+                id: data.data.id, // node id and artifact id
                 shape: nodeShape,
-                x: data.x, // 600
-                y: data.y, // 250
+                x: data.x,
+                y: data.y,
                 attrs: {
                     text: {
                         text: data.data.name,
                     },
                     metadata: {
-                        id: data.data.id
+                        nodeID: data.data.id,
+                        shape: nodeShape,
+                        name: data.data.name,
+                        title: data.data.title || null,
+                        description: data.data.description || null,
                     },
                 },
                 ports: {
