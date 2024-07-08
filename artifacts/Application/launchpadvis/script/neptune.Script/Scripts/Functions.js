@@ -181,7 +181,7 @@ async function graphToNeptune(data) {
                 break;
 
             default:
-                console.log(`Unknown shape: ${node.shape}`);
+                console.error(`Unknown shape: ${node.shape}`);
         }
 
         return response;
@@ -304,18 +304,60 @@ function checkBeforeCreate() {
     // check 3
     const requiredShapes = new Set(["application", "launchpad", "tile", "tile-group"]);
     const foundShapes = new Set();
+    let applicationCount = 0;
+    let tileCount = 0;
 
     nodes.forEach((node) => {
         if (requiredShapes.has(node.shape)) {
             foundShapes.add(node.shape);
         }
+        if (node.shape === "application") {
+            applicationCount++;
+        }
+        if (node.shape === "tile") {
+            tileCount++;
+        }
     });
 
-    const shapeCondition = requiredShapes.size === foundShapes.size;
+    const shapeCondition = requiredShapes.size === foundShapes.size && applicationCount === tileCount;
 
     return {
         namesCondition: namesCondition,
         edgesCondition: edgesCondition,
-        shapeCondition: shapeCondition
+        shapeCondition: shapeCondition,
     };
+}
+
+function setCellSize(cel, str) {
+    let defaultCellSize = {
+        width: 180,
+        height: 75,
+    };
+    if (str.length <= 19) {
+        previousLength = str.length;
+        cel.setSize(defaultCellSize);
+        return;
+    }
+    let currentCellSize = cel.getSize();
+    let newCellWidth;
+    if (str.length > previousLength) {
+        newCellWidth = currentCellSize.width + 20 / 3;
+    }
+    if (str.length < previousLength) {
+        newCellWidth = currentCellSize.width - 20 / 3;
+    }
+    previousLength = str.length;
+    cel.setSize({ width: newCellWidth, height: currentCellSize.height });
+}
+
+function calculateCellSize(str) {
+    let defaultCellSize = {
+        width: 180,
+        height: 75,
+    };
+    if (str.length > 19) {
+        let newCellWidth = defaultCellSize.width + (20 / 3) * (str.length - 19);
+        defaultCellSize.width = newCellWidth;
+    }
+    return defaultCellSize;
 }

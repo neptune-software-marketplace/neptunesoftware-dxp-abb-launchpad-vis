@@ -127,9 +127,14 @@ async function renderSymmetricGraph(data) {
     const traverse = (data: HierarchyResult) => {
         if (data) {
             const nodeShape = data.data.shape;
+            const nodeName = data.data.name;
+            const nodeSize = calculateCellSize(nodeName);
+
             model.nodes?.push({
                 id: data.data.id, // node id and artifact id
                 shape: nodeShape,
+                width: nodeSize.width,
+                height: nodeSize.height,
                 x: data.x,
                 y: data.y,
                 attrs: {
@@ -139,7 +144,7 @@ async function renderSymmetricGraph(data) {
                     metadata: {
                         nodeID: data.data.id,
                         shape: nodeShape,
-                        name: data.data.name,
+                        name: nodeName,
                         title: data.data.title || null,
                         description: data.data.description || null,
                     },

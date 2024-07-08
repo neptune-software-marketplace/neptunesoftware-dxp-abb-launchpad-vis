@@ -1,4 +1,5 @@
 const context = this.getContextByIndex(this.getSelectedIndex());
+// const context = Table.getContextByIndex(Table.getSelectedIndex());
 
 if (context) {
     const data = context.getObject();

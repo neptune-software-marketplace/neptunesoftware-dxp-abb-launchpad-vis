@@ -11,6 +11,7 @@ let graph = null;
 let stencil = null;
 let clickedSource = null;
 let previousSource = null;
+let previousLength = 0;
 
 (async () => {
     await init();
@@ -266,8 +267,8 @@ async function render() {
     Graph.registerNode(
         "application",
         {
-            width: 170,
-            height: 60,
+            width: 180,
+            height: 75, // 60
             attrs: {
                 body: {
                     stroke: "#ff9e33",
@@ -279,7 +280,7 @@ async function render() {
                 title: {
                     text: "Application",
                     refX: 20,
-                    refY: 14,
+                    refY: 20,
                     fill: "rgba(0,0,0,0.85)",
                     fontSize: 18,
                     "text-anchor": "start",
@@ -287,7 +288,7 @@ async function render() {
                 text: {
                     text: "",
                     refX: 20,
-                    refY: 40,
+                    refY: 55,
                     fontSize: 12,
                     fill: "rgba(0,0,0,0.6)",
                     "text-anchor": "start",
@@ -339,8 +340,8 @@ async function render() {
     Graph.registerNode(
         "tile",
         {
-            width: 170,
-            height: 60,
+            width: 180,
+            height: 75,
             attrs: {
                 body: {
                     stroke: "#ff9e33",
@@ -352,7 +353,7 @@ async function render() {
                 title: {
                     text: "Tile",
                     refX: 20,
-                    refY: 14,
+                    refY: 20,
                     fill: "rgba(0,0,0,0.85)",
                     fontSize: 18,
                     "text-anchor": "start",
@@ -360,7 +361,7 @@ async function render() {
                 text: {
                     text: "",
                     refX: 20,
-                    refY: 40,
+                    refY: 55,
                     fontSize: 12,
                     fill: "rgba(0,0,0,0.6)",
                     "text-anchor": "start",
@@ -412,8 +413,8 @@ async function render() {
     Graph.registerNode(
         "tile-group",
         {
-            width: 170,
-            height: 60,
+            width: 180,
+            height: 75,
             attrs: {
                 body: {
                     stroke: "#ff9e33",
@@ -425,7 +426,7 @@ async function render() {
                 title: {
                     text: "Tile Group",
                     refX: 20,
-                    refY: 14,
+                    refY: 20,
                     fill: "rgba(0,0,0,0.85)",
                     fontSize: 18,
                     "text-anchor": "start",
@@ -433,7 +434,7 @@ async function render() {
                 text: {
                     text: "",
                     refX: 20,
-                    refY: 40,
+                    refY: 55,
                     fontSize: 12,
                     fill: "rgba(0,0,0,0.6)",
                     "text-anchor": "start",
@@ -479,8 +480,8 @@ async function render() {
     Graph.registerNode(
         "launchpad",
         {
-            width: 170,
-            height: 60,
+            width: 180,
+            height: 75,
             attrs: {
                 body: {
                     stroke: "#ff9e33",
@@ -492,7 +493,7 @@ async function render() {
                 title: {
                     text: "Launchpad",
                     refX: 20,
-                    refY: 14,
+                    refY: 20,
                     fill: "rgba(0,0,0,0.85)",
                     fontSize: 18,
                     "text-anchor": "start",
@@ -500,7 +501,7 @@ async function render() {
                 text: {
                     text: "",
                     refX: 20,
-                    refY: 40,
+                    refY: 55,
                     fontSize: 12,
                     fill: "rgba(0,0,0,0.6)",
                     "text-anchor": "start",

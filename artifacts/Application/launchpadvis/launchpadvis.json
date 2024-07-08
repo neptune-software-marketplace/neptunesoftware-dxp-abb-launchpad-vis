@@ -217,7 +217,7 @@
 																		{
 																			"attribute": "text",
 																			"grouping": "Properties",
-																			"value": "Launchpad Designer",
+																			"value": "Launchpad Visualizer",
 																			"script": "",
 																			"translation": []
 																		},
@@ -1842,6 +1842,15 @@
 							"translation": []
 						},
 						{
+							"attribute": "clearPress",
+							"grouping": "Select",
+							"value": "Anonymous Function",
+							"script": "file://event/launchpadvis_dialogapp/appDialog/clearPress.js",
+							"fieldId": "8c2ab412-769b-48df-f4a8-2d8424f5d289",
+							"language": "javascript",
+							"translation": []
+						},
+						{
 							"attribute": "itemPress",
 							"grouping": "Select",
 							"value": "Anonymous Function",
@@ -2073,7 +2082,7 @@
 		}
 	],
 	"componentInterface": [],
-	"ver": "24.07.05.1912",
+	"ver": "24.07.08.1113",
 	"application": "launchpadvis",
 	"title": "",
 	"description": "",

@@ -10,7 +10,7 @@
 	"configMessage": {
 		"type": "None"
 	},
-	"title": "Launchpad visualizer",
+	"title": "Launchpad Visualizer",
 	"subTitle": "",
 	"description": "",
 	"titleAlignment": null,
@@ -29,7 +29,7 @@
 	"enableShadeCalc": false,
 	"numTiles": null,
 	"enableMessage": false,
-	"ver": "24.07.05.1841",
+	"ver": "24.07.08.1100",
 	"headColor": null,
 	"headTxtClr": null,
 	"subheadTxtClr": null,
@@ -67,8 +67,8 @@
 		{
 			"id": "be5c0724-5b24-4d25-8620-5fe9c781c285",
 			"name": "launchpad-vis-tile",
-			"title": "Launchpad visualizer",
-			"ver": "24.07.05.1840"
+			"title": "Launchpad Visualizer",
+			"ver": "24.07.08.1109"
 		}
 	],
 	"tilegroups": []

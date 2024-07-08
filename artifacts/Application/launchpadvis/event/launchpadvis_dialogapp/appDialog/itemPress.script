@@ -8,6 +8,7 @@
         node.attr("text/text", data.application);
         node.attr("metadata/name",data.application);
         modelSelectedNode.getData().name = data.application;
+        setCellSize(node,data.application);
         modelSelectedNode.refresh();
         appDialog.close();
     }

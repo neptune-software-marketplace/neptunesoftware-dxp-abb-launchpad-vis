@@ -2,10 +2,10 @@ const {namesCondition, edgesCondition, shapeCondition} = checkBeforeCreate();
 
 if (namesCondition && edgesCondition && shapeCondition) {
     const nestedGraph = graphToJSON();
-    console.log(nestedGraph);
+    // console.log(nestedGraph);
     graphToNeptune(nestedGraph)
         .then((response) => {
-            console.log("Processing completed", response);
+            // console.log("Processing completed", response);
             sap.m.MessageBox.confirm("Launchpad created! Would you like to see the launchpad?", {
                 title: "Confirm",
                 icon: "QUESTION",
