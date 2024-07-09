@@ -2333,14 +2333,6 @@
 									"translation": []
 								},
 								{
-									"attribute": "ajaxError",
-									"grouping": "Events",
-									"value": "Anonymous Function",
-									"script": "file://event/neptune.restapi/artifactTree/ajaxError.js",
-									"language": "javascript",
-									"translation": []
-								},
-								{
 									"attribute": "preRequestHook",
 									"grouping": "Events",
 									"value": "Table.setBusy(true);",
@@ -2433,7 +2425,7 @@
 		}
 	],
 	"componentInterface": [],
-	"ver": "24.07.09.1220",
+	"ver": "24.07.09.1416",
 	"application": "launchpadvis",
 	"title": "",
 	"description": "",

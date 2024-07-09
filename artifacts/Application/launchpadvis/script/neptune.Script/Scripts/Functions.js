@@ -278,7 +278,7 @@ function diffJson(before, after, path = "") {
 }
 
 function refreshMainPage() {
-    apiartifactTree();
+    Table.setBusy(false);
     $.ajax({
         url: "/api/functions/Launchpad/List",
         method: "POST",
@@ -289,6 +289,7 @@ function refreshMainPage() {
             console.error(er);
         },
     });
+    apiartifactTree();
 }
 
 function checkBeforeCreate() {

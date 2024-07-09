@@ -170,15 +170,35 @@ namespace ArtifactScraperDirect {
         const children = [];
 
         const tile = data;
-        if (tile.actionApplication && (tile.actionType === "A" || !tile.actionType)) {
-            children.push({ id: tile.actionApplication, type: "app" });
+
+        if (tile.type === null || tile.type === "") {
+            if (tile.type === "application") {
+                children.push({
+                    id: tile.tileApplication,
+                    type: "application",
+                });
+            }
+            if (tile.type === "adaptive") {
+                children.push({
+                    id: tile.settings.adaptive.idTile.toUpperCase(),
+                    type: "adaptive",
+                });
+            }
+        } else {
+            if (tile.actionApplication && (!tile.actionType || tile.actionType === "A")) {
+                children.push({ id: tile.actionApplication, type: "app" });
+            }
+            if (tile.settings?.adaptive?.id && tile.actionType === "F") {
+                children.push({ id: tile.settings.adaptive.id.toUpperCase(), type: "adaptive" });
+            }
+            if (tile.settings?.adaptive?.idTile) {
+                children.push({
+                    id: tile.settings.adaptive.idTile.toUpperCase(),
+                    type: "adaptive",
+                });
+            }
         }
-        if (tile.settings?.adaptive?.id && tile.actionType === "F") {
-            children.push({ id: tile.settings.adaptive.id.toUpperCase(), type: "adaptive" });
-        }
-        if (tile.settings?.adaptive?.idTile) {
-            children.push({ id: tile.settings.adaptive.idTile.toUpperCase(), type: "adaptive" });
-        }
+
         // if (tile.settings?.adaptive?.id && tile.actionType === "F") {
         //     children.push({ id: tile.settings.adaptive.id, type: "adaptive" });
         // }

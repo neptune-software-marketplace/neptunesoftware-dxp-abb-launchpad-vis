@@ -181,14 +181,33 @@ var ArtifactScraperDirect;
         var _a, _b, _c, _d;
         var children = [];
         var tile = data;
-        if (tile.actionApplication && (tile.actionType === "A" || !tile.actionType)) {
-            children.push({ id: tile.actionApplication, type: "app" });
+        if (tile.type === null || tile.type === "") {
+            if (tile.type === "application") {
+                children.push({
+                    id: tile.tileApplication,
+                    type: "application",
+                });
+            }
+            if (tile.type === "adaptive") {
+                children.push({
+                    id: tile.settings.adaptive.idTile.toUpperCase(),
+                    type: "adaptive",
+                });
+            }
         }
-        if (((_b = (_a = tile.settings) === null || _a === void 0 ? void 0 : _a.adaptive) === null || _b === void 0 ? void 0 : _b.id) && tile.actionType === "F") {
-            children.push({ id: tile.settings.adaptive.id.toUpperCase(), type: "adaptive" });
-        }
-        if ((_d = (_c = tile.settings) === null || _c === void 0 ? void 0 : _c.adaptive) === null || _d === void 0 ? void 0 : _d.idTile) {
-            children.push({ id: tile.settings.adaptive.idTile.toUpperCase(), type: "adaptive" });
+        else {
+            if (tile.actionApplication && (!tile.actionType || tile.actionType === "A")) {
+                children.push({ id: tile.actionApplication, type: "app" });
+            }
+            if (((_b = (_a = tile.settings) === null || _a === void 0 ? void 0 : _a.adaptive) === null || _b === void 0 ? void 0 : _b.id) && tile.actionType === "F") {
+                children.push({ id: tile.settings.adaptive.id.toUpperCase(), type: "adaptive" });
+            }
+            if ((_d = (_c = tile.settings) === null || _c === void 0 ? void 0 : _c.adaptive) === null || _d === void 0 ? void 0 : _d.idTile) {
+                children.push({
+                    id: tile.settings.adaptive.idTile.toUpperCase(),
+                    type: "adaptive",
+                });
+            }
         }
         // if (tile.settings?.adaptive?.id && tile.actionType === "F") {
         //     children.push({ id: tile.settings.adaptive.id, type: "adaptive" });
