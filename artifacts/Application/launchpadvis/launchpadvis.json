@@ -1505,6 +1505,34 @@
 							],
 							"data": [
 								{
+									"fieldNo": "e54bc576-3004-402f-90a2-1172ed27833d",
+									"fieldName": "SplitterLayoutData",
+									"fieldParent": "ae45558d-f358-4b5a-af23-e6be9a266ba0",
+									"fieldType": "sap.ui.layout.SplitterLayoutData",
+									"script": "",
+									"customComponent": false,
+									"refObject": "VBox",
+									"request": [],
+									"response": [],
+									"attributes": [
+										{
+											"attribute": "size",
+											"grouping": "Properties",
+											"value": "25%",
+											"script": "",
+											"translation": []
+										},
+										{
+											"attribute": "minSize",
+											"grouping": "Properties",
+											"value": "300px",
+											"script": "",
+											"translation": []
+										}
+									],
+									"data": []
+								},
+								{
 									"fieldNo": "ff24f6f4-85fc-4298-994a-6e58583d602c",
 									"fieldName": "HTMLObject",
 									"fieldParent": "ae45558d-f358-4b5a-af23-e6be9a266ba0",
@@ -2412,7 +2440,7 @@
 		}
 	],
 	"componentInterface": [],
-	"ver": "24.07.09.1146",
+	"ver": "24.07.09.1213",
 	"application": "launchpadvis",
 	"title": "",
 	"description": "",

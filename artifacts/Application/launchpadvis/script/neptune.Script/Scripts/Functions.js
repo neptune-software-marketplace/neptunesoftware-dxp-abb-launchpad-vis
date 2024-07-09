@@ -364,7 +364,7 @@ function setCellSize(cel, str) {
     cel.setSize({ width: newCellWidth, height: currentCellSize.height });
 }
 
-function calculateCellSize(cel = null,str) {
+function calculateCellSize(str, cel = null) {
     let defaultCellSize = {
         width: 180,
         height: 75,
