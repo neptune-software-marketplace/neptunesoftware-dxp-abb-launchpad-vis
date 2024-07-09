@@ -1521,13 +1521,6 @@
 											"value": "25%",
 											"script": "",
 											"translation": []
-										},
-										{
-											"attribute": "minSize",
-											"grouping": "Properties",
-											"value": "300px",
-											"script": "",
-											"translation": []
 										}
 									],
 									"data": []
@@ -2440,7 +2433,7 @@
 		}
 	],
 	"componentInterface": [],
-	"ver": "24.07.09.1213",
+	"ver": "24.07.09.1220",
 	"application": "launchpadvis",
 	"title": "",
 	"description": "",

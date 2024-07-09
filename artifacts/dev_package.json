@@ -7,7 +7,7 @@
 	},
 	"name": "neptunesoftware-launchpad-vis",
 	"description": null,
-	"ver": "24.07.09.1149",
+	"ver": "24.07.09.1221",
 	"enableCICD": true,
 	"apps": [
 		{
