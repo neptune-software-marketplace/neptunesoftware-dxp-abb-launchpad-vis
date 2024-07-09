@@ -65,6 +65,8 @@ function buildNestedStructure(nodeId) {
                 id: node.id,
                 shape: node.shape,
                 name: node.attr("metadata/name"),
+                appType: node.attr("metadata/appType"),
+                artifactID: node.attr("metadata/artifactID"),
                 children: children,
             };
         case "tile":
@@ -132,12 +134,23 @@ async function graphToNeptune(data) {
             case "application":
                 break;
             case "tile":
-                const tilePayload = {
+                const appType = payload.children[0].appType;
+
+                const commonPayload = {
                     name: payload.name,
                     title: payload.title,
                     description: payload.description,
-                    actionApplication: payload.children[0].name,
                     ...apiDefinitions["tile"],
+                };
+
+                const tilePayload = {
+                    ...commonPayload,
+                    actionType: appType === "application" ? "A" : "F",
+                    actionApplication: appType === "application" ? payload.children[0].name : null,
+                    settings:
+                        appType === "adaptive"
+                            ? { adaptive: { id: payload.children[0].artifactID } }
+                            : null,
                 };
 
                 response = await artifactAPI(tilePayload, "Tile", "Save");
@@ -319,7 +332,8 @@ function checkBeforeCreate() {
         }
     });
 
-    const shapeCondition = requiredShapes.size === foundShapes.size && applicationCount === tileCount;
+    const shapeCondition =
+        requiredShapes.size === foundShapes.size && applicationCount === tileCount;
 
     return {
         namesCondition: namesCondition,

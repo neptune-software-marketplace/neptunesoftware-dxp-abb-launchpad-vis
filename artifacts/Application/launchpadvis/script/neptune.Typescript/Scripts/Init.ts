@@ -43,10 +43,17 @@ async function init() {
     refreshMainPage();
     modelData.setData({
         mode: "none", // none, create, view and edit
-        intial: null,
-        current: null,
-        changes: null,
         focusedCell: false,
+        createData: {
+            launchpadName: null,
+            title: null,
+            subTitle: "Create a complete launchpad by connecting edges between nodes",
+        },
+        viewData: {
+            launchpadName: null,
+            title: null,
+            subTitle: "View existing launchpads and understand their structure breakdown",
+        },
     });
 }
 
@@ -236,7 +243,7 @@ async function render() {
         title: "Artifacts",
         target: graph,
         stencilGraphWidth: 400,
-        stencilGraphHeight: 300,
+        stencilGraphHeight: 400,
         collapsable: false,
         groups: [
             {
@@ -264,6 +271,7 @@ async function render() {
             ports[i].style.visibility = show ? "visible" : "hidden";
         }
     };
+    
     Graph.registerNode(
         "application",
         {
@@ -299,6 +307,8 @@ async function render() {
                     name: null,
                     title: null,
                     description: null,
+                    artifactID: null,
+                    appType: null,
                 },
                 icon: {
                     xlinkHref: "/public/images/platform/bare/light/app-designer.svg",
@@ -371,6 +381,7 @@ async function render() {
                     name: null,
                     title: null,
                     description: null,
+                    artifactID: null,
                 },
                 icon: {
                     xlinkHref: "/public/images/platform/bare/light/tile.svg",
@@ -440,10 +451,11 @@ async function render() {
                     "text-anchor": "start",
                 },
                 metadata: {
-                   id: null,
+                    id: null,
                     name: null,
                     title: null,
                     description: null,
+                    artifactID: null,
                 },
                 icon: {
                     xlinkHref: "/public/images/platform/bare/light/tilegroup.svg",
@@ -511,6 +523,7 @@ async function render() {
                     name: null,
                     title: null,
                     description: null,
+                    artifactID: null,
                 },
                 icon: {
                     xlinkHref: "/public/images/platform/bare/light/launchpad.svg",
@@ -549,7 +562,7 @@ async function render() {
         true
     );
 
-    const r2 = graph.createNode({
+    const r3 = graph.createNode({
         shape: "tile-group",
         attrs: {
             text: {
@@ -557,7 +570,7 @@ async function render() {
             },
         },
     });
-    const r1 = graph.createNode({
+    const r2 = graph.createNode({
         shape: "tile",
         attrs: {
             text: {
@@ -566,7 +579,7 @@ async function render() {
         },
     });
 
-    const r0 = graph.createNode({
+    const r1 = graph.createNode({
         shape: "application",
         attrs: {
             text: {
@@ -575,20 +588,21 @@ async function render() {
         },
     });
 
+
     function zoom(event) {
         event.preventDefault();
 
         const zoomDirection = event.deltaY < 0 ? "zoom-in" : "zoom-out";
         if (zoomDirection === "zoom-in") {
-            graph.zoom(0.05);
+            graph.zoom(0.01);
         }
         if (zoomDirection === "zoom-out") {
-            graph.zoom(-0.05);
+            graph.zoom(-0.01);
         }
     }
     const graphContainer = graph.container;
     graphContainer.onwheel = zoom;
 
-    stencil.load([r2, r1, r0], "group1");
+    stencil.load([r3, r2, r1], "group1");
     addLaunchpadNode();
 }

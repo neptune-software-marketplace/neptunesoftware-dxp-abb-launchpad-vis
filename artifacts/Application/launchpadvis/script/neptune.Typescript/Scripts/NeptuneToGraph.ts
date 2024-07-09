@@ -25,10 +25,6 @@ function showUsage(id: string, name: string, title: string, description: string)
 
     const neptuneGraph = processGraph(preProcessedJSON);
 
-    const appData = modelData.getData();
-    appData.intial = neptuneGraph;
-    modelData.refresh();
-
     return neptuneGraph;
 }
 
@@ -63,9 +59,12 @@ function getUsingTree(objectId, parent, level, tree) {
     // const sourceArtifact = modelartifactsData.getData().find((z) => z.objectId === objectId);
     // find users
     const usingTabData = source?.using.map((y: any) => {
+
+        const usingID = y.type === "adaptive" ? y.id.toLowerCase() : y.id;
+
         const artifact = modelArtifactRelations
             .getData()
-            .artifactsData.find((z: any) => z.objectId === y.id);
+            .artifactsData.find((z: any) => z.objectId === usingID);
         if (artifact) {
             return { objectId: artifact.objectId, name: artifact.name, type: artifact.type, title: artifact.title, description: artifact.description,  };
         }
@@ -126,11 +125,21 @@ async function renderSymmetricGraph(data) {
     const model: Model.FromJSONData = { nodes: [], edges: [] };
     const traverse = (data: HierarchyResult) => {
         if (data) {
-            const nodeShape = data.data.shape;
+            let nodeShape = data.data.shape;
             const nodeName = data.data.name;
             const nodeSize = calculateCellSize(nodeName);
+            let appType = null;
 
-            model.nodes?.push({
+            if (nodeShape === "application") {
+                appType = "application";
+            };
+            if (nodeShape === "adaptive") {
+                appType = "adaptive";
+            }
+
+            if (nodeShape === "adaptive") nodeShape = "application";
+
+            model.nodes.push({
                 id: data.data.id, // node id and artifact id
                 shape: nodeShape,
                 width: nodeSize.width,
@@ -147,6 +156,8 @@ async function renderSymmetricGraph(data) {
                         name: nodeName,
                         title: data.data.title || null,
                         description: data.data.description || null,
+                        artifactID : data.data.id || null,
+                        appType : appType,
                     },
                 },
                 ports: {

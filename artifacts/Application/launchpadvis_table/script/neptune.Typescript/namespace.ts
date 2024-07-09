@@ -1,5 +1,6 @@
+
 namespace CustomComponent {
-    let fetchDataFunc: () => Promise<any>;
+    let fetchDataFunc: (tool:string,method:string) => Promise<any>;
     let selectedIds: string[] = [];
 
     function getSelectedIds() {
@@ -29,9 +30,9 @@ namespace CustomComponent {
         diaArtifact.close();
     }
 
-    export async function update() {
+    export async function update(tool:string,method:string) {
         selectedIds?.push(...getSelectedIds());
-        const data = await fetchDataFunc();
+        const data = await fetchDataFunc(tool,method);
         if (data) {
             updateSelected(data);
             modeltabArtifactTable.setData(data);

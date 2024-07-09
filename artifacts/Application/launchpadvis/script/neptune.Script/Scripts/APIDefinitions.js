@@ -1,9 +1,7 @@
 const apiDefinitions = {
     tile: {
-        actionType: "A",
         translation: [],
         storeItem: {},
-        settings: null,
         categoryID: null,
         sort: null,
         urlApplication: null,

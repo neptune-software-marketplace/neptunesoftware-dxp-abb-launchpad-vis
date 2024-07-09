@@ -594,8 +594,15 @@
 														{
 															"attribute": "text",
 															"grouping": "Properties",
-															"value": "{application}",
+															"value": "{type},{application},{name}",
 															"script": "",
+															"translation": []
+														},
+														{
+															"attribute": "text",
+															"grouping": "Formatter",
+															"value": "Anonymous Function",
+															"script": "file://event/sap.m.Text/txttabArtifactName/text.script",
 															"translation": []
 														}
 													],
@@ -983,7 +990,7 @@
 		],
 		"topLevelObjects": []
 	},
-	"ver": "24.07.04.1958",
+	"ver": "24.07.09.0751",
 	"application": "launchpadvis_table",
 	"title": "",
 	"description": "",

@@ -6,4 +6,4 @@ node.attr("metadata/appType", null);
 node.attr("metadata/artifactID", null);
 modelSelectedNode.getData().name = null;
 modelSelectedNode.refresh();
-appDialog.close();
+

@@ -54,6 +54,7 @@ var ArtifactScraperDirect;
         "settings",
         "actionType"
     ], artifactInfoTitle, true);
+    var artifactInfoAdaptive = __spreadArray(["application", "connectorid"], artifactInfoPackage, true);
     var artifactInfoApp = [
         "id",
         "package",
@@ -97,8 +98,23 @@ var ArtifactScraperDirect;
             artifactMapFn: mapApp,
             usingFn: [mapAppUsing],
         },
+        {
+            artifactType: "adaptive",
+            repositoryName: "reports",
+            selectInfo: artifactInfoAdaptive,
+            artifactMapFn: mapInfoPackage,
+            usingFn: [
+                {
+                    propertyExtractFn: function (x) {
+                        return x.connectorid ? [x.connectorid] : [];
+                    },
+                    artifactType: "connector",
+                },
+            ],
+        },
     ];
     var apps = [];
+    var noPackageId = uuid().toUpperCase();
     complete({
         scrapeArtifacts: scrapeArtifacts,
     });
@@ -174,7 +190,31 @@ var ArtifactScraperDirect;
         if ((_d = (_c = tile.settings) === null || _c === void 0 ? void 0 : _c.adaptive) === null || _d === void 0 ? void 0 : _d.idTile) {
             children.push({ id: tile.settings.adaptive.idTile.toUpperCase(), type: "adaptive" });
         }
+        // if (tile.settings?.adaptive?.id && tile.actionType === "F") {
+        //     children.push({ id: tile.settings.adaptive.id, type: "adaptive" });
+        // }
+        // if (tile.settings?.adaptive?.idTile) {
+        //     children.push({ id: tile.settings.adaptive.idTile, type: "adaptive" });
+        // }
         return children;
+    }
+    function mapInfoPackage(_a) {
+        var id = _a.id, name = _a.name, package = _a.package, description = _a.description;
+        return [
+            {
+                type: "",
+                packageId: package !== null && package !== void 0 ? package : noPackageId,
+                packageName: null,
+                objectId: id,
+                name: name,
+                id: uuid(),
+                parents: [package],
+                children: [],
+                using: [],
+                used_by: [],
+                description: description,
+            },
+        ];
     }
     function scrapeArtifacts() {
         return __awaiter(this, void 0, void 0, function () {
@@ -183,7 +223,7 @@ var ArtifactScraperDirect;
                 switch (_a.label) {
                     case 0:
                         manager = p9.manager ? p9.manager : modules.typeorm.getConnection().manager;
-                        return [4 /*yield*/, manager.find('app', { select: ["id", "package"] })];
+                        return [4 /*yield*/, manager.find("app", { select: ["id", "package"] })];
                     case 1:
                         apps = _a.sent();
                         allArtifacts = [];
@@ -201,7 +241,7 @@ var ArtifactScraperDirect;
                         _i++;
                         return [3 /*break*/, 2];
                     case 5:
-                        artifactsUsingApps = ['tile'];
+                        artifactsUsingApps = ["tile"];
                         final = allArtifacts.reduce(function (acc, x) { return __spreadArray(__spreadArray([], acc, true), x, true); }, []);
                         final.forEach(function (x) {
                             var _a;

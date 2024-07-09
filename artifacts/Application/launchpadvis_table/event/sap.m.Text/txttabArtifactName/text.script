@@ -1,0 +1,5 @@
+if (typeof type === "undefined" || type === null || type === "") { 
+    return application; 
+} else {
+    return name;
+}

@@ -7,7 +7,7 @@
 	},
 	"name": "neptunesoftware-launchpad-vis",
 	"description": null,
-	"ver": "24.07.05.1913",
+	"ver": "24.07.08.1117",
 	"enableCICD": true,
 	"apps": [
 		{
@@ -117,13 +117,7 @@
 	],
 	"launchpad": [],
 	"certificates": [],
-	"role": [
-		{
-			"id": "9e47c219-3511-474a-94e2-cd3e72deaa16",
-			"name": "neptunesoftware-launchpad-vis",
-			"description": "Launchpad Visualizer"
-		}
-	],
+	"role": [],
 	"systems": [],
 	"doc": [],
 	"wf_notifications": [],

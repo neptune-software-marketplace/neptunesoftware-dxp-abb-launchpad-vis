@@ -1,14 +1,21 @@
 (() => {
     const item = oEvent.oSource.getSelectedItem();
     const data = item.getBindingContext().getObject();
+
     if (data?.id) {
         const id = NodeID.getText();
         const node = graph.getCellById(id);
+        const appType = SelectAppType.getSelectedKey();
 
-        node.attr("text/text", data.application);
-        node.attr("metadata/name",data.application);
+        const name = appType === "application" ? data.application : data.name;
+
+        node.attr("text/text",name);
+        node.attr("metadata/name",name);
+        node.attr("metadata/appType",appType);
+        node.attr("metadata/artifactID",data.id);
+
         modelSelectedNode.getData().name = data.application;
-        setCellSize(node,data.application);
+        setCellSize(node, data.application);
         modelSelectedNode.refresh();
         appDialog.close();
     }

@@ -30,6 +30,7 @@ namespace ArtifactScraperDirect {
         "actionType",
         ...artifactInfoTitle,
     ];
+    const artifactInfoAdaptive: SelectInfo = ["application", "connectorid", ...artifactInfoPackage];
     const artifactInfoApp: SelectInfo = [
         "id",
         "package",
@@ -74,9 +75,24 @@ namespace ArtifactScraperDirect {
             artifactMapFn: mapApp,
             usingFn: [mapAppUsing],
         },
+        {
+            artifactType: "adaptive",
+            repositoryName: "reports",
+            selectInfo: artifactInfoAdaptive,
+            artifactMapFn: mapInfoPackage,
+            usingFn: [
+                {
+                    propertyExtractFn: (x) => {
+                        return x.connectorid ? [x.connectorid] : [];
+                    },
+                    artifactType: "connector",
+                },
+            ],
+        },
     ];
 
     let apps = [];
+    const noPackageId = uuid().toUpperCase();
 
     complete({
         scrapeArtifacts,
@@ -163,14 +179,38 @@ namespace ArtifactScraperDirect {
         if (tile.settings?.adaptive?.idTile) {
             children.push({ id: tile.settings.adaptive.idTile.toUpperCase(), type: "adaptive" });
         }
-       
+        // if (tile.settings?.adaptive?.id && tile.actionType === "F") {
+        //     children.push({ id: tile.settings.adaptive.id, type: "adaptive" });
+        // }
+        // if (tile.settings?.adaptive?.idTile) {
+        //     children.push({ id: tile.settings.adaptive.idTile, type: "adaptive" });
+        // }
+
         return children;
+    }
+
+    function mapInfoPackage({ id, name, package, description }) {
+        return [
+            {
+                type: "",
+                packageId: package ?? noPackageId,
+                packageName: null,
+                objectId: id,
+                name: name,
+                id: uuid(),
+                parents: [package],
+                children: [],
+                using: [],
+                used_by: [],
+                description: description,
+            },
+        ];
     }
 
     async function scrapeArtifacts() {
         const manager = p9.manager ? p9.manager : modules.typeorm.getConnection().manager;
 
-        apps = await manager.find('app', { select: ["id", "package"] });
+        apps = await manager.find("app", { select: ["id", "package"] });
 
         const allArtifacts = [];
 
@@ -178,7 +218,7 @@ namespace ArtifactScraperDirect {
             const res = await scrapeIt(scraper, manager);
             allArtifacts.push(res);
         }
-        const artifactsUsingApps = ['tile'];
+        const artifactsUsingApps = ["tile"];
         const final = allArtifacts.reduce((acc, x) => [...acc, ...x], []);
 
         final.forEach((x) => {

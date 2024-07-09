@@ -7,6 +7,8 @@ if (context) {
 
     const appData = modelData.getData();
     appData.mode = "view";
+    appData.viewData.launchpadName = data.name;
+    appData.viewData.title = "Launchpad: "+data.name;
     stencilVisibility(false);
     modelData.refresh();
 

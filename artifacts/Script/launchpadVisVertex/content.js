@@ -7,6 +7,7 @@ const artifactTypeNames = {
     tile_group: "Tile Group",
     tile: "Tile",
     app: "Application",
+    adaptive: "Adaptive App",
 }
 
 let artifacts = [];

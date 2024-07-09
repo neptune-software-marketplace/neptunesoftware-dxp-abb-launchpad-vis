@@ -42,6 +42,7 @@ function addGraphEvents() {
             const nodeName = clickedSource.attr("metadata/name") || null;
             const nodeTitle = clickedSource.attr("metadata/title") || null;
             const nodeDesc = clickedSource.attr("metadata/description") || null;
+            const nodeAppType = clickedSource.attr("metadata/appType") || null;
 
             modelSelectedNode.setData({
                 nodeID: nodeID,
@@ -49,6 +50,7 @@ function addGraphEvents() {
                 name: nodeName,
                 title: nodeTitle,
                 description: nodeDesc,
+                appType: nodeAppType,
             });
 
             if (!node.hasTool("boundary")) {
