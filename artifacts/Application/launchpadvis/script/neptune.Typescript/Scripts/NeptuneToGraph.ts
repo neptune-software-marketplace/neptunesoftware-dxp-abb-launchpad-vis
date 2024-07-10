@@ -60,11 +60,11 @@ function getUsingTree(objectId, parent, level, tree) {
     // find users
     const usingTabData = source?.using.map((y: any) => {
 
-        const usingID = y.type === "adaptive" ? y.id.toLowerCase() : y.id;
+        // const usingID = y.type === "adaptive" ? y.id.toLowerCase() : y.id;
 
         const artifact = modelArtifactRelations
             .getData()
-            .artifactsData.find((z: any) => z.objectId === usingID);
+            .artifactsData.find((z: any) => z.objectId === y.id);
         if (artifact) {
             return { objectId: artifact.objectId, name: artifact.name, type: artifact.type, title: artifact.title, description: artifact.description,  };
         }
