@@ -183,7 +183,7 @@ namespace ArtifactScraperDirect {
             };
             if (tile.type === "adaptive") {
                 children.push({
-                    id: tile.settings.adaptive.idTile,
+                    id: tile.settings.adaptive.idTile.toLowerCase(),
                     type: "adaptive",
                 });
             };
@@ -192,7 +192,7 @@ namespace ArtifactScraperDirect {
                 children.push({ id: tile.actionApplication, type: "app" });
             };
             if (tile.settings?.adaptive?.id && tile.actionType === "F") {
-                children.push({ id: tile.settings.adaptive.id, type: "adaptive" });
+                children.push({ id: tile.settings.adaptive.id.toLowerCase(), type: "adaptive" });
             };
         }
 

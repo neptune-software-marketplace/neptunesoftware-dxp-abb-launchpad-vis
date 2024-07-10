@@ -194,7 +194,7 @@ var ArtifactScraperDirect;
             ;
             if (tile.type === "adaptive") {
                 children.push({
-                    id: tile.settings.adaptive.idTile,
+                    id: tile.settings.adaptive.idTile.toLowerCase(),
                     type: "adaptive",
                 });
             }
@@ -206,7 +206,7 @@ var ArtifactScraperDirect;
             }
             ;
             if (((_b = (_a = tile.settings) === null || _a === void 0 ? void 0 : _a.adaptive) === null || _b === void 0 ? void 0 : _b.id) && tile.actionType === "F") {
-                children.push({ id: tile.settings.adaptive.id, type: "adaptive" });
+                children.push({ id: tile.settings.adaptive.id.toLowerCase(), type: "adaptive" });
             }
             ;
         }
