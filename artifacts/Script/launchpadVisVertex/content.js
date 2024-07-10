@@ -34,7 +34,6 @@ if (queryMode === "D") {
         timestamp = Date.now();
     }
 }
-
 processPackages(packages);
 
 processArtifactLists(artifactLists, "", 0, "T");

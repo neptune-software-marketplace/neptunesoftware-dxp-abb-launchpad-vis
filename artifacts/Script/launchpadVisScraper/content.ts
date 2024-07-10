@@ -180,26 +180,20 @@ namespace ArtifactScraperDirect {
                     id: tile.tileApplication,
                     type: "app",
                 });
-            }
+            };
             if (tile.type === "adaptive") {
                 children.push({
-                    id: tile.settings.adaptive.idTile.toUpperCase(),
+                    id: tile.settings.adaptive.idTile,
                     type: "adaptive",
                 });
-            }
+            };
         } else {
             if (tile.actionApplication && (!tile.actionType || tile.actionType === "A")) {
                 children.push({ id: tile.actionApplication, type: "app" });
-            }
+            };
             if (tile.settings?.adaptive?.id && tile.actionType === "F") {
-                children.push({ id: tile.settings.adaptive.id.toUpperCase(), type: "adaptive" });
-            }
-            if (tile.settings?.adaptive?.idTile) {
-                children.push({
-                    id: tile.settings.adaptive.idTile.toUpperCase(),
-                    type: "adaptive",
-                });
-            }
+                children.push({ id: tile.settings.adaptive.id, type: "adaptive" });
+            };
         }
 
         return children;
@@ -251,7 +245,7 @@ namespace ArtifactScraperDirect {
                 x.children.push(
                     ...final
                         .filter((y) => y.packageId === x.objectId)
-                        .map((x) => ({ id: x.objectId, type: x.type }))
+                        .map((x) => ({ id: x.objectId.toLowerCase(), type: x.type }))
                 );
             }
 
@@ -262,7 +256,7 @@ namespace ArtifactScraperDirect {
                     if (childArtifact) {
                         if (x.type === "tile") {
                         }
-                        childArtifact.used_by?.push({ id: x.objectId, type: x.type });
+                        childArtifact.used_by?.push({ id: x.objectId.toLowerCase(), type: x.type });
                         checkedChildren.push(child);
                     }
                 });
@@ -282,12 +276,13 @@ namespace ArtifactScraperDirect {
                 .flat()
                 .map((x) => {
                     x.type = scraper.artifactType;
+                    x.objectId = x.objectId.toLowerCase();
                     return x;
                 });
-
+            log.info(JSON.stringify(artifacts));
             if (scraper.usingFn || scraper.childrenFn) {
                 for (const artifact of artifactData) {
-                    const targetArtifact = artifacts.find((x) => x.objectId === artifact.id);
+                    const targetArtifact = artifacts.find((x) => x.objectId === artifact.id.toLowerCase());
                     if (scraper.childrenFn) {
                         const allChildren = [];
                         for (const childrenFn of scraper.childrenFn) {
@@ -296,7 +291,7 @@ namespace ArtifactScraperDirect {
                             } else {
                                 allChildren.push(
                                     childrenFn.propertyExtractFn(artifact).map((x) => {
-                                        return { id: x, type: childrenFn.artifactType };
+                                        return { id: x.toLowerCase(), type: childrenFn.artifactType };
                                     })
                                 );
                             }
@@ -314,7 +309,7 @@ namespace ArtifactScraperDirect {
                             } else {
                                 allUsing.push(
                                     usingFn.propertyExtractFn(artifact).map((x) => {
-                                        return { id: x, type: usingFn.artifactType };
+                                        return { id: x.toLowerCase(), type: usingFn.artifactType };
                                     })
                                 );
                             }
