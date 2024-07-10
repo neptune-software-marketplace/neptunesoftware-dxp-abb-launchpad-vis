@@ -180,20 +180,20 @@ namespace ArtifactScraperDirect {
                     id: tile.tileApplication,
                     type: "app",
                 });
-            };
+            }
             if (tile.type === "adaptive") {
                 children.push({
                     id: tile.settings.adaptive.idTile.toLowerCase(),
                     type: "adaptive",
                 });
-            };
+            }
         } else {
             if (tile.actionApplication && (!tile.actionType || tile.actionType === "A")) {
                 children.push({ id: tile.actionApplication, type: "app" });
-            };
+            }
             if (tile.settings?.adaptive?.id && tile.actionType === "F") {
                 children.push({ id: tile.settings.adaptive.id.toLowerCase(), type: "adaptive" });
-            };
+            }
         }
 
         return children;
@@ -277,31 +277,30 @@ namespace ArtifactScraperDirect {
                 .map((x) => {
                     x.type = scraper.artifactType;
                     x.objectId = x.objectId.toLowerCase();
-
-                    if (Array.isArray(x.using) && x.using.length > 0) {
-                        x.using = x.using.map((u:any) => {
-                            if (u.id) {
-                                u.id = u.id.toLowerCase();
-                            }
-                            return u;
-                        });
-                    }
-
                     return x;
                 });
-            log.info(JSON.stringify(artifacts));
             if (scraper.usingFn || scraper.childrenFn) {
                 for (const artifact of artifactData) {
-                    const targetArtifact = artifacts.find((x) => x.objectId === artifact.id.toLowerCase());
+                    const targetArtifact = artifacts.find(
+                        (x) => x.objectId === artifact.id.toLowerCase()
+                    );
                     if (scraper.childrenFn) {
                         const allChildren = [];
                         for (const childrenFn of scraper.childrenFn) {
                             if (childrenFn instanceof Function) {
-                                allChildren.push(childrenFn(artifact));
+                                allChildren.push(
+                                    childrenFn(artifact).map((x: any) => {
+                                        x.id = x.id.toLowerCase();
+                                        return x;
+                                    })
+                                );
                             } else {
                                 allChildren.push(
                                     childrenFn.propertyExtractFn(artifact).map((x) => {
-                                        return { id: x.toLowerCase(), type: childrenFn.artifactType };
+                                        return {
+                                            id: x.toLowerCase(),
+                                            type: childrenFn.artifactType,
+                                        };
                                     })
                                 );
                             }
@@ -315,10 +314,15 @@ namespace ArtifactScraperDirect {
                         const allUsing = [];
                         for (const usingFn of scraper.usingFn) {
                             if (usingFn instanceof Function) {
-                                allUsing.push(usingFn(artifact));
+                                allUsing.push(
+                                    usingFn(artifact).map((x: any) => {
+                                        x.id = x.id.toLowerCase();
+                                        return x;
+                                    })
+                                );
                             } else {
                                 allUsing.push(
-                                    usingFn.propertyExtractFn(artifact).map((x) => {
+                                    usingFn.propertyExtractFn(artifact).map((x: any) => {
                                         return { id: x.toLowerCase(), type: usingFn.artifactType };
                                     })
                                 );

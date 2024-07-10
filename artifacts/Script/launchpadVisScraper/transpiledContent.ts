@@ -191,24 +191,20 @@ var ArtifactScraperDirect;
                     type: "app",
                 });
             }
-            ;
             if (tile.type === "adaptive") {
                 children.push({
                     id: tile.settings.adaptive.idTile.toLowerCase(),
                     type: "adaptive",
                 });
             }
-            ;
         }
         else {
             if (tile.actionApplication && (!tile.actionType || tile.actionType === "A")) {
                 children.push({ id: tile.actionApplication, type: "app" });
             }
-            ;
             if (((_b = (_a = tile.settings) === null || _a === void 0 ? void 0 : _a.adaptive) === null || _b === void 0 ? void 0 : _b.id) && tile.actionType === "F") {
                 children.push({ id: tile.settings.adaptive.id.toLowerCase(), type: "adaptive" });
             }
-            ;
         }
         return children;
     }
@@ -312,19 +308,10 @@ var ArtifactScraperDirect;
                                 .map(function (x) {
                                 x.type = scraper.artifactType;
                                 x.objectId = x.objectId.toLowerCase();
-                                if (Array.isArray(x.using) && x.using.length > 0) {
-                                    x.using = x.using.map(function (u) {
-                                        if (u.id) {
-                                            u.id = u.id.toLowerCase();
-                                        }
-                                        return u;
-                                    });
-                                }
                                 return x;
                             })];
                     case 2:
                         artifacts = _a.sent();
-                        log.info(JSON.stringify(artifacts));
                         if (scraper.usingFn || scraper.childrenFn) {
                             _loop_1 = function (artifact) {
                                 var targetArtifact = artifacts.find(function (x) { return x.objectId === artifact.id.toLowerCase(); });
@@ -332,11 +319,17 @@ var ArtifactScraperDirect;
                                     var allChildren = [];
                                     var _loop_2 = function (childrenFn) {
                                         if (childrenFn instanceof Function) {
-                                            allChildren.push(childrenFn(artifact));
+                                            allChildren.push(childrenFn(artifact).map(function (x) {
+                                                x.id = x.id.toLowerCase();
+                                                return x;
+                                            }));
                                         }
                                         else {
                                             allChildren.push(childrenFn.propertyExtractFn(artifact).map(function (x) {
-                                                return { id: x.toLowerCase(), type: childrenFn.artifactType };
+                                                return {
+                                                    id: x.toLowerCase(),
+                                                    type: childrenFn.artifactType,
+                                                };
                                             }));
                                         }
                                     };
@@ -350,7 +343,10 @@ var ArtifactScraperDirect;
                                     var allUsing = [];
                                     var _loop_3 = function (usingFn) {
                                         if (usingFn instanceof Function) {
-                                            allUsing.push(usingFn(artifact));
+                                            allUsing.push(usingFn(artifact).map(function (x) {
+                                                x.id = x.id.toLowerCase();
+                                                return x;
+                                            }));
                                         }
                                         else {
                                             allUsing.push(usingFn.propertyExtractFn(artifact).map(function (x) {
