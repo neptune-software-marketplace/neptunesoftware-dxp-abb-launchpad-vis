@@ -312,6 +312,14 @@ var ArtifactScraperDirect;
                                 .map(function (x) {
                                 x.type = scraper.artifactType;
                                 x.objectId = x.objectId.toLowerCase();
+                                if (Array.isArray(x.using) && x.using.length > 0) {
+                                    x.using = x.using.map(function (u) {
+                                        if (u.id) {
+                                            u.id = u.id.toLowerCase();
+                                        }
+                                        return u;
+                                    });
+                                }
                                 return x;
                             })];
                     case 2:

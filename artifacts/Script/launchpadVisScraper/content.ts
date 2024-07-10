@@ -277,6 +277,16 @@ namespace ArtifactScraperDirect {
                 .map((x) => {
                     x.type = scraper.artifactType;
                     x.objectId = x.objectId.toLowerCase();
+
+                    if (Array.isArray(x.using) && x.using.length > 0) {
+                        x.using = x.using.map((u:any) => {
+                            if (u.id) {
+                                u.id = u.id.toLowerCase();
+                            }
+                            return u;
+                        });
+                    }
+
                     return x;
                 });
             log.info(JSON.stringify(artifacts));
