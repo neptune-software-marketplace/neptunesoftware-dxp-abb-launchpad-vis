@@ -30,6 +30,7 @@ namespace ArtifactScraperDirect {
         "actionType",
         "settings",
         "type",
+        "tileApplication",
         ...artifactInfoTitle,
     ];
     const artifactInfoAdaptive: SelectInfo = ["application", "connectorid", ...artifactInfoPackage];
@@ -173,11 +174,11 @@ namespace ArtifactScraperDirect {
 
         const tile = data;
 
-        if (tile.type === null || tile.type === "") {
+        if (tile.type != null && tile.type !== "") {
             if (tile.type === "application") {
                 children.push({
                     id: tile.tileApplication,
-                    type: "application",
+                    type: "app",
                 });
             }
             if (tile.type === "adaptive") {

@@ -54,7 +54,8 @@ var ArtifactScraperDirect;
         "settings",
         "actionType",
         "settings",
-        "type"
+        "type",
+        "tileApplication"
     ], artifactInfoTitle, true);
     var artifactInfoAdaptive = __spreadArray(["application", "connectorid"], artifactInfoPackage, true);
     var artifactInfoApp = [
@@ -183,11 +184,11 @@ var ArtifactScraperDirect;
         var _a, _b, _c, _d;
         var children = [];
         var tile = data;
-        if (tile.type === null || tile.type === "") {
+        if (tile.type != null && tile.type !== "") {
             if (tile.type === "application") {
                 children.push({
                     id: tile.tileApplication,
-                    type: "application",
+                    type: "app",
                 });
             }
             if (tile.type === "adaptive") {
