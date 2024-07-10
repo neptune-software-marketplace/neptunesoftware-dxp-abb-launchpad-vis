@@ -28,6 +28,8 @@ namespace ArtifactScraperDirect {
         "actionApplication",
         "settings",
         "actionType",
+        "settings",
+        "type",
         ...artifactInfoTitle,
     ];
     const artifactInfoAdaptive: SelectInfo = ["application", "connectorid", ...artifactInfoPackage];
@@ -198,13 +200,6 @@ namespace ArtifactScraperDirect {
                 });
             }
         }
-
-        // if (tile.settings?.adaptive?.id && tile.actionType === "F") {
-        //     children.push({ id: tile.settings.adaptive.id, type: "adaptive" });
-        // }
-        // if (tile.settings?.adaptive?.idTile) {
-        //     children.push({ id: tile.settings.adaptive.idTile, type: "adaptive" });
-        // }
 
         return children;
     }

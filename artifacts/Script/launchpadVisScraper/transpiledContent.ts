@@ -52,7 +52,9 @@ var ArtifactScraperDirect;
     var artifactInfoTile = __spreadArray([
         "actionApplication",
         "settings",
-        "actionType"
+        "actionType",
+        "settings",
+        "type"
     ], artifactInfoTitle, true);
     var artifactInfoAdaptive = __spreadArray(["application", "connectorid"], artifactInfoPackage, true);
     var artifactInfoApp = [
@@ -209,12 +211,6 @@ var ArtifactScraperDirect;
                 });
             }
         }
-        // if (tile.settings?.adaptive?.id && tile.actionType === "F") {
-        //     children.push({ id: tile.settings.adaptive.id, type: "adaptive" });
-        // }
-        // if (tile.settings?.adaptive?.idTile) {
-        //     children.push({ id: tile.settings.adaptive.idTile, type: "adaptive" });
-        // }
         return children;
     }
     function mapInfoPackage(_a) {
