@@ -1657,13 +1657,6 @@
 													"translation": []
 												},
 												{
-													"attribute": "title",
-													"grouping": "Properties",
-													"value": "{= ${Data>/mode} === 'view' ? ${SelectedNode>/name} : null }",
-													"script": "",
-													"translation": []
-												},
-												{
 													"attribute": "editable",
 													"grouping": "Properties",
 													"value": "true",
@@ -1714,7 +1707,7 @@
 														{
 															"attribute": "visible",
 															"grouping": "Properties",
-															"value": "{= ${SelectedNode>/shape} === 'application' ? false : ${Data>/mode} === 'create' ? true : false }",
+															"value": "{= ${SelectedNode>/shape} === 'application' ? false : true}",
 															"script": "",
 															"translation": []
 														},
@@ -1749,7 +1742,7 @@
 														{
 															"attribute": "visible",
 															"grouping": "Properties",
-															"value": "{= ${SelectedNode>/shape} === 'application' ? false : ${Data>/mode} === 'create' ? true : false }",
+															"value": "{= ${SelectedNode>/shape} === 'application' ? false : true}",
 															"script": "",
 															"translation": []
 														},
@@ -2405,7 +2398,7 @@
 		}
 	],
 	"componentInterface": [],
-	"ver": "24.07.30.0835",
+	"ver": "24.07.30.0915",
 	"application": "launchpadvis",
 	"title": "",
 	"description": "",

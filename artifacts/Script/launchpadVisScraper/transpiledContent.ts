@@ -369,7 +369,7 @@ var ArtifactScraperDirect;
                         return [2 /*return*/, artifacts];
                     case 3:
                         requestError_1 = _a.sent();
-                        console.error(requestError_1);
+                        log.error(requestError_1);
                         return [2 /*return*/, []];
                     case 4: return [2 /*return*/];
                 }

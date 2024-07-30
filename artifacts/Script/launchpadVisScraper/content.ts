@@ -228,6 +228,7 @@ namespace ArtifactScraperDirect {
             const res = await scrapeIt(scraper, manager);
             allArtifacts.push(res);
         }
+
         const artifactsUsingApps = ["tile"];
         const final = allArtifacts.reduce((acc, x) => [...acc, ...x], []);
 
@@ -335,7 +336,7 @@ namespace ArtifactScraperDirect {
             }
             return artifacts;
         } catch (requestError) {
-            console.error(requestError);
+            log.error(requestError);
             return [];
         }
     }
