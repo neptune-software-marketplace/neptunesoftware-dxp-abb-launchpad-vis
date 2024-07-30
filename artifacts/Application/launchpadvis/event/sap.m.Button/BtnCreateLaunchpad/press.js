@@ -1,11 +1,9 @@
-const {namesCondition, edgesCondition, shapeCondition} = checkBeforeCreate();
+const {namesCondition, edgesCondition, shapeCondition} = Functions.checkBeforeCreate();
 
 if (namesCondition && edgesCondition && shapeCondition) {
-    const nestedGraph = graphToJSON();
-    // console.log(nestedGraph);
-    graphToNeptune(nestedGraph)
+    const nestedGraph = Functions.graphToJSON();
+    Functions.graphToNeptune(nestedGraph)
         .then((response) => {
-            // console.log("Processing completed", response);
             sap.m.MessageBox.confirm("Launchpad created! Would you like to see the launchpad?", {
                 title: "Confirm",
                 icon: "QUESTION",
@@ -23,9 +21,9 @@ if (namesCondition && edgesCondition && shapeCondition) {
                         };
                         sap.n.HashNavigation.toExternal(redirectDetails);
                     }
-                    clear();
-                    addLaunchpadNode();
-                    centerContent();
+                    Functions.clear();
+                    Functions.addLaunchpadNode();
+                    Functions.centerContent();
                 },
             });
         })

@@ -21,11 +21,11 @@ if (appData.mode !== "view") {
         appData.mode = "none";
         modelData.refresh();
         App.to(Main);
-        clear();
+        Functions.clear();
     }
 } else {
     appData.mode = "none";
     modelData.refresh();
     App.to(Main);
-    clear();
+    Functions.clear();
 }

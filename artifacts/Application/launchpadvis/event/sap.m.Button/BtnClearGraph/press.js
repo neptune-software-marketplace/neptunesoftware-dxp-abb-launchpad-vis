@@ -6,9 +6,9 @@ sap.m.MessageBox.confirm("Are you sure you want to clear the graph?", {
         if (answer === "NO") {
             return;
         } else {
-            clear();
-            addLaunchpadNode();
-            centerContent();
+            Functions.clear();
+            Functions.addLaunchpadNode();
+            Functions.centerContent();
         }
     },
 });

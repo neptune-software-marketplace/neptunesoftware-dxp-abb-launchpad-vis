@@ -1,608 +1,615 @@
-let Graph = null;
-let Shape = null;
-let Stencil = null;
-let Keyboard = null;
-let Hierarchy = null;
-let Model = null;
-let Selection = null;
-let Snapline = null;
+let Graph: any = null;
+let Shape: any = null;
+let Stencil: any = null;
+let Keyboard: any = null;
+let Hierarchy: any = null;
+let Model: any = null;
+let X6Selection: any = null;
+let Snapline: any = null;
 
-let graph = null;
-let stencil = null;
-let clickedSource = null;
-let previousSource = null;
-let previousLength = 0;
+let graph: any = null;
+let stencil: any = null;
+let clickedSource: any = null;
+let previousSource: any = null;
+let previousLength: number = 0;
 
-(async () => {
-    await init();
-})();
+declare const getX6Object: () => Promise<X6Object>;
 
-async function init() {
-    //@ts-ignore
-    const X6Objects = await getX6Object();
-    //@ts-ignore
-    const extraModules = await Modules.getModules();
-    //@ts-ignore
-    Keyboard = extraModules.Keyboard;
-    //@ts-ignore
-    Hierarchy = extraModules.Hierarchy;
-    //@ts-ignore
-    Selection = extraModules.Selection;
-    //@ts-ignore
-    Snapline = extraModules.Snapline;
-    //@ts-ignore
-    Graph = X6Objects.Graph;
-    //@ts-ignore
-    Shape = X6Objects.Shape;
-    //@ts-ignore
-    Stencil = X6Objects.Stencil;
-    //@ts-ignore
-    History = X6Objects.History;
-    //@ts-ignore
-    Model = X6Objects.Model;
-    refreshMainPage();
-    modelData.setData({
-        mode: "none", // none, create, view and edit
-        focusedCell: false,
-        createData: {
-            launchpadName: null,
-            title: null,
-            subTitle: "Create a complete launchpad by connecting edges between nodes",
-        },
-        viewData: {
-            launchpadName: null,
-            title: null,
-            subTitle: "View existing launchpads and understand their structure breakdown",
-        },
-    });
-}
+namespace Init {
+    export async function coreSetup() {
+        try {
+            const X6Objects = await getX6Object();
+            const extraModules = await Modules.getModules();
 
-async function render() {
-    stencil = null;
+            Keyboard = extraModules.Keyboard;
+            Hierarchy = extraModules.Hierarchy;
+            X6Selection = extraModules.Selection;
+            Snapline = extraModules.Snapline;
+            Graph = X6Objects.Graph;
+            Shape = X6Objects.Shape;
+            Stencil = X6Objects.Stencil;
+            History = X6Objects.History;
+            Model = X6Objects.Model;
 
-    if (graph) {
-        graph.dispose();
-        graph = null;
-    }
-
-    graph = new Graph({
-        container: document.getElementById("graph-container")!,
-        grid: true,
-        mousewheel: {
-            enabled: true,
-        },
-        panning: {
-            enabled: true,
-        },
-        connecting: {
-            router: "manhattan",
-            connector: {
-                name: "rounded",
-                args: {
-                    radius: 8,
+            Functions.refreshMainPage();
+            modelData.setData({
+                mode: "none", // none, create, view, edit
+                focusedCell: false,
+                createData: {
+                    launchpadName: null,
+                    title: null,
+                    subTitle: "Create a complete launchpad by connecting edges between nodes",
                 },
+                viewData: {
+                    launchpadName: null,
+                    title: null,
+                    subTitle: "View existing launchpads and understand their structure breakdown",
+                },
+                selectedLaunchpad : null,
+            });
+        } catch (error) {
+            console.error("Error during core setup:", error);
+        }
+    }
+    
+    export let textColor: string;
+
+    export async function render(themeChange: boolean = false) {
+        //@ts-ignore
+        let systemTheme = poSettings.getData().cockpit.theme;
+        if (systemTheme === "system") systemTheme = "dark";
+        if (systemTheme === "light") {
+            textColor = "#191919";
+        } else {
+            textColor = "#FFFFFF";
+        }
+
+        stencil = null;
+
+        if (graph) {
+            graph.dispose();
+            graph = null;
+        }
+
+        graph = new Graph({
+            container: document.getElementById("graph-container")!,
+            grid: true,
+            mousewheel: {
+                enabled: true,
             },
-            anchor: "center",
-            connectionPoint: "anchor",
-            allowBlank: false,
-            snap: {
-                radius: 20,
+            panning: {
+                enabled: true,
             },
-            createEdge() {
-                return new Shape.Edge({
-                    attrs: {
-                        line: {
-                            stroke: "#A2B1C3",
-                            strokeWidth: 2,
-                            targetMarker: {
-                                name: "block", // ellipse
-                                width: 12,
-                                height: 8,
+            connecting: {
+                router: "manhattan",
+                connector: {
+                    name: "rounded",
+                    args: {
+                        radius: 8,
+                    },
+                },
+                anchor: "center",
+                connectionPoint: "anchor",
+                allowBlank: false,
+                snap: {
+                    radius: 20,
+                },
+                createEdge() {
+                    return new Shape.Edge({
+                        attrs: {
+                            line: {
+                                stroke: textColor, // A2B1C3
+                                strokeWidth: 2,
+                                targetMarker: {
+                                    name: "block", // ellipse
+                                    width: 12,
+                                    height: 8,
+                                },
                             },
                         },
-                    },
-                    zIndex: 0,
-                    tools: [
-                        {
-                            name: "button-remove",
-                            args: { distance: -40 },
-                        },
-                    ],
-                });
-            },
-            validateConnection: function (this, args) {
-                if (args.sourceCell.id === args.targetCell.id) return false;
+                        zIndex: 0,
+                        tools: [
+                            {
+                                name: "button-remove",
+                                args: { distance: -40 },
+                            },
+                        ],
+                    });
+                },
+                validateConnection: function (this: any, args: any) {
+                    if (args.sourceCell.id === args.targetCell.id) return false;
 
-                if (args.targetPort === "in-port" && args.sourcePort === "out-port") {
-                    if (
-                        args.sourceCell.store.data.shape === "launchpad" &&
-                        args.targetCell.store.data.shape === "tile"
-                    ) {
-                        return false;
-                    }
-
-                    if (
-                        args.sourceCell.store.data.shape === "tile-group" &&
-                        args.targetCell.store.data.shape === "application"
-                    ) {
-                        return false;
-                    }
-
-                    if (
-                        args.sourceCell.store.data.shape === "tile-group" &&
-                        args.targetCell.store.data.shape === "tile-group"
-                    ) {
-                        return false;
-                    }
-
-                    if (
-                        args.sourceCell.store.data.shape === "tile" &&
-                        args.targetCell.store.data.shape === "tile"
-                    ) {
-                        return false;
-                    }
-
-                    if (
-                        args.sourceCell.store.data.shape === "tile" &&
-                        args.targetCell.store.data.shape === "tile-group"
-                    ) {
-                        return false;
-                    }
-
-                    if (
-                        args.sourceCell.store.data.shape === "launchpad" &&
-                        args.targetCell.store.data.shape === "application"
-                    ) {
-                        return false;
-                    }
-
-                    if (args.targetCell) {
-                        const cellSource = graph.getCellById(args.sourceCell.id);
-                        const edgesOut = graph.getConnectedEdges(cellSource);
-
-                        let count = 0;
-                        edgesOut.forEach((edge: any) => {
-                            const sourceNodeId = edge.getSourceCellId();
-                            const targetNodeId = edge.getTargetCellId();
-
-                            if (
-                                sourceNodeId === args.sourceCell.id &&
-                                targetNodeId === args.targetCell.id
-                            ) {
-                                count += 1;
-                            }
-                        });
-
-                        if (count > 0) {
+                    if (args.targetPort === "in-port" && args.sourcePort === "out-port") {
+                        if (
+                            args.sourceCell.store.data.shape === "launchpad" &&
+                            args.targetCell.store.data.shape === "tile"
+                        ) {
                             return false;
                         }
+
+                        if (
+                            args.sourceCell.store.data.shape === "tile-group" &&
+                            args.targetCell.store.data.shape === "application"
+                        ) {
+                            return false;
+                        }
+
+                        if (
+                            args.sourceCell.store.data.shape === "tile-group" &&
+                            args.targetCell.store.data.shape === "tile-group"
+                        ) {
+                            return false;
+                        }
+
+                        if (
+                            args.sourceCell.store.data.shape === "tile" &&
+                            args.targetCell.store.data.shape === "tile"
+                        ) {
+                            return false;
+                        }
+
+                        if (
+                            args.sourceCell.store.data.shape === "tile" &&
+                            args.targetCell.store.data.shape === "tile-group"
+                        ) {
+                            return false;
+                        }
+
+                        if (
+                            args.sourceCell.store.data.shape === "launchpad" &&
+                            args.targetCell.store.data.shape === "application"
+                        ) {
+                            return false;
+                        }
+
+                        if (args.targetCell) {
+                            const cellSource = graph.getCellById(args.sourceCell.id);
+                            const edgesOut = graph.getConnectedEdges(cellSource);
+
+                            let count = 0;
+                            edgesOut.forEach((edge: any) => {
+                                const sourceNodeId = edge.getSourceCellId();
+                                const targetNodeId = edge.getTargetCellId();
+
+                                if (
+                                    sourceNodeId === args.sourceCell.id &&
+                                    targetNodeId === args.targetCell.id
+                                ) {
+                                    count += 1;
+                                }
+                            });
+
+                            if (count > 0) {
+                                return false;
+                            }
+                        }
+
+                        if (
+                            graph.getConnectedEdges(args.targetCell, {
+                                incoming: true,
+                                outgoing: false,
+                            }).length >= 1
+                        ) {
+                            return false;
+                        }
+
+                        return true;
                     }
 
-                    if (
-                        graph.getConnectedEdges(args.targetCell, {
-                            incoming: true,
-                            outgoing: false,
-                        }).length >= 1
-                    ) {
+                    return false;
+                },
+                validateMagnet: function (this: any, args: any) {
+                    const isOutPort = args.magnet.classList.contains("port-out");
+
+                    if (!isOutPort) {
                         return false;
                     }
 
-                    return true;
-                }
-
-                return false;
+                    const shape = args.cell.store.data.shape;
+                    const nodeID = args.cell.store.data.id;
+                    if (shape === "tile") {
+                        const node = graph.getCellById(nodeID);
+                        const connectedEdges = graph.getConnectedEdges(node, {
+                            incoming: false,
+                            outgoing: true,
+                        });
+                        return connectedEdges.length === 0;
+                    } else {
+                        return isOutPort;
+                    }
+                },
             },
-            validateMagnet: function (this, args) {
-                const isOutPort = args.magnet.classList.contains("port-out");
-
-                if (!isOutPort) {
-                    return false;
-                }
-
-                const shape = args.cell.store.data.shape;
-                const nodeID = args.cell.store.data.id;
-                if (shape === "tile") {
-                    const node = graph.getCellById(nodeID);
-                    const connectedEdges = graph.getConnectedEdges(node, {
-                        incoming: false,
-                        outgoing: true,
-                    });
-                    return connectedEdges.length === 0;
-                } else {
-                    return isOutPort;
-                }
-            },
-        },
-        highlighting: {
-            magnetAdsorbed: {
-                name: "stroke",
-                args: {
-                    attrs: {
-                        fill: "#5F95FF",
-                        stroke: "#5F95FF",
+            highlighting: {
+                magnetAdsorbed: {
+                    name: "stroke",
+                    args: {
+                        attrs: {
+                            fill: "#5F95FF",
+                            stroke: "#5F95FF",
+                        },
                     },
                 },
             },
-        },
-    });
-    graph
-        .use(new History())
-        .use(
-            new Selection({
-                enabled: true,
-                multiple: true,
-                rubberband: true,
-                movable: true,
-                showNodeSelectionBox: true,
-                modifiers: "shift",
-            })
-        )
-        .use(new Snapline());
+        });
+        graph
+            .use(new History())
+            .use(
+                new X6Selection({
+                    enabled: true,
+                    multiple: true,
+                    rubberband: true,
+                    movable: true,
+                    showNodeSelectionBox: true,
+                    modifiers: "shift",
+                })
+            )
+            .use(new Snapline());
 
-    stencil = new Stencil({
-        title: "Artifacts",
-        target: graph,
-        stencilGraphWidth: 400,
-        stencilGraphHeight: 400,
-        collapsable: false,
-        groups: [
+        stencil = new Stencil({
+            title: "Artifacts",
+            target: graph,
+            stencilGraphWidth: 400,
+            stencilGraphHeight: 400,
+            collapsable: false,
+            groups: [
+                {
+                    title: "Tiles and Tiles Groups",
+                    name: "group1",
+                },
+            ],
+            layoutOptions: {
+                columns: 1,
+                columnWidth: 180,
+                rowHeight: 100,
+            },
+        });
+
+        const stencilElement = document.getElementById("stencil");
+        if (stencilElement.childNodes.length === 0) {
+            stencilElement.appendChild(stencil.container);
+        } else {
+            stencilElement.textContent = "";
+            stencilElement.appendChild(stencil.container);
+        }
+
+        const showPorts = (ports: NodeListOf<SVGElement>, show: boolean) => {
+            for (let i = 0, len = ports.length; i < len; i += 1) {
+                ports[i].style.visibility = show ? "visible" : "hidden";
+            }
+        };
+
+        Graph.registerNode(
+            "application",
             {
-                title: "Tiles and Tiles Groups",
-                name: "group1",
+                width: 180,
+                height: 75, // 60
+                attrs: {
+                    body: {
+                        stroke: "#ff9e33",
+                        strokeWidth: 1,
+                        fill: "rgba(255, 210, 94, 0.05)", //rgba(95,149,255,0.05)
+                        refWidth: 1,
+                        refHeight: 1,
+                    },
+                    title: {
+                        text: "Application",
+                        refX: 20,
+                        refY: 20,
+                        fill: textColor, // rgba(0,0,0,0.85)
+                        fontSize: 18,
+                        "text-anchor": "start",
+                    },
+                    text: {
+                        text: "",
+                        refX: 20,
+                        refY: 55,
+                        fontSize: 12,
+                        fill: textColor,
+                        "text-anchor": "start",
+                    },
+                    metadata: {
+                        nodeID: null,
+                        shape: null,
+                        name: null,
+                        title: null,
+                        description: null,
+                        artifactID: null,
+                        appType: null,
+                    },
+                    icon: {
+                        xlinkHref: `/public/images/platform/bare/${systemTheme}/app-designer.svg`,
+                        refX: 100,
+                        refY: -10,
+                        width: 80,
+                        height: 80,
+                        fill: "#FF5733",
+                    },
+                },
+                markup: [
+                    {
+                        tagName: "rect",
+                        selector: "body",
+                    },
+                    {
+                        tagName: "text",
+                        selector: "title",
+                    },
+                    {
+                        tagName: "text",
+                        selector: "text",
+                    },
+                    {
+                        tagName: "image",
+                        selector: "icon",
+                    },
+                ],
+                ports: {
+                    groups: {
+                        in: cellPorts.groups.in,
+                    },
+                    items: cellPorts.items.filter((item) => item.group === "in"),
+                },
             },
-        ],
-        layoutOptions: {
-            columns: 1,
-            columnWidth: 180,
-            rowHeight: 100,
-        },
-    });
+            true
+        );
 
-    const stencilElement = document.getElementById("stencil");
-    if (stencilElement.childNodes.length === 0) {
-        stencilElement.appendChild(stencil.container);
-    } else {
-        stencilElement.textContent = "";
-        stencilElement.appendChild(stencil.container);
-    }
+        Graph.registerNode(
+            "tile",
+            {
+                width: 180,
+                height: 75,
+                attrs: {
+                    body: {
+                        stroke: "#ff9e33",
+                        strokeWidth: 1,
+                        fill: "rgba(255, 210, 94, 0.05)",
+                        refWidth: 1,
+                        refHeight: 1,
+                    },
+                    title: {
+                        text: "Tile",
+                        refX: 20,
+                        refY: 20,
+                        fill: textColor,
+                        fontSize: 18,
+                        "text-anchor": "start",
+                    },
+                    text: {
+                        text: "",
+                        refX: 20,
+                        refY: 55,
+                        fontSize: 12,
+                        fill: textColor,
+                        "text-anchor": "start",
+                    },
+                    metadata: {
+                        id: null,
+                        name: null,
+                        title: null,
+                        description: null,
+                        artifactID: null,
+                    },
+                    icon: {
+                        xlinkHref: `/public/images/platform/bare/${systemTheme}/tile.svg`,
+                        refX: 100,
+                        refY: -10,
+                        width: 80,
+                        height: 80,
+                        fill: "#FF5733",
+                    },
+                },
+                markup: [
+                    {
+                        tagName: "rect",
+                        selector: "body",
+                    },
+                    {
+                        tagName: "text",
+                        selector: "title",
+                    },
+                    {
+                        tagName: "text",
+                        selector: "text",
+                    },
+                    {
+                        tagName: "image",
+                        selector: "icon",
+                    },
+                ],
+                ports: { ...cellPorts },
+            },
+            true
+        );
 
-    const showPorts = (ports: NodeListOf<SVGElement>, show: boolean) => {
-        for (let i = 0, len = ports.length; i < len; i += 1) {
-            ports[i].style.visibility = show ? "visible" : "hidden";
+        Graph.registerNode(
+            "tile-group",
+            {
+                width: 180,
+                height: 75,
+                attrs: {
+                    body: {
+                        stroke: "#ff9e33",
+                        strokeWidth: 1,
+                        fill: "rgba(255, 210, 94, 0.05)",
+                        refWidth: 1,
+                        refHeight: 1,
+                    },
+                    title: {
+                        text: "Tile Group",
+                        refX: 20,
+                        refY: 20,
+                        fill: textColor,
+                        fontSize: 18,
+                        "text-anchor": "start",
+                    },
+                    text: {
+                        text: "",
+                        refX: 20,
+                        refY: 55,
+                        fontSize: 12,
+                        fill: textColor,
+                        "text-anchor": "start",
+                    },
+                    metadata: {
+                        id: null,
+                        name: null,
+                        title: null,
+                        description: null,
+                        artifactID: null,
+                    },
+                    icon: {
+                        xlinkHref: `/public/images/platform/bare/${systemTheme}/tilegroup.svg`,
+                        refX: 100,
+                        refY: -10,
+                        width: 80,
+                        height: 80,
+                        fill: "#FF5733",
+                    },
+                },
+                markup: [
+                    {
+                        tagName: "rect",
+                        selector: "body",
+                    },
+                    {
+                        tagName: "text",
+                        selector: "title",
+                    },
+                    {
+                        tagName: "text",
+                        selector: "text",
+                    },
+                    {
+                        tagName: "image",
+                        selector: "icon",
+                    },
+                ],
+                ports: { ...cellPorts },
+            },
+            true
+        );
+
+        Graph.registerNode(
+            "launchpad",
+            {
+                width: 180,
+                height: 75,
+                attrs: {
+                    body: {
+                        stroke: "#ff9e33",
+                        strokeWidth: 1,
+                        fill: "rgba(255, 210, 94, 0.05)",
+                        refWidth: 1,
+                        refHeight: 1,
+                    },
+                    title: {
+                        text: "Launchpad",
+                        refX: 20,
+                        refY: 20,
+                        fill: textColor,
+                        fontSize: 18,
+                        "text-anchor": "start",
+                    },
+                    text: {
+                        text: "",
+                        refX: 20,
+                        refY: 55,
+                        fontSize: 12,
+                        fill: textColor,
+                        "text-anchor": "start",
+                    },
+                    metadata: {
+                        id: null,
+                        name: null,
+                        title: null,
+                        description: null,
+                        artifactID: null,
+                    },
+                    icon: {
+                        xlinkHref: `/public/images/platform/bare/${systemTheme}/launchpad.svg`,
+                        refX: 100,
+                        refY: -10,
+                        width: 80,
+                        height: 80,
+                        fill: "#FF5733",
+                    },
+                },
+                markup: [
+                    {
+                        tagName: "rect",
+                        selector: "body",
+                    },
+                    {
+                        tagName: "text",
+                        selector: "title",
+                    },
+                    {
+                        tagName: "text",
+                        selector: "text",
+                    },
+                    {
+                        tagName: "image",
+                        selector: "icon",
+                    },
+                ],
+                ports: {
+                    groups: {
+                        out: cellPorts.groups.out,
+                    },
+                    items: cellPorts.items.filter((item) => item.group === "out"),
+                },
+            },
+            true
+        );
+
+        const r3 = graph.createNode({
+            shape: "tile-group",
+            attrs: {
+                text: {
+                    text: "",
+                },
+            },
+        });
+        const r2 = graph.createNode({
+            shape: "tile",
+            attrs: {
+                text: {
+                    text: "",
+                },
+            },
+        });
+
+        const r1 = graph.createNode({
+            shape: "application",
+            attrs: {
+                text: {
+                    text: "",
+                },
+            },
+        });
+
+        function zoom(event: any) {
+            event.preventDefault();
+
+            const zoomDirection = event.deltaY < 0 ? "zoom-in" : "zoom-out";
+            if (zoomDirection === "zoom-in") {
+                graph.zoom(0.01);
+            }
+            if (zoomDirection === "zoom-out") {
+                graph.zoom(-0.01);
+            }
         }
-    };
-    
-    Graph.registerNode(
-        "application",
-        {
-            width: 180,
-            height: 75, // 60
-            attrs: {
-                body: {
-                    stroke: "#ff9e33",
-                    strokeWidth: 1,
-                    fill: "rgba(255, 210, 94, 0.05)", //rgba(95,149,255,0.05)
-                    refWidth: 1,
-                    refHeight: 1,
-                },
-                title: {
-                    text: "Application",
-                    refX: 20,
-                    refY: 20,
-                    fill: "rgba(0,0,0,0.85)",
-                    fontSize: 18,
-                    "text-anchor": "start",
-                },
-                text: {
-                    text: "",
-                    refX: 20,
-                    refY: 55,
-                    fontSize: 12,
-                    fill: "rgba(0,0,0,0.6)",
-                    "text-anchor": "start",
-                },
-                metadata: {
-                    nodeID: null,
-                    shape: null,
-                    name: null,
-                    title: null,
-                    description: null,
-                    artifactID: null,
-                    appType: null,
-                },
-                icon: {
-                    xlinkHref: "/public/images/platform/bare/light/app-designer.svg",
-                    refX: 100,
-                    refY: -10,
-                    width: 80,
-                    height: 80,
-                    fill: "#FF5733",
-                },
-            },
-            markup: [
-                {
-                    tagName: "rect",
-                    selector: "body",
-                },
-                {
-                    tagName: "text",
-                    selector: "title",
-                },
-                {
-                    tagName: "text",
-                    selector: "text",
-                },
-                {
-                    tagName: "image",
-                    selector: "icon",
-                },
-            ],
-            ports: {
-                groups: {
-                    in: ports.groups.in,
-                },
-                items: ports.items.filter((item) => item.group === "in"),
-            },
-        },
-        true
-    );
+        const graphContainer = graph.container;
+        graphContainer.onwheel = zoom;
 
-    Graph.registerNode(
-        "tile",
-        {
-            width: 180,
-            height: 75,
-            attrs: {
-                body: {
-                    stroke: "#ff9e33",
-                    strokeWidth: 1,
-                    fill: "rgba(255, 210, 94, 0.05)",
-                    refWidth: 1,
-                    refHeight: 1,
-                },
-                title: {
-                    text: "Tile",
-                    refX: 20,
-                    refY: 20,
-                    fill: "rgba(0,0,0,0.85)",
-                    fontSize: 18,
-                    "text-anchor": "start",
-                },
-                text: {
-                    text: "",
-                    refX: 20,
-                    refY: 55,
-                    fontSize: 12,
-                    fill: "rgba(0,0,0,0.6)",
-                    "text-anchor": "start",
-                },
-                metadata: {
-                    id: null,
-                    name: null,
-                    title: null,
-                    description: null,
-                    artifactID: null,
-                },
-                icon: {
-                    xlinkHref: "/public/images/platform/bare/light/tile.svg",
-                    refX: 100,
-                    refY: -10,
-                    width: 80,
-                    height: 80,
-                    fill: "#FF5733",
-                },
-            },
-            markup: [
-                {
-                    tagName: "rect",
-                    selector: "body",
-                },
-                {
-                    tagName: "text",
-                    selector: "title",
-                },
-                {
-                    tagName: "text",
-                    selector: "text",
-                },
-                {
-                    tagName: "image",
-                    selector: "icon",
-                },
-            ],
-            ports: { ...ports },
-            // ports: {
-            //     groups: {
-            //         in: ports.groups.in,
-            //     },
-            //     items: ports.items.filter((item) => item.group === "in"),
-            // }, // tilePorts
-        },
-        true
-    );
+        stencil.load([r3, r2, r1], "group1");
 
-    Graph.registerNode(
-        "tile-group",
-        {
-            width: 180,
-            height: 75,
-            attrs: {
-                body: {
-                    stroke: "#ff9e33",
-                    strokeWidth: 1,
-                    fill: "rgba(255, 210, 94, 0.05)",
-                    refWidth: 1,
-                    refHeight: 1,
-                },
-                title: {
-                    text: "Tile Group",
-                    refX: 20,
-                    refY: 20,
-                    fill: "rgba(0,0,0,0.85)",
-                    fontSize: 18,
-                    "text-anchor": "start",
-                },
-                text: {
-                    text: "",
-                    refX: 20,
-                    refY: 55,
-                    fontSize: 12,
-                    fill: "rgba(0,0,0,0.6)",
-                    "text-anchor": "start",
-                },
-                metadata: {
-                    id: null,
-                    name: null,
-                    title: null,
-                    description: null,
-                    artifactID: null,
-                },
-                icon: {
-                    xlinkHref: "/public/images/platform/bare/light/tilegroup.svg",
-                    refX: 100,
-                    refY: -10,
-                    width: 80,
-                    height: 80,
-                    fill: "#FF5733",
-                },
-            },
-            markup: [
-                {
-                    tagName: "rect",
-                    selector: "body",
-                },
-                {
-                    tagName: "text",
-                    selector: "title",
-                },
-                {
-                    tagName: "text",
-                    selector: "text",
-                },
-                {
-                    tagName: "image",
-                    selector: "icon",
-                },
-            ],
-            ports: { ...ports }, // tileports
-        },
-        true
-    );
-
-    Graph.registerNode(
-        "launchpad",
-        {
-            width: 180,
-            height: 75,
-            attrs: {
-                body: {
-                    stroke: "#ff9e33",
-                    strokeWidth: 1,
-                    fill: "rgba(255, 210, 94, 0.05)",
-                    refWidth: 1,
-                    refHeight: 1,
-                },
-                title: {
-                    text: "Launchpad",
-                    refX: 20,
-                    refY: 20,
-                    fill: "rgba(0,0,0,0.85)",
-                    fontSize: 18,
-                    "text-anchor": "start",
-                },
-                text: {
-                    text: "",
-                    refX: 20,
-                    refY: 55,
-                    fontSize: 12,
-                    fill: "rgba(0,0,0,0.6)",
-                    "text-anchor": "start",
-                },
-                metadata: {
-                    id: null,
-                    name: null,
-                    title: null,
-                    description: null,
-                    artifactID: null,
-                },
-                icon: {
-                    xlinkHref: "/public/images/platform/bare/light/launchpad.svg",
-                    refX: 100,
-                    refY: -10,
-                    width: 80,
-                    height: 80,
-                    fill: "#FF5733",
-                },
-            },
-            markup: [
-                {
-                    tagName: "rect",
-                    selector: "body",
-                },
-                {
-                    tagName: "text",
-                    selector: "title",
-                },
-                {
-                    tagName: "text",
-                    selector: "text",
-                },
-                {
-                    tagName: "image",
-                    selector: "icon",
-                },
-            ],
-            ports: {
-                groups: {
-                    out: ports.groups.out,
-                },
-                items: ports.items.filter((item) => item.group === "out"),
-            }, //launchpadPorts
-        },
-        true
-    );
-
-    const r3 = graph.createNode({
-        shape: "tile-group",
-        attrs: {
-            text: {
-                text: "",
-            },
-        },
-    });
-    const r2 = graph.createNode({
-        shape: "tile",
-        attrs: {
-            text: {
-                text: "",
-            },
-        },
-    });
-
-    const r1 = graph.createNode({
-        shape: "application",
-        attrs: {
-            text: {
-                text: "",
-            },
-        },
-    });
-
-
-    function zoom(event) {
-        event.preventDefault();
-
-        const zoomDirection = event.deltaY < 0 ? "zoom-in" : "zoom-out";
-        if (zoomDirection === "zoom-in") {
-            graph.zoom(0.01);
-        }
-        if (zoomDirection === "zoom-out") {
-            graph.zoom(-0.01);
+        if (!themeChange) {
+            Functions.addLaunchpadNode();
         }
     }
-    const graphContainer = graph.container;
-    graphContainer.onwheel = zoom;
-
-    stencil.load([r3, r2, r1], "group1");
-    addLaunchpadNode();
 }
+
+(async () => {
+    await Init.coreSetup();
+})();

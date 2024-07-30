@@ -1,168 +1,170 @@
-let eventHandlers: { [key: string]: Function } = {};
+namespace Events {
+    let eventHandlers: { [key: string]: Function } = {};
 
-function addGraphEvents() {
-    removeGraphEvents();
+    export function addGraphEvents() {
+        removeGraphEvents();
 
-    if (Object.keys(eventHandlers).length > 0) return;
-    const showPorts = (ports: NodeListOf<SVGElement>, show: boolean) => {
-        for (let i = 0, len = ports.length; i < len; i += 1) {
-            ports[i].style.visibility = show ? "visible" : "hidden";
-        }
-    };
-
-    eventHandlers.nodeMouseEnter = () => {
-        const container = document.getElementById("graph-container")!;
-        const ports = container.querySelectorAll(".x6-port-body") as NodeListOf<SVGElement>;
-        showPorts(ports, true);
-    };
-
-    eventHandlers.nodeMouseLeave = () => {
-        const container = document.getElementById("graph-container")!;
-        const ports = container.querySelectorAll(".x6-port-body") as NodeListOf<SVGElement>;
-        showPorts(ports, false);
-    };
-
-    eventHandlers.cellClick = ({ cell, node }) => {
-        if (cell.isNode()) {
-            modelData.getData().focusedCell = true;
-            modelData.refresh();
-
-            if (previousSource && previousSource.hasTool("boundary")) {
-                previousSource.removeTool("boundary");
+        if (Object.keys(eventHandlers).length > 0) return;
+        const showPorts = (ports: NodeListOf<SVGElement>, show: boolean) => {
+            for (let i = 0, len = ports.length; i < len; i += 1) {
+                ports[i].style.visibility = show ? "visible" : "hidden";
             }
+        };
 
-            clickedSource = cell;
+        eventHandlers.nodeMouseEnter = () => {
+            const container = document.getElementById("graph-container")!;
+            let cellPorts = container.querySelectorAll(".x6-port-body") as NodeListOf<SVGElement>;
+            showPorts(cellPorts, true);
+        };
 
-            const nodeID = clickedSource.id;
-            clickedSource.attr("metadata/nodeID", nodeID);
+        eventHandlers.nodeMouseLeave = () => {
+            const container = document.getElementById("graph-container")!;
+            let cellPorts = container.querySelectorAll(".x6-port-body") as NodeListOf<SVGElement>;
+            showPorts(cellPorts, false);
+        };
 
-            const nodeShape = clickedSource.shape;
-            clickedSource.attr("metadata/shape", nodeShape);
+        eventHandlers.cellClick = ({ cell, node }) => {
+            if (cell.isNode()) {
+                modelData.getData().focusedCell = true;
+                modelData.refresh();
 
-            const nodeName = clickedSource.attr("metadata/name") || null;
-            const nodeTitle = clickedSource.attr("metadata/title") || null;
-            const nodeDesc = clickedSource.attr("metadata/description") || null;
-            const nodeAppType = clickedSource.attr("metadata/appType") || null;
+                if (previousSource && previousSource.hasTool("boundary")) {
+                    previousSource.removeTool("boundary");
+                }
 
-            modelSelectedNode.setData({
-                nodeID: nodeID,
-                shape: nodeShape,
-                name: nodeName,
-                title: nodeTitle,
-                description: nodeDesc,
-                appType: nodeAppType,
-            });
+                clickedSource = cell;
 
-            if (!node.hasTool("boundary")) {
-                node.addTools({
-                    name: "boundary",
-                    args: {
-                        attrs: {
-                            fill: "#7c68fc",
-                            stroke: "#9254de",
-                            strokeWidth: 1,
-                            fillOpacity: 0.2,
+                const nodeID = clickedSource.id;
+                clickedSource.attr("metadata/nodeID", nodeID);
+
+                const nodeShape = clickedSource.shape;
+                clickedSource.attr("metadata/shape", nodeShape);
+
+                const nodeName = clickedSource.attr("metadata/name") || null;
+                const nodeTitle = clickedSource.attr("metadata/title") || null;
+                const nodeDesc = clickedSource.attr("metadata/description") || null;
+                const nodeAppType = clickedSource.attr("metadata/appType") || null;
+
+                modelSelectedNode.setData({
+                    nodeID: nodeID,
+                    shape: nodeShape,
+                    name: nodeName,
+                    title: nodeTitle,
+                    description: nodeDesc,
+                    appType: nodeAppType,
+                });
+
+                if (!node.hasTool("boundary")) {
+                    node.addTools({
+                        name: "boundary",
+                        args: {
+                            attrs: {
+                                fill: "#7c68fc",
+                                stroke: "#9254de",
+                                strokeWidth: 1,
+                                fillOpacity: 0.2,
+                            },
                         },
+                    });
+                }
+                previousSource = cell;
+                previousSource.removeTool("button-remove");
+            }
+        };
+
+        eventHandlers.nodeMouseEnterWithNode = ({ node }) => {
+            if (node.store.previous.shape !== "launchpad") {
+                node.addTools({
+                    name: "button-remove",
+                    args: {
+                        x: 0,
+                        y: 0,
+                        offset: { x: 10, y: 10 },
                     },
                 });
             }
-            previousSource = cell;
-            previousSource.removeTool("button-remove");
-        }
-    };
+        };
 
-    eventHandlers.nodeMouseEnterWithNode = ({ node }) => {
-        if (node.store.previous.shape !== "launchpad") {
-            node.addTools({
+        eventHandlers.nodeMouseLeaveWithNode = ({ node }) => {
+            if (node.store.previous.shape !== "launchpad") {
+                node.removeTool("button-remove");
+            }
+        };
+
+        eventHandlers.edgeMouseEnter = ({ edge }) => {
+            edge.addTools({
                 name: "button-remove",
-                args: {
-                    x: 0,
-                    y: 0,
-                    offset: { x: 10, y: 10 },
-                },
+                args: { distance: -40 },
             });
-        }
-    };
+        };
 
-    eventHandlers.nodeMouseLeaveWithNode = ({ node }) => {
-        if (node.store.previous.shape !== "launchpad") {
-            node.removeTool("button-remove");
-        }
-    };
+        eventHandlers.edgeMouseLeave = ({ edge }) => {
+            edge.removeTool("button-remove");
+        };
 
-    eventHandlers.edgeMouseEnter = ({ edge }) => {
-        edge.addTools({
-            name: "button-remove",
-            args: { distance: -40 },
-        });
-    };
+        eventHandlers.blankClick = ({ cell, node }) => {
+            modelData.getData().focusedCell = false;
+            modelData.refresh();
+            if (previousSource && previousSource.hasTool("boundary")) {
+                previousSource.removeTool("boundary");
+            }
+            previousSource = null;
+            modelSelectedNode.setData({
+                nodeID: null,
+                shape: null,
+                name: null,
+                title: null,
+                description: null,
+            });
+            if (clickedSource) {
+                clickedSource.removeTool("button-remove");
+            }
+            const container = document.getElementById("graph-container")!;
+            let cellPorts = container.querySelectorAll(".x6-port-body") as NodeListOf<SVGElement>;
+            showPorts(cellPorts, true);
+        };
+        const mode = modelData.getData().mode;
 
-    eventHandlers.edgeMouseLeave = ({ edge }) => {
-        edge.removeTool("button-remove");
-    };
+        if (mode === "create") {
+            graph.on("node:mouseenter", eventHandlers.nodeMouseEnter);
+            graph.on("node:mouseleave", eventHandlers.nodeMouseLeave);
+            graph.on("node:mouseenter", eventHandlers.nodeMouseEnterWithNode);
+            graph.on("node:mouseleave", eventHandlers.nodeMouseLeaveWithNode);
+            graph.on("edge:mouseenter", eventHandlers.edgeMouseEnter);
+            graph.on("edge:mouseleave", eventHandlers.edgeMouseLeave);
+            graph.on("cell:click", eventHandlers.cellClick);
+            graph.on("blank:click", eventHandlers.blankClick);
+        } else if (mode === "view") {
+            graph.on("cell:click", eventHandlers.cellClick);
+            graph.on("blank:click", eventHandlers.blankClick);
 
-    eventHandlers.blankClick = ({ cell, node }) => {
-        modelData.getData().focusedCell = false;
-        modelData.refresh();
-        if (previousSource && previousSource.hasTool("boundary")) {
-            previousSource.removeTool("boundary");
-        }
-        previousSource = null;
-        modelSelectedNode.setData({
-            nodeID: null,
-            shape: null,
-            name: null,
-            title: null,
-            description: null,
-        });
-        if (clickedSource) {
-            clickedSource.removeTool("button-remove");
-        }
-        const container = document.getElementById("graph-container")!;
-        const ports = container.querySelectorAll(".x6-port-body") as NodeListOf<SVGElement>;
-        showPorts(ports, true);
-    };
-    const mode = modelData.getData().mode;
+            const nodes = graph.getNodes();
 
-    if (mode === "create") {
-        graph.on("node:mouseenter", eventHandlers.nodeMouseEnter);
-        graph.on("node:mouseleave", eventHandlers.nodeMouseLeave);
-        graph.on("node:mouseenter", eventHandlers.nodeMouseEnterWithNode);
-        graph.on("node:mouseleave", eventHandlers.nodeMouseLeaveWithNode);
-        graph.on("edge:mouseenter", eventHandlers.edgeMouseEnter);
-        graph.on("edge:mouseleave", eventHandlers.edgeMouseLeave);
-        graph.on("cell:click", eventHandlers.cellClick);
-        graph.on("blank:click", eventHandlers.blankClick);
-    } else if (mode === "view") {
-        graph.on("cell:click", eventHandlers.cellClick);
-        graph.on("blank:click", eventHandlers.blankClick);
+            nodes.forEach((node) => {
+                let cellPorts = node.getPorts();
 
-        const nodes = graph.getNodes();
-
-        nodes.forEach((node) => {
-            const ports = node.getPorts();
-
-            ports.forEach((port) => {
-                node.portProp(port.id, "attrs/circle", {
-                    stroke: "none",
-                    fill: "none",
-                    magnet: false,
+                cellPorts.forEach((port) => {
+                    node.portProp(port.id, "attrs/circle", {
+                        stroke: "none",
+                        fill: "none",
+                        magnet: false,
+                    });
                 });
             });
-        });
-    } else {
-        return;
+        } else {
+            return;
+        }
     }
-}
 
-function removeGraphEvents() {
-    graph.off("node:mouseenter", eventHandlers.nodeMouseEnter);
-    graph.off("node:mouseleave", eventHandlers.nodeMouseLeave);
-    graph.off("cell:click", eventHandlers.cellClick);
-    graph.off("node:mouseenter", eventHandlers.nodeMouseEnterWithNode);
-    graph.off("node:mouseleave", eventHandlers.nodeMouseLeaveWithNode);
-    graph.off("edge:mouseenter", eventHandlers.edgeMouseEnter);
-    graph.off("edge:mouseleave", eventHandlers.edgeMouseLeave);
-    graph.off("blank:click", eventHandlers.blankClick);
-    eventHandlers = {};
+    function removeGraphEvents() {
+        graph.off("node:mouseenter", eventHandlers.nodeMouseEnter);
+        graph.off("node:mouseleave", eventHandlers.nodeMouseLeave);
+        graph.off("cell:click", eventHandlers.cellClick);
+        graph.off("node:mouseenter", eventHandlers.nodeMouseEnterWithNode);
+        graph.off("node:mouseleave", eventHandlers.nodeMouseLeaveWithNode);
+        graph.off("edge:mouseenter", eventHandlers.edgeMouseEnter);
+        graph.off("edge:mouseleave", eventHandlers.edgeMouseLeave);
+        graph.off("blank:click", eventHandlers.blankClick);
+        eventHandlers = {};
+    }
 }

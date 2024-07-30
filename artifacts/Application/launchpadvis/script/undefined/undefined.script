@@ -30,7 +30,7 @@
 }
 
 .x6-widget-stencil {
-  background-color: #fff;
+  background: transparent;
 }
 
 .x6-widget-stencil-title {

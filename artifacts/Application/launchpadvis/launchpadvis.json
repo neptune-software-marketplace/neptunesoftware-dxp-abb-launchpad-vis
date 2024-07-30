@@ -416,9 +416,8 @@
 												{
 													"attribute": "press",
 													"grouping": "Events",
-													"value": "Anonymous Function",
-													"script": "refreshMainPage();",
-													"language": "javascript",
+													"value": "Functions.refreshMainPage();",
+													"script": "Functions.refreshMainPage();",
 													"translation": []
 												}
 											],
@@ -1116,7 +1115,7 @@
 					"data": [
 						{
 							"fieldNo": "5968169f-2791-4295-f163-30d6c9ebd12e",
-							"fieldName": "pageHeaderDesign",
+							"fieldName": "pageHeaderDesignTitle",
 							"fieldParent": "9043a0ca-9510-4877-bccc-30be17bedc5a",
 							"fieldType": "sap.f.DynamicPageTitle",
 							"script": "",
@@ -1446,8 +1445,8 @@
 												{
 													"attribute": "press",
 													"grouping": "Events",
-													"value": "centerContent();",
-													"script": "centerContent();",
+													"value": "Functions.centerContent();",
+													"script": "Functions.centerContent();",
 													"translation": []
 												}
 											],
@@ -1660,7 +1659,7 @@
 												{
 													"attribute": "title",
 													"grouping": "Properties",
-													"value": "{SelectedNode>/shape}",
+													"value": "{= ${Data>/mode} === 'view' ? ${SelectedNode>/name} : null }",
 													"script": "",
 													"translation": []
 												},
@@ -1669,13 +1668,6 @@
 													"grouping": "Properties",
 													"value": "true",
 													"script": "",
-													"translation": []
-												},
-												{
-													"attribute": "title",
-													"grouping": "Formatter",
-													"value": "Anonymous Function",
-													"script": "file://event/sap.ui.layout.form.SimpleForm/FormCreate/title.script",
 													"translation": []
 												}
 											],
@@ -1722,7 +1714,7 @@
 														{
 															"attribute": "visible",
 															"grouping": "Properties",
-															"value": "{= ${selectedNode>/shape} === 'application' ? false : true }",
+															"value": "{= ${SelectedNode>/shape} === 'application' ? false : ${Data>/mode} === 'create' ? true : false }",
 															"script": "",
 															"translation": []
 														},
@@ -1757,7 +1749,7 @@
 														{
 															"attribute": "visible",
 															"grouping": "Properties",
-															"value": "{= ${SelectedNode>/shape} === 'application' ? false : true }",
+															"value": "{= ${SelectedNode>/shape} === 'application' ? false : ${Data>/mode} === 'create' ? true : false }",
 															"script": "",
 															"translation": []
 														},
@@ -1989,18 +1981,18 @@
 															"translation": []
 														},
 														{
-															"attribute": "enabled",
-															"grouping": "Properties",
-															"value": "{= ${Data>/mode} === 'create' ? true : false}",
-															"script": "",
-															"translation": []
-														},
-														{
 															"attribute": "change",
 															"grouping": "Events",
 															"value": "Anonymous Function",
 															"script": "file://event/sap.m.Select/SelectAppType/change.js",
 															"language": "javascript",
+															"translation": []
+														},
+														{
+															"attribute": "editable",
+															"grouping": "Properties",
+															"value": "{= ${Data>/mode} === 'create' ? true : false}",
+															"script": "",
 															"translation": []
 														}
 													],
@@ -2228,6 +2220,18 @@
 					"attributes": [],
 					"data": [
 						{
+							"fieldNo": "d8f4b0e2-b42d-4299-dd5e-e9cb4e8dbaac",
+							"fieldName": "TypesAndInterface",
+							"fieldParent": "923cab81-383e-45ba-d0a0-cb32b406c9f5",
+							"fieldType": "neptune.Typescript",
+							"script": "file://script/neptune.Typescript/Scripts/TypesAndInterface.ts",
+							"customComponent": false,
+							"request": [],
+							"response": [],
+							"attributes": [],
+							"data": []
+						},
+						{
 							"fieldNo": "8a40d3a5-8a90-47fc-909d-9355adde6855",
 							"fieldName": "Init",
 							"fieldParent": "923cab81-383e-45ba-d0a0-cb32b406c9f5",
@@ -2252,35 +2256,11 @@
 							"data": []
 						},
 						{
-							"fieldNo": "d6d5ad4b-ca82-48e2-dd93-d604aca9dde4",
-							"fieldName": "Ports",
-							"fieldParent": "923cab81-383e-45ba-d0a0-cb32b406c9f5",
-							"fieldType": "neptune.Script",
-							"script": "file://script/neptune.Script/Scripts/Ports.js",
-							"customComponent": false,
-							"request": [],
-							"response": [],
-							"attributes": [],
-							"data": []
-						},
-						{
-							"fieldNo": "66eacb6a-a601-4394-bf2c-35461c3dc228",
-							"fieldName": "APIDefinitions",
-							"fieldParent": "923cab81-383e-45ba-d0a0-cb32b406c9f5",
-							"fieldType": "neptune.Script",
-							"script": "file://script/neptune.Script/Scripts/APIDefinitions.js",
-							"customComponent": false,
-							"request": [],
-							"response": [],
-							"attributes": [],
-							"data": []
-						},
-						{
 							"fieldNo": "f23bb333-ed39-47d4-d87a-7ea4ab00a811",
 							"fieldName": "Functions",
 							"fieldParent": "923cab81-383e-45ba-d0a0-cb32b406c9f5",
-							"fieldType": "neptune.Script",
-							"script": "file://script/neptune.Script/Scripts/Functions.js",
+							"fieldType": "neptune.Typescript",
+							"script": "file://script/neptune.Typescript/Scripts/Functions.ts",
 							"customComponent": false,
 							"request": [],
 							"response": [],
@@ -2425,7 +2405,7 @@
 		}
 	],
 	"componentInterface": [],
-	"ver": "24.07.10.1047",
+	"ver": "24.07.30.0835",
 	"application": "launchpadvis",
 	"title": "",
 	"description": "",
