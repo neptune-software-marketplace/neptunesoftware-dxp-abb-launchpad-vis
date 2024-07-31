@@ -56,6 +56,8 @@ namespace Events {
                     icon: nodeIcon,
                 });
 
+                modelSelectedNode.refresh();
+
                 if (!node.hasTool("boundary")) {
                     node.addTools({
                         name: "boundary",

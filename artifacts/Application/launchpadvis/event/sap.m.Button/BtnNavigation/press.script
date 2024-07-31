@@ -1,0 +1,21 @@
+const artifactId = clickedSource.attr("metadata/nodeID");
+const artifactName = clickedSource.attr("metadata/name");
+const cellType = modelSelectedNode.getData().shape;
+let artifactType;
+
+switch (cellType) {
+    case "tile-group":
+        artifactType = "group";
+        Functions.navigate("run", artifactType, artifactName, artifactId);
+        break;
+    case "application":
+        const origin = window.location.origin;
+        const appType = modelSelectedNode.getData().appType;
+        const file = appType === "application" ? "appdesigner.html" : "adaptivedesigner.html";
+        const fullURL = `${origin}/${file}?application=${artifactName}`;
+        window.open(fullURL, "_blank");
+        break;
+    default:
+        artifactType = cellType;
+        Functions.navigate("run", artifactType, artifactName, artifactId);
+}

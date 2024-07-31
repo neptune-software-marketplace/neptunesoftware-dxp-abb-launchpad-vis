@@ -1784,7 +1784,7 @@
 																				{
 																					"attribute": "text",
 																					"grouping": "Properties",
-																					"value": "{SelectedNode>/shape}",
+																					"value": "{SelectedNode>/shape},{SelectedNode>/appType}",
 																					"script": "",
 																					"translation": []
 																				},
@@ -2326,6 +2326,69 @@
 														}
 													],
 													"data": []
+												},
+												{
+													"fieldNo": "166a1b0f-527d-4383-c717-867277904e21",
+													"fieldName": "LabelNavigate",
+													"fieldParent": "0767e2d8-5a70-44f6-b102-7a3b7e2a1ad4",
+													"fieldType": "sap.m.Label",
+													"script": "",
+													"customComponent": false,
+													"bindingType": "h",
+													"request": [],
+													"response": [],
+													"attributes": [
+														{
+															"attribute": "visible",
+															"grouping": "Properties",
+															"value": "{= ${Data>/mode} === 'view' ? true : false}",
+															"script": "",
+															"translation": []
+														}
+													],
+													"data": []
+												},
+												{
+													"fieldNo": "b69c3607-be1a-431e-e607-8546c2a3df92",
+													"fieldName": "BtnNavigation",
+													"fieldParent": "0767e2d8-5a70-44f6-b102-7a3b7e2a1ad4",
+													"fieldType": "sap.m.Button",
+													"script": "",
+													"customComponent": false,
+													"bindingType": "h",
+													"request": [],
+													"response": [],
+													"attributes": [
+														{
+															"attribute": "visible",
+															"grouping": "Properties",
+															"value": "{= ${Data>/mode} === 'view' ? true : false}",
+															"script": "",
+															"translation": []
+														},
+														{
+															"attribute": "text",
+															"grouping": "Properties",
+															"value": "Open",
+															"script": "",
+															"translation": []
+														},
+														{
+															"attribute": "icon",
+															"grouping": "Properties",
+															"value": "sap-icon://fa-solid/external-link-alt",
+															"script": "",
+															"translation": []
+														},
+														{
+															"attribute": "press",
+															"grouping": "Events",
+															"value": "Anonymous Function",
+															"script": "file://event/sap.m.Button/BtnNavigation/press.script",
+															"translation": []
+														}
+													],
+													"data": []
 												}
 											]
 										}
@@ -2587,7 +2650,7 @@
 		}
 	],
 	"componentInterface": [],
-	"ver": "24.07.31.1002",
+	"ver": "24.07.31.1300",
 	"application": "launchpadvis",
 	"title": "",
 	"description": "",

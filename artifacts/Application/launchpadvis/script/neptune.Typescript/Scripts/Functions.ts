@@ -285,6 +285,17 @@ namespace Functions {
         return diffs;
     }
 
+    export function navigate(semantic:string, act:string, name:string, id:string) {
+        const redirectDetails = {
+            target: {
+                semanticObject: semantic,
+                action: act,
+            },
+            params: { name: name, id: id },
+        };
+        sap.n.HashNavigation.toExternal(redirectDetails);
+    }
+
     export function refreshMainPage() {
         Table.setBusy(false);
         $.ajax({
@@ -305,12 +316,12 @@ namespace Functions {
 
         // check 1
         const namesCondition = nodes.every((node) => {
-            const name = node.store.data.attrs.text.text;
+            const name = node.store.data.attrs.title.text;
             return name && name.trim().length > 0;
         });
 
         // check 2
-        const edgesCondition = nodes.every((node:any) => {
+        const edgesCondition = nodes.every((node: any) => {
             switch (node.shape) {
                 case "application":
                 case "launchpad":
@@ -352,7 +363,6 @@ namespace Functions {
     }
 
     export function setCellSize(cel: any, str: any) {
-
         let defaultCellSize = {
             width: 180,
             height: 75,
@@ -366,10 +376,10 @@ namespace Functions {
         }
 
         let currentCellSize = cel.getSize();
-        
-        let newCellWidth = defaultCellSize.width + 24 / 3 * (str.length - 9);
-        let newRefX = 100 + 24 / 3 * (str.length - 9);
-        
+
+        let newCellWidth = defaultCellSize.width + (24 / 3) * (str.length - 9);
+        let newRefX = 100 + (24 / 3) * (str.length - 9);
+
         cel.setSize({ width: newCellWidth, height: currentCellSize.height });
         cel.attr("icon/refX", newRefX);
     }
@@ -387,7 +397,7 @@ namespace Functions {
             defaultCellSize.width = newCellWidth;
         }
         if (!cel) {
-            return {cellSize:defaultCellSize,iconSize:defaultRefX};
+            return { cellSize: defaultCellSize, iconSize: defaultRefX };
         } else {
             cel.setSize(defaultCellSize);
             cel.attr("icon/refX", defaultRefX);

@@ -316,7 +316,7 @@ namespace Init {
                         title: null,
                         description: null,
                         artifactID: null,
-                        appType: null,
+                        appType: "application",
                     },
                     icon: {
                         xlinkHref: `/public/images/platform/bare/${systemTheme}/app-designer.svg`,

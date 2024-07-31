@@ -11,14 +11,7 @@ if (namesCondition && edgesCondition && shapeCondition) {
                 onClose: function (answer) {
                     if (answer === "NO") {
                     } else {
-                        const redirectDetails = {
-                            target: {
-                                semanticObject: "run",
-                                action: "launchpad",
-                            },
-                            params: { name: response.name, id: response.id },
-                        };
-                        sap.n.HashNavigation.toExternal(redirectDetails);
+                        Functions.navigate("run","launchpad",response.name,response.id);
                     }
                     Functions.clear();
                     Functions.addLaunchpadNode();

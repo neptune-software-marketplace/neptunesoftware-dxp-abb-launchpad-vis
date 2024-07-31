@@ -1,12 +1,12 @@
 switch (shape) {
-    case 'launchpad':
-        return "Launchpad"
-    case 'tile':
-        return "Tile"
-    case 'tile-group':
-        return "Tile Group"
-    case 'application':
-        return "Application"
+    case "launchpad":
+        return "Launchpad";
+    case "tile":
+        return "Tile";
+    case "tile-group":
+        return "Tile Group";
+    case "application":
+        return appType === "application" ? "Application" : "Adaptive";
     default:
         return shape;
 }
