@@ -18,7 +18,7 @@ namespace Transform {
         return neptuneGraph;
     }
 
-    function processGraph(data:any) {
+    function processGraph(data: any) {
         delete data["key"];
         delete data["parent"];
         delete data["level"];
@@ -37,14 +37,14 @@ namespace Transform {
             data.shape = "application";
         }
         if (data.children.length !== 0) {
-            data.children.forEach((child:any) => {
+            data.children.forEach((child: any) => {
                 processGraph(child);
             });
         }
         return data;
     }
 
-    function getUsingTree(objectId:string, parent:any, level:number, tree:any) {
+    function getUsingTree(objectId: string, parent: any, level: number, tree: any) {
         const source = modelArtifactRelations
             .getData()
             .usingData.find((x) => x.objectId === objectId);
@@ -94,44 +94,55 @@ namespace Transform {
         if (nodeId === "") {
             return false;
         }
-        const node = tree.find((x) => x.key === nodeId);
+        const node = tree.find((x: any) => x.key === nodeId);
         if (node.objectId === objectId) {
             return true;
         }
         return isRecursive(tree, node.parent, objectId);
     }
 
-    export async function renderSymmetricGraph(data:any) {
+    export async function renderSymmetricGraph(data: any) {
+        // Calculate node sizes before layout
+        const calculateSizes = (data: any) => {
+            const sizes = Functions.calculateCellSize(data.name);
+            data.nodeSize = sizes.cellSize;
+            data.iconSize = sizes.iconSize;
+            if (data.children) {
+                data.children.forEach(calculateSizes);
+            }
+        };
+        calculateSizes(data);
+
         await Init.render();
+
         const result = Hierarchy.compactBox(data, {
             direction: "TB",
-            getHeight() {
-                return 100;
-            },
-            getWidth() {
-                return 30;
-            },
-            getHGap() {
-                return 90;
-            },
-            getVGap() {
-                return 60;
-            },
+            getHeight: (d: any) => d.nodeSize.height,
+            getWidth: (d: any) => d.nodeSize.width,
+            getHGap: () => 90,
+            getVGap: () => 60,
         });
+
         //@ts-ignore
         const model: Model.FromJSONData = { nodes: [], edges: [] };
+
         const traverse = (data: HierarchyResult) => {
             if (data) {
                 let nodeShape = data.data.shape;
                 const nodeName = data.data.name;
-                const nodeSize = Functions.calculateCellSize(nodeName);
+                const nodeSize = data.data.nodeSize;
+                const iconSize = data.data.iconSize;
                 let appType = null;
+                let icon: string;
 
                 if (nodeShape === "application") {
                     appType = "application";
-                }
-                if (nodeShape === "adaptive") {
+                    icon = `/public/images/platform/bare/${Init.systemTheme}/app-designer.svg`;
+                } else if (nodeShape === "adaptive") {
                     appType = "adaptive";
+                    icon = `/public/images/platform/bare/${Init.systemTheme}/adaptive-app-designer.svg`;
+                } else {
+                    icon = null;
                 }
 
                 if (nodeShape === "adaptive") nodeShape = "application";
@@ -144,8 +155,12 @@ namespace Transform {
                     x: data.x,
                     y: data.y,
                     attrs: {
-                        text: {
+                        title: {
+                            // text
                             text: data.data.name,
+                        },
+                        text: {
+                            text: data.data.title,
                         },
                         metadata: {
                             nodeID: data.data.id,
@@ -156,6 +171,12 @@ namespace Transform {
                             artifactID: data.data.id || null,
                             appType: appType,
                         },
+                        icon: Object.assign(
+                            {
+                                refX: iconSize,
+                            },
+                            icon ? { xlinkHref: icon } : {}
+                        ),
                     },
                     ports: {
                         groups: cellPorts.groups,
@@ -180,7 +201,7 @@ namespace Transform {
                                     height: 8,
                                 },
                             },
-                        }
+                        },
                     });
                     traverse(item);
                 });

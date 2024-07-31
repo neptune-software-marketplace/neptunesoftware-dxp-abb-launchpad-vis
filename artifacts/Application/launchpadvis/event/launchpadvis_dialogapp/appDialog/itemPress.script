@@ -9,13 +9,13 @@
 
         const name = appType === "application" ? data.application : data.name;
 
-        node.attr("text/text",name);
+        node.attr("title/text",name);
         node.attr("metadata/name",name);
         node.attr("metadata/appType",appType);
         node.attr("metadata/artifactID",data.id);
 
-        modelSelectedNode.getData().name = data.application;
-        Functions.calculateCellSize(data.application,node);
+        modelSelectedNode.getData().name = name;
+        Functions.calculateCellSize(name,node);
         modelSelectedNode.refresh();
         appDialog.close();
     }

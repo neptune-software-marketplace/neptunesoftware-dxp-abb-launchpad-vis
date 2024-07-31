@@ -12,6 +12,7 @@ let stencil: any = null;
 let clickedSource: any = null;
 let previousSource: any = null;
 let previousLength: number = 0;
+let previousLengthIcon: number = 0;
 
 declare const getX6Object: () => Promise<X6Object>;
 
@@ -53,10 +54,11 @@ namespace Init {
     }
     
     export let textColor: string;
+    export let systemTheme : string;
 
     export async function render(themeChange: boolean = false) {
         //@ts-ignore
-        let systemTheme = poSettings.getData().cockpit.theme;
+        systemTheme = poSettings.getData().cockpit.theme;
         if (systemTheme === "system") systemTheme = "dark";
         if (systemTheme === "light") {
             textColor = "#191919";

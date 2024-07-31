@@ -1,0 +1,12 @@
+switch (shape) {
+    case 'launchpad':
+        return "Launchpad"
+    case 'tile':
+        return "Tile"
+    case 'tile-group':
+        return "Tile Group"
+    case 'application':
+        return "Application"
+    default:
+        return shape;
+}

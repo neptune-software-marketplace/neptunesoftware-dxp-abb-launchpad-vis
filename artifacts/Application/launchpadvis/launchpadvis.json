@@ -1517,7 +1517,7 @@
 										{
 											"attribute": "size",
 											"grouping": "Properties",
-											"value": "25%",
+											"value": "45%",
 											"script": "",
 											"translation": []
 										}
@@ -1637,6 +1637,195 @@
 												}
 											],
 											"data": []
+										},
+										{
+											"fieldNo": "1fb66df2-7aa1-44cb-a56c-c25a8fcd7c2c",
+											"fieldName": "FormIcon",
+											"fieldParent": "773550b9-0b1d-450f-c63d-7b91c7f3dd0b",
+											"fieldType": "sap.ui.layout.form.SimpleForm",
+											"script": "",
+											"customComponent": false,
+											"bindingType": "h",
+											"request": [],
+											"response": [],
+											"attributes": [
+												{
+													"attribute": "visible",
+													"grouping": "Properties",
+													"value": "{Data>/focusedCell}",
+													"script": "",
+													"translation": []
+												},
+												{
+													"attribute": "styleClassMargin",
+													"grouping": "Properties",
+													"value": "sapUiLargeMarginBottom",
+													"script": "",
+													"translation": []
+												}
+											],
+											"data": [
+												{
+													"fieldNo": "0a521b74-57e1-415b-eb23-9f83cbff0fc2",
+													"fieldName": "oPageHeaderBox1",
+													"fieldParent": "1fb66df2-7aa1-44cb-a56c-c25a8fcd7c2c",
+													"fieldType": "sap.m.FlexBox",
+													"script": "",
+													"customComponent": false,
+													"request": [],
+													"response": [],
+													"attributes": [
+														{
+															"attribute": "styleClassMargin",
+															"grouping": "Properties",
+															"value": "sapUiSmallMarginBottom",
+															"script": "",
+															"translation": []
+														},
+														{
+															"attribute": "fitContainer",
+															"grouping": "Properties",
+															"value": "true",
+															"script": "",
+															"translation": []
+														},
+														{
+															"attribute": "alignItems",
+															"grouping": "Properties",
+															"value": "Center",
+															"script": "",
+															"translation": []
+														}
+													],
+													"data": [
+														{
+															"fieldNo": "9f96537c-a6fe-4b7e-9247-3fd711435c38",
+															"fieldName": "oPageHeaderIcon1",
+															"fieldParent": "0a521b74-57e1-415b-eb23-9f83cbff0fc2",
+															"fieldType": "sap.f.Avatar",
+															"script": "",
+															"customComponent": false,
+															"bindingType": "h",
+															"request": [],
+															"response": [],
+															"attributes": [
+																{
+																	"attribute": "src",
+																	"grouping": "Properties",
+																	"value": "{SelectedNode>/icon}",
+																	"script": "",
+																	"translation": []
+																},
+																{
+																	"attribute": "backgroundColor",
+																	"grouping": "Properties",
+																	"value": "Placeholder",
+																	"script": "",
+																	"translation": []
+																},
+																{
+																	"attribute": "styleClass",
+																	"grouping": "Properties",
+																	"value": "launchpadvis-headerIcon",
+																	"script": "",
+																	"translation": []
+																},
+																{
+																	"attribute": "styleClassVisibility",
+																	"grouping": "Properties",
+																	"value": "sapUiHideOnPhone",
+																	"script": "",
+																	"translation": []
+																}
+															],
+															"data": []
+														},
+														{
+															"fieldNo": "028948a0-ed12-4810-878a-b5d45c7d845f",
+															"fieldName": "oPageHeaderVBox1",
+															"fieldParent": "0a521b74-57e1-415b-eb23-9f83cbff0fc2",
+															"fieldType": "sap.m.VBox",
+															"script": "",
+															"customComponent": false,
+															"request": [],
+															"response": [],
+															"attributes": [
+																{
+																	"attribute": "styleClassMargin",
+																	"grouping": "Properties",
+																	"value": "sapUiTinyMarginBegin",
+																	"script": "",
+																	"translation": []
+																}
+															],
+															"data": [
+																{
+																	"fieldNo": "274d62dc-c4b4-4a6d-ced0-d570f39dbb59",
+																	"fieldName": "oPageHeaderHBoxTitle1",
+																	"fieldParent": "028948a0-ed12-4810-878a-b5d45c7d845f",
+																	"fieldType": "sap.m.HBox",
+																	"script": "",
+																	"customComponent": false,
+																	"request": [],
+																	"response": [],
+																	"attributes": [],
+																	"data": [
+																		{
+																			"fieldNo": "e7306198-62a8-48e4-8507-38da0b211d7f",
+																			"fieldName": "oPageHeaderTitle1",
+																			"fieldParent": "274d62dc-c4b4-4a6d-ced0-d570f39dbb59",
+																			"fieldType": "sap.m.Title",
+																			"script": "",
+																			"customComponent": false,
+																			"bindingType": "h",
+																			"request": [],
+																			"response": [],
+																			"attributes": [
+																				{
+																					"attribute": "text",
+																					"grouping": "Properties",
+																					"value": "{SelectedNode>/shape}",
+																					"script": "",
+																					"translation": []
+																				},
+																				{
+																					"attribute": "styleClassMargin",
+																					"grouping": "Properties",
+																					"value": "sapUiTinyMarginBeginEnd",
+																					"script": "",
+																					"translation": []
+																				},
+																				{
+																					"attribute": "level",
+																					"grouping": "Properties",
+																					"value": "H1",
+																					"script": "",
+																					"translation": []
+																				},
+																				{
+																					"attribute": "wrapping",
+																					"grouping": "Properties",
+																					"value": "true",
+																					"script": "",
+																					"translation": []
+																				},
+																				{
+																					"attribute": "text",
+																					"grouping": "Formatter",
+																					"value": "Anonymous Function",
+																					"script": "file://event/sap.m.Title/oPageHeaderTitle1/text.script",
+																					"translation": []
+																				}
+																			],
+																			"data": []
+																		}
+																	]
+																}
+															]
+														}
+													]
+												}
+											]
 										},
 										{
 											"fieldNo": "0767e2d8-5a70-44f6-b102-7a3b7e2a1ad4",
@@ -1761,10 +1950,10 @@
 															"translation": []
 														},
 														{
-															"attribute": "liveChange",
+															"attribute": "change",
 															"grouping": "Events",
 															"value": "Anonymous Function",
-															"script": "file://event/sap.m.Input/InputName/liveChange.js",
+															"script": "file://event/sap.m.Input/InputName/change.js",
 															"language": "javascript",
 															"translation": []
 														},
@@ -1839,10 +2028,10 @@
 															"translation": []
 														},
 														{
-															"attribute": "liveChange",
+															"attribute": "change",
 															"grouping": "Events",
 															"value": "Anonymous Function",
-															"script": "file://event/sap.m.Input/InputTitle/liveChange.js",
+															"script": "file://event/sap.m.Input/InputTitle/change.js",
 															"language": "javascript",
 															"translation": []
 														}
@@ -1910,10 +2099,10 @@
 															"translation": []
 														},
 														{
-															"attribute": "liveChange",
+															"attribute": "change",
 															"grouping": "Events",
 															"value": "Anonymous Function",
-															"script": "file://event/sap.m.Input/InputDescription/liveChange.js",
+															"script": "file://event/sap.m.Input/InputDescription/change.js",
 															"language": "javascript",
 															"translation": []
 														}
@@ -2398,7 +2587,7 @@
 		}
 	],
 	"componentInterface": [],
-	"ver": "24.07.30.0915",
+	"ver": "24.07.31.1002",
 	"application": "launchpadvis",
 	"title": "",
 	"description": "",

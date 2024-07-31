@@ -44,6 +44,7 @@ namespace Events {
                 const nodeTitle = clickedSource.attr("metadata/title") || null;
                 const nodeDesc = clickedSource.attr("metadata/description") || null;
                 const nodeAppType = clickedSource.attr("metadata/appType") || null;
+                const nodeIcon = clickedSource.attr("icon/xlinkHref") || null;
 
                 modelSelectedNode.setData({
                     nodeID: nodeID,
@@ -52,6 +53,7 @@ namespace Events {
                     title: nodeTitle,
                     description: nodeDesc,
                     appType: nodeAppType,
+                    icon: nodeIcon,
                 });
 
                 if (!node.hasTool("boundary")) {
@@ -115,6 +117,8 @@ namespace Events {
                 name: null,
                 title: null,
                 description: null,
+                appType: null,
+                icon: null,
             });
             if (clickedSource) {
                 clickedSource.removeTool("button-remove");

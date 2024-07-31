@@ -1,5 +1,7 @@
 .launchpadvis-VBox {
   background-image: url("/public/images/background.svg");
+  background-position: center top;
+  background-repeat: no-repeat;
 }
 
 .launchpadvis-headerIcon {

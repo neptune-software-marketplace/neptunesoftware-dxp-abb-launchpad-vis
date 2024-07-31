@@ -31,6 +31,8 @@ namespace Functions {
             name: null,
             title: null,
             description: null,
+            appType: null,
+            icon: null,
         });
         modelData.getData().focusedCell = false;
         modelSelectedNode.refresh();
@@ -308,7 +310,7 @@ namespace Functions {
         });
 
         // check 2
-        const edgesCondition = nodes.every((node) => {
+        const edgesCondition = nodes.every((node:any) => {
             switch (node.shape) {
                 case "application":
                 case "launchpad":
@@ -350,25 +352,26 @@ namespace Functions {
     }
 
     export function setCellSize(cel: any, str: any) {
+
         let defaultCellSize = {
             width: 180,
             height: 75,
         };
-        if (str.length <= 19) {
+
+        if (str.length <= 9) {
             previousLength = str.length;
             cel.setSize(defaultCellSize);
+            cel.attr("icon/refX", 100);
             return;
         }
+
         let currentCellSize = cel.getSize();
-        let newCellWidth: number;
-        if (str.length > previousLength) {
-            newCellWidth = currentCellSize.width + 20 / 3;
-        }
-        if (str.length < previousLength) {
-            newCellWidth = currentCellSize.width - 20 / 3;
-        }
-        previousLength = str.length;
+        
+        let newCellWidth = defaultCellSize.width + 24 / 3 * (str.length - 9);
+        let newRefX = 100 + 24 / 3 * (str.length - 9);
+        
         cel.setSize({ width: newCellWidth, height: currentCellSize.height });
+        cel.attr("icon/refX", newRefX);
     }
 
     export function calculateCellSize(str: string, cel = null) {
@@ -376,14 +379,18 @@ namespace Functions {
             width: 180,
             height: 75,
         };
-        if (str.length > 19) {
-            let newCellWidth = defaultCellSize.width + (20 / 3) * (str.length - 19);
+        let defaultRefX = 100;
+        if (str.length > 9) {
+            // 19
+            let newCellWidth = defaultCellSize.width + (24 / 3) * (str.length - 9);
+            defaultRefX = 100 + (24 / 3) * (str.length - 9);
             defaultCellSize.width = newCellWidth;
         }
         if (!cel) {
-            return defaultCellSize;
+            return {cellSize:defaultCellSize,iconSize:defaultRefX};
         } else {
             cel.setSize(defaultCellSize);
+            cel.attr("icon/refX", defaultRefX);
         }
     }
 
@@ -429,6 +436,16 @@ namespace Functions {
                 default:
                     await Init.render();
                     break;
+            }
+            let icon = modelSelectedNode.getData().icon;
+            if (icon !== null || icon !== "") {
+                if (icon.includes("dark")) {
+                    icon = icon.replace("dark", "light");
+                } else if (icon.includes("light")) {
+                    icon = icon.replace("light", "dark");
+                }
+                modelSelectedNode.getData().icon = icon;
+                modelSelectedNode.refresh();
             }
         } else {
             return;

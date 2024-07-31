@@ -219,7 +219,10 @@ interface LaunchpadConfig {
     activationCodeEmail: string | null;
     package: string | null;
 }
-
+interface NodeSize {
+    width: number;
+    height: number;
+}
 interface HierarchyResult {
     id: number;
     x: number;
@@ -235,6 +238,8 @@ interface HierarchyResult {
         name: string;
         title?: string | null;
         description?: string | null;
+        nodeSize: NodeSize;
+        iconSize: number;
     };
 }
 

@@ -10,7 +10,6 @@ if (namesCondition && edgesCondition && shapeCondition) {
                 actions: ["YES", "NO"],
                 onClose: function (answer) {
                     if (answer === "NO") {
-                        return;
                     } else {
                         const redirectDetails = {
                             target: {
