@@ -285,7 +285,7 @@ namespace Functions {
         return diffs;
     }
 
-    export function navigate(semantic:string, act:string, name:string, id:string) {
+    export function navigate(semantic: string, act: string, name: string, id: string) {
         const redirectDetails = {
             target: {
                 semanticObject: semantic,
@@ -361,7 +361,64 @@ namespace Functions {
             shapeCondition: shapeCondition,
         };
     }
+    function getTextWidth(text: string) {
+        const canvas = document.createElement("canvas");
+        const context = canvas.getContext("2d");
 
+        context.font = "16px Arial";
+
+        const metrics = context.measureText(text);
+        return metrics.width;
+    }
+    export function setSize(name: string = null, title: string = null, cell: any = null) {
+        let defaultCellSize = {
+            width: 180,
+            height: 75,
+        };
+        let defaultIconSize = 100;
+
+        if (name && cell == null) {
+            if (title && title !== "") {
+                const nameSize = getTextWidth(name);
+                const titleSize = getTextWidth(title);
+
+                const widthForName = (39 * nameSize + 2369) / 28;
+                let widthForTitle = (725 + 13 * titleSize) / 16;
+
+                const size = Math.max(widthForName, widthForTitle);
+
+                defaultCellSize.width = size;
+                defaultIconSize = size - 78;
+                return { cell: defaultCellSize, icon: defaultIconSize };
+            }
+
+            const nameSize = getTextWidth(name);
+
+            const widthForName = (39 * nameSize + 2369) / 28;
+
+            defaultCellSize.width = widthForName;
+            defaultIconSize = widthForName - 78;
+            return { cell: defaultCellSize, icon: defaultIconSize };
+        }
+
+        if (cell && name == null) {
+            const nodeName = cell.attr("title/text");
+            const nodeTitle = cell.attr("text/text");
+
+            const nameSize = getTextWidth(nodeName);
+            const titleSize = getTextWidth(nodeTitle);
+
+            const widthForName = (39 * nameSize + 2369) / 28;
+            let widthForTitle = (725 + 13 * titleSize) / 16;
+
+            const size = Math.max(widthForName, widthForTitle);
+
+            defaultCellSize.width = size;
+            cell.setSize(defaultCellSize);
+            cell.attr("icon/refX", size - 78);
+            return;
+        }
+    }
     export function setCellSize(cel: any, str: any) {
         let defaultCellSize = {
             width: 180,
@@ -369,7 +426,6 @@ namespace Functions {
         };
 
         if (str.length <= 9) {
-            previousLength = str.length;
             cel.setSize(defaultCellSize);
             cel.attr("icon/refX", 100);
             return;
@@ -447,15 +503,17 @@ namespace Functions {
                     await Init.render();
                     break;
             }
-            let icon = modelSelectedNode.getData().icon;
-            if (icon !== null || icon !== "") {
-                if (icon.includes("dark")) {
-                    icon = icon.replace("dark", "light");
-                } else if (icon.includes("light")) {
-                    icon = icon.replace("light", "dark");
+            if (modelData.getData().focusedCell) {
+                let icon = modelSelectedNode.getData().icon;
+                if (icon !== null || icon !== "") {
+                    if (icon.includes("dark")) {
+                        icon = icon.replace("dark", "light");
+                    } else if (icon.includes("light")) {
+                        icon = icon.replace("light", "dark");
+                    }
+                    modelSelectedNode.getData().icon = icon;
+                    modelSelectedNode.refresh();
                 }
-                modelSelectedNode.getData().icon = icon;
-                modelSelectedNode.refresh();
             }
         } else {
             return;

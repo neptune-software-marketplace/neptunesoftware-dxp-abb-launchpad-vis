@@ -102,11 +102,17 @@ namespace Transform {
     }
 
     export async function renderSymmetricGraph(data: any) {
-        // Calculate node sizes before layout
+
         const calculateSizes = (data: any) => {
-            const sizes = Functions.calculateCellSize(data.name);
-            data.nodeSize = sizes.cellSize;
-            data.iconSize = sizes.iconSize;
+            // const sizes = Functions.calculateCellSize(data.name);
+            // data.nodeSize = sizes.cellSize;
+            // data.iconSize = sizes.iconSize;
+            // if (data.children) {
+            //     data.children.forEach(calculateSizes);
+            // }
+            const sizes = Functions.setSize(data.name,data.title);
+            data.nodeSize = sizes.cell;
+            data.iconSize = sizes.icon;
             if (data.children) {
                 data.children.forEach(calculateSizes);
             }

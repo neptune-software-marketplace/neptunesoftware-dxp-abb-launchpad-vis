@@ -5,4 +5,5 @@ const nodeName = this.getValue();
 
 node.attr("metadata/name", nodeName);
 node.attr("title/text", nodeName); // node.attr("text/text", nodeName);
-Functions.setCellSize(node, nodeName);
+// Functions.setCellSize(node, nodeName);setSize
+Functions.setSize(null,null,node);

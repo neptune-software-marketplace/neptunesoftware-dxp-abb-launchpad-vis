@@ -1,5 +1,6 @@
 const id = NodeID.getText();
 const node = graph.getCellById(id);
+node.attr("title/text", null);
 node.attr("text/text", null);
 node.attr("metadata/name", null);
 node.attr("metadata/appType", null);

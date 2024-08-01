@@ -15,7 +15,8 @@
         node.attr("metadata/artifactID",data.id);
 
         modelSelectedNode.getData().name = name;
-        Functions.calculateCellSize(name,node);
+        // Functions.calculateCellSize(name,node);
+        Functions.setSize(null,null,node);
         modelSelectedNode.refresh();
         appDialog.close();
     }
