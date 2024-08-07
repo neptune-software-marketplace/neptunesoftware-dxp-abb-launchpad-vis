@@ -248,7 +248,6 @@ namespace Transform {
                     y: data.y,
                     attrs: {
                         title: {
-                            // text
                             text: nodeTitle,
                         },
                         text: {
