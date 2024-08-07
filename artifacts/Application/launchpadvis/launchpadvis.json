@@ -2439,7 +2439,7 @@
 														{
 															"attribute": "visible",
 															"grouping": "Properties",
-															"value": "{= ${SelectedNode>/shape} === 'launchpad' ? true : false }",
+															"value": "{= ${SelectedNode>/shape} === 'launchpad' && ${Data>/mode} === 'view' ? true : false }",
 															"script": "",
 															"translation": []
 														}
@@ -2460,7 +2460,7 @@
 														{
 															"attribute": "visible",
 															"grouping": "Properties",
-															"value": "{= ${SelectedNode>/shape} === 'launchpad' ? true : false }",
+															"value": "{= ${SelectedNode>/shape} === 'launchpad' && ${Data>/mode} === 'view' ? true : false }",
 															"script": "",
 															"translation": []
 														},
@@ -2811,7 +2811,7 @@
 		}
 	],
 	"componentInterface": [],
-	"ver": "24.08.07.1147",
+	"ver": "24.08.07.1208",
 	"application": "launchpadvis",
 	"title": "",
 	"description": "",
