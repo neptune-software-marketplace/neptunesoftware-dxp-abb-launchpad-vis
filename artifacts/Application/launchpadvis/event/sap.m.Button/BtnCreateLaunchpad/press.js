@@ -21,6 +21,7 @@ if (namesCondition && edgesCondition && shapeCondition) {
         })
         .catch((error) => {
             console.error("Error processing graph", error);
+            sap.m.MessageBox.error(error);
         });
 } else {
     if (!namesCondition && !edgesCondition && !shapeCondition) {

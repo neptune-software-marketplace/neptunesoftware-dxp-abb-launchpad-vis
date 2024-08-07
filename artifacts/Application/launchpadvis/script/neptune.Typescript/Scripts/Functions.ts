@@ -140,6 +140,10 @@ namespace Functions {
                 case "tile":
                     const appType = payload.children[0].appType;
 
+                    if (!payload.name || payload.name === "") {
+                        return Promise.reject(`Error: The name cannot be null or an empty string for shape: ${payload.shape}.`);
+                    }                    
+
                     const commonPayload = {
                         name: payload.name,
                         title: payload.title,
@@ -168,6 +172,11 @@ namespace Functions {
                             tilesForTilegroup.push(item);
                         });
                     }
+
+                    if (!payload.name || payload.name === "") {
+                        return Promise.reject(`Error: The name cannot be null or an empty string for shape: ${payload.shape}.`);
+                    }
+
                     const groupPayload = {
                         name: payload.name,
                         title: payload.title,
@@ -186,6 +195,11 @@ namespace Functions {
                             tilegroupsForLaunch.push(tilegroup);
                         });
                     }
+
+                    if (!payload.name || payload.name === "") {
+                        return Promise.reject(`Error: The name cannot be null or an empty string for shape: ${payload.shape}.`);
+                    }
+
                     const launchpadPayload = {
                         name: payload.name,
                         title: payload.title,
@@ -195,6 +209,10 @@ namespace Functions {
                     };
 
                     response = await artifactAPI(launchpadPayload, "Launchpad", "Save");
+
+                    if (response.status) {
+                        return Promise.reject(`Error: ${response.status}.`);
+                    }
                     response.shape = "launchpad";
                     break;
 
@@ -208,16 +226,16 @@ namespace Functions {
         return await processNode(data);
     }
 
-    export async function artifactAPI(payload:any, tool:string, method:string) {
+    export async function artifactAPI(payload: any, tool: string, method: string) {
         return new Promise((resolve, reject) => {
             sap.n.Planet9.function({
                 id: tool,
                 method: method,
                 data: payload,
-                success: function (data) {
+                success: function (data:any) {
                     resolve(data);
                 },
-                error: function (er) {
+                error: function (er:any) {
                     console.error(er);
                     reject(er);
                 },
@@ -297,7 +315,7 @@ namespace Functions {
     }
 
     export function refreshMainPage() {
-        Table.setBusy(false);
+        Table.setBusy(true);
         $.ajax({
             url: "/api/functions/Launchpad/List",
             method: "POST",
@@ -315,8 +333,8 @@ namespace Functions {
         const nodes = graph.getNodes();
 
         // check 1
-        const namesCondition = nodes.every((node) => {
-            const name = node.store.data.attrs.title.text;
+        const namesCondition = nodes.every((node: any) => {
+            const name = node.store.data.attrs.metadata.name;
             return name && name.trim().length > 0;
         });
 
