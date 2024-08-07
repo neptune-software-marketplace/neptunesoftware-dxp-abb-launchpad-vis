@@ -422,6 +422,40 @@
 												}
 											],
 											"data": []
+										},
+										{
+											"fieldNo": "8b62250e-520b-4bf1-b275-b07ba15a7005",
+											"fieldName": "BtnFeedback",
+											"fieldParent": "9c06ce79-359d-480d-a1b7-25e82cbb10a5",
+											"fieldType": "sap.m.Button",
+											"script": "",
+											"customComponent": false,
+											"request": [],
+											"response": [],
+											"attributes": [
+												{
+													"attribute": "icon",
+													"grouping": "Properties",
+													"value": "sap-icon://sys-help",
+													"script": "",
+													"translation": []
+												},
+												{
+													"attribute": "enableCompactMode",
+													"grouping": "Properties",
+													"value": "true",
+													"script": "",
+													"translation": []
+												},
+												{
+													"attribute": "press",
+													"grouping": "Events",
+													"value": "PopoverFb.openBy(this);",
+													"script": "PopoverFb.openBy(this);",
+													"translation": []
+												}
+											],
+											"data": []
 										}
 									]
 								}
@@ -2565,6 +2599,75 @@
 			"fieldNo": 99999,
 			"data": [
 				{
+					"fieldNo": "a37472ab-9f5b-4794-821c-975e0ae40e46",
+					"fieldName": "PopoverFb",
+					"fieldParent": 99999,
+					"fieldType": "sap.m.Popover",
+					"script": "",
+					"customComponent": false,
+					"request": [],
+					"response": [],
+					"attributes": [
+						{
+							"attribute": "showHeader",
+							"grouping": "Properties",
+							"value": "false",
+							"script": "",
+							"translation": []
+						},
+						{
+							"attribute": "placement",
+							"grouping": "Properties",
+							"value": "Bottom",
+							"script": "",
+							"translation": []
+						},
+						{
+							"attribute": "contentWidth",
+							"grouping": "Properties",
+							"value": "500px",
+							"script": "",
+							"translation": []
+						},
+						{
+							"attribute": "bounce",
+							"grouping": "Properties",
+							"value": "true",
+							"script": "",
+							"translation": []
+						}
+					],
+					"data": [
+						{
+							"fieldNo": "e5a3d489-ffed-49fd-ce2c-75b294959edd",
+							"fieldName": "Text",
+							"fieldParent": "a37472ab-9f5b-4794-821c-975e0ae40e46",
+							"fieldType": "sap.m.Text",
+							"script": "",
+							"customComponent": false,
+							"request": [],
+							"response": [],
+							"attributes": [
+								{
+									"attribute": "text",
+									"grouping": "Properties",
+									"value": "For any feature requests regarding this Add-on or any issues you encountered, please refer to the community and create a post for it.",
+									"script": "",
+									"translation": []
+								},
+								{
+									"attribute": "styleClassMargin",
+									"grouping": "Properties",
+									"value": "sapUiSmallMargin",
+									"script": "",
+									"translation": []
+								}
+							],
+							"data": []
+						}
+					]
+				},
+				{
 					"fieldNo": "9431c63f-752a-4f95-9645-9041cab7434f",
 					"fieldName": "appDialog",
 					"fieldParent": 99999,
@@ -2811,7 +2914,7 @@
 		}
 	],
 	"componentInterface": [],
-	"ver": "24.08.07.1208",
+	"ver": "24.08.07.1239",
 	"application": "launchpadvis",
 	"title": "",
 	"description": "",
