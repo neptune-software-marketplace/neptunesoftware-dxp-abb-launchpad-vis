@@ -50,9 +50,9 @@ namespace Transform {
         }
         if (node.actionType === "U") {
             // @ts-ignore
-            newNode.name = node.actionURL;
+            newNode.name = (node.actionURL === "" || node.actionURL === null) ? "No selected Webapp" : node.actionURL;
             // @ts-ignore
-            newNode.actionURL = node.actionURL;
+            newNode.actionURL = (node.actionURL === "" || node.actionURL === null) ? "No selected Webapp" : node.actionURL;
 
             newNode.shape = "dynamic";
             node.children.push(newNode);
@@ -181,7 +181,14 @@ namespace Transform {
 
     export async function renderSymmetricGraph(data: any) {
         const calculateSizes = (data: any) => {
-            const sizes = Functions.setSize(data.name, data.title);
+            let name = data.name;
+            let title = data.title;
+
+            //@ts-ignore
+            if (data.shape === "dynamic") {
+                name = "URL";
+            }
+            const sizes = Functions.setSize(name, title);
             data.nodeSize = sizes.cell;
             data.iconSize = sizes.icon;
             if (data.children) {
