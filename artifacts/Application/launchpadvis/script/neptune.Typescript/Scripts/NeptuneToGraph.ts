@@ -34,7 +34,7 @@ namespace Transform {
         };
 
         if (node.actionType === "T") {
-            const tilegroup = await Functions.artifactAPI(null, "Category", "Get");
+            const tilegroup = await Functions.artifactAPI({}, "Category", "Get");
 
             // @ts-ignore
             newNode.name = tilegroup.name;
@@ -45,7 +45,7 @@ namespace Transform {
             // @ts-ignore
             newNode.description = tilegroup.description;
 
-            newNode.shape = "dynamic";
+            newNode.shape = "tile-group";
             node.children.push(newNode);
         }
         if (node.actionType === "U") {
@@ -59,12 +59,29 @@ namespace Transform {
         }
         if (node.actionType === "W") {
             // @ts-ignore
-            newNode.name = node.actionWebApp;
+            newNode.name = (node.actionWebApp === "" || node.actionWebApp === null) ? "No selected Webapp" : node.actionWebApp;
             // @ts-ignore
-            newNode.actionWebApp = node.actionWebApp;
+            newNode.actionWebApp = (node.actionWebApp === "" || node.actionWebApp === null) ? "No selected Webapp" : node.actionWebApp;
 
             newNode.shape = "webapp";
             node.children.push(newNode);
+        }
+
+        if (node.shape === "launchpad") {
+            const usingLaunch = modelArtifactRelations.getData().usingData.find(
+                (item:any) => {
+                    return item.objectId === node.id
+                }
+            ).using
+            if (usingLaunch.length === 1) {
+                const usingItem = usingLaunch[0];
+                if (usingItem.type === "app") {
+                    // @ts-ignore
+                    newNode.name = usingItem.id;
+                    newNode.shape = "application";
+                    node.children.push(newNode);
+                }   
+            }
         }
 
         if (node.children && node.children.length > 0) {
