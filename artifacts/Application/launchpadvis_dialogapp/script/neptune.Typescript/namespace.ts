@@ -1,19 +1,19 @@
-namespace CustomComponent {
+namespace visDialog {
     
     export let tool: string;
     export let method: string;
 
     export function open(toolName: string, methodName: string, selectedIds?: string[]) {
         initialize(toolName, methodName);
-        dialogApp.open(fetchAppDataWrapper, selectedIds);
+        visTable.open(fetchAppDataWrapper, selectedIds);
     }
 
     export function close() {
-        dialogApp.close();
+        visTable.close();
     }
 
     export function getData() {
-        return dialogApp.getData();
+        return visTable.getData();
     }
 
     export async function getNameForId(id: string) {
@@ -27,7 +27,7 @@ namespace CustomComponent {
     }
 
     export function sortRowsBy(field: string, descending = false) {
-        return dialogApp.sortRowsBy(field, descending);
+        return visTable.sortRowsBy(field, descending);
     }
 
     export async function fetchAppData(tool: string, method: string): Promise<any[]> {
@@ -41,15 +41,11 @@ namespace CustomComponent {
     }
     // /WEBIDE/AppList
 
-    export function setPackageFilter(packages) {
-        dialogApp.setPackageFilter(packages);
-    }
-
     function initialize(toolName: string, methodName: string) {
         tool = toolName;
         method = methodName;
-        dialogApp.setFetchDataFunc(() => fetchAppData(tool, method));
-        dialogApp.update();
+        visTable.setFetchDataFunc(() => fetchAppData(tool, method));
+        visTable.update();
     }
     function fetchAppDataWrapper(): Promise<any> {
         return fetchAppData(tool, method);

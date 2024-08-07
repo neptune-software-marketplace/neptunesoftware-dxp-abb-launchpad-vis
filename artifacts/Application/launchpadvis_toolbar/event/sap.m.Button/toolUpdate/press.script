@@ -1,2 +1,2 @@
-appDialog_dialogApp.setFetchDataFunc(appDialog.fetchAppData);
-appDialog_dialogApp.update(appDialog.tool,appDialog.method);
+visTable.setFetchDataFunc(visDialog.fetchAppData);
+visTable.update(visDialog.tool,visDialog.method);

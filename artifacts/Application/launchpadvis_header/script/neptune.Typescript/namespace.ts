@@ -1,4 +1,4 @@
-namespace CustomComponent {
+namespace visHeader {
     export function setPageNumberUnit(value: string) {
         artifactHeader.setNumber(value);
     }

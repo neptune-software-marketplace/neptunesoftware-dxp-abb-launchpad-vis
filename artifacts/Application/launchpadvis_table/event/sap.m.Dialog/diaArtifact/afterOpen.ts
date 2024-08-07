@@ -1,1 +1,1 @@
-CustomComponent.afterOpen();
+visTable.afterOpen();

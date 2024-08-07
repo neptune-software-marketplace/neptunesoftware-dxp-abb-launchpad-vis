@@ -18,6 +18,7 @@
         // Functions.calculateCellSize(name,node);
         Functions.setSize(null,null,node);
         modelSelectedNode.refresh();
-        appDialog.close();
+        //appDialog.close();
+        visDialog.close();
     }
 })();

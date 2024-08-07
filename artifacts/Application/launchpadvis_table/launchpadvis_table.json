@@ -142,9 +142,8 @@
 						{
 							"attribute": "beforeOpen",
 							"grouping": "Events",
-							"value": "Anonymous Function",
-							"script": "file://event/sap.m.Dialog/diaArtifact/beforeOpen.ts",
-							"language": "typescript",
+							"value": "visTable.update();",
+							"script": "visTable.update();",
 							"translation": []
 						},
 						{
@@ -237,8 +236,8 @@
 												{
 													"attribute": "press",
 													"grouping": "Events",
-													"value": "CustomComponent.close();",
-													"script": "CustomComponent.close();",
+													"value": "visTable.close();",
+													"script": "visTable.close();",
 													"translation": []
 												}
 											],
@@ -990,7 +989,7 @@
 		],
 		"topLevelObjects": []
 	},
-	"ver": "24.07.09.0751",
+	"ver": "24.08.07.2159",
 	"application": "launchpadvis_table",
 	"title": "",
 	"description": "",
