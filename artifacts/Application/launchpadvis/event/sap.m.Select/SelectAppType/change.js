@@ -4,6 +4,8 @@ const appType = SelectAppType.getSelectedKey();
 
 if (appType === "adaptive") {
     node.attr("icon/xlinkHref",`/public/images/platform/bare/${Init.systemTheme}/adaptive-app-designer.svg`);
+} else if (appType === "webapp") {
+    node.attr("icon/xlinkHref",`/public/images/platform/bare/${Init.systemTheme}/app-editor.svg`);
 } else {
     node.attr("icon/xlinkHref",`/public/images/platform/bare/${Init.systemTheme}/app-designer.svg`);
 }

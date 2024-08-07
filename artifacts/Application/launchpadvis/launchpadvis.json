@@ -1896,7 +1896,7 @@
 														{
 															"attribute": "visible",
 															"grouping": "Properties",
-															"value": "{= ${SelectedNode>/shape} === 'application' ? false : true}",
+															"value": "{= ${SelectedNode>/shape} === 'application' || ${SelectedNode>/shape} === 'dynamic' ? false : true}",
 															"script": "",
 															"translation": []
 														},
@@ -1931,7 +1931,7 @@
 														{
 															"attribute": "visible",
 															"grouping": "Properties",
-															"value": "{= ${SelectedNode>/shape} === 'application' ? false : true}",
+															"value": "{= ${SelectedNode>/shape} === 'application' || ${SelectedNode>/shape} === 'dynamic' ? false : true}",
 															"script": "",
 															"translation": []
 														},
@@ -1981,7 +1981,7 @@
 														{
 															"attribute": "visible",
 															"grouping": "Properties",
-															"value": "{= ${selectedNode>/shape} === 'application' ? false : true }",
+															"value": "{= ${SelectedNode>/shape} === 'application' || ${SelectedNode>/shape} === 'dynamic' ? false : true}",
 															"script": "",
 															"translation": []
 														},
@@ -2009,7 +2009,7 @@
 														{
 															"attribute": "visible",
 															"grouping": "Properties",
-															"value": "{= ${SelectedNode>/shape} === 'application' ? false : true }",
+															"value": "{= ${SelectedNode>/shape} === 'application' || ${SelectedNode>/shape} === 'dynamic' ? false : true}",
 															"script": "",
 															"translation": []
 														},
@@ -2052,7 +2052,7 @@
 														{
 															"attribute": "visible",
 															"grouping": "Properties",
-															"value": "{= ${selectedNode>/shape} === 'application' ? false : true }",
+															"value": "{= ${SelectedNode>/shape} === 'application' || ${SelectedNode>/shape} === 'dynamic' ? false : true}",
 															"script": "",
 															"translation": []
 														},
@@ -2080,7 +2080,7 @@
 														{
 															"attribute": "visible",
 															"grouping": "Properties",
-															"value": "{= ${SelectedNode>/shape} === 'application' ? false : true }",
+															"value": "{= ${SelectedNode>/shape} === 'application' || ${SelectedNode>/shape} === 'dynamic' ? false : true}",
 															"script": "",
 															"translation": []
 														},
@@ -2123,7 +2123,7 @@
 														{
 															"attribute": "visible",
 															"grouping": "Properties",
-															"value": "{= ${selectedNode>/shape} === 'application' ? true : false }",
+															"value": "{= ${SelectedNode>/shape} === 'application' ? true : false }",
 															"script": "",
 															"translation": []
 														},
@@ -2232,6 +2232,41 @@
 																}
 															],
 															"data": []
+														},
+														{
+															"fieldNo": "d0a6a36d-ec83-42ed-93c5-f26ebdbedfd1",
+															"fieldName": "ListItemWeb",
+															"fieldParent": "45b278d1-3b22-4f60-bc85-ad91aafae11e",
+															"fieldType": "sap.ui.core.ListItem",
+															"script": "",
+															"customComponent": false,
+															"bindingType": "h",
+															"request": [],
+															"response": [],
+															"attributes": [
+																{
+																	"attribute": "text",
+																	"grouping": "Properties",
+																	"value": "App Editor",
+																	"script": "",
+																	"translation": []
+																},
+																{
+																	"attribute": "key",
+																	"grouping": "Properties",
+																	"value": "webapp",
+																	"script": "",
+																	"translation": []
+																},
+																{
+																	"attribute": "enabled",
+																	"grouping": "Properties",
+																	"value": "{= ${Data>/mode} === 'create' ? false : true}",
+																	"script": "",
+																	"translation": []
+																}
+															],
+															"data": []
 														}
 													]
 												},
@@ -2249,7 +2284,7 @@
 														{
 															"attribute": "visible",
 															"grouping": "Properties",
-															"value": "{= ${selectedNode>/shape} === 'application' ? true : false }",
+															"value": "{= ${SelectedNode>/shape} === 'application' ? true : false }",
 															"script": "",
 															"translation": []
 														},
@@ -2328,6 +2363,132 @@
 													"data": []
 												},
 												{
+													"fieldNo": "cb2781ae-c428-41d2-8a83-fbbbffd829d1",
+													"fieldName": "LabelURL",
+													"fieldParent": "0767e2d8-5a70-44f6-b102-7a3b7e2a1ad4",
+													"fieldType": "sap.m.Label",
+													"script": "",
+													"customComponent": false,
+													"bindingType": "h",
+													"request": [],
+													"response": [],
+													"attributes": [
+														{
+															"attribute": "visible",
+															"grouping": "Properties",
+															"value": "{= ${SelectedNode>/shape} === 'dynamic' ? true : false }",
+															"script": "",
+															"translation": []
+														},
+														{
+															"attribute": "text",
+															"grouping": "Properties",
+															"value": "URL",
+															"script": "",
+															"translation": []
+														}
+													],
+													"data": []
+												},
+												{
+													"fieldNo": "526242f8-5c52-44b7-f070-8052a6e0429c",
+													"fieldName": "InputURL",
+													"fieldParent": "0767e2d8-5a70-44f6-b102-7a3b7e2a1ad4",
+													"fieldType": "sap.m.Input",
+													"script": "",
+													"customComponent": false,
+													"bindingType": "h",
+													"request": [],
+													"response": [],
+													"attributes": [
+														{
+															"attribute": "visible",
+															"grouping": "Properties",
+															"value": "{= ${SelectedNode>/shape} === 'dynamic' ? true : false }",
+															"script": "",
+															"translation": []
+														},
+														{
+															"attribute": "value",
+															"grouping": "Properties",
+															"value": "{SelectedNode>/name}",
+															"script": "",
+															"translation": []
+														},
+														{
+															"attribute": "editable",
+															"grouping": "Properties",
+															"value": "{= ${Data>/mode} === 'create' ? true : false}",
+															"script": "",
+															"translation": []
+														}
+													],
+													"data": []
+												},
+												{
+													"fieldNo": "a171b566-e719-4efc-93d8-81b31f29491c",
+													"fieldName": "LabelLaunch",
+													"fieldParent": "0767e2d8-5a70-44f6-b102-7a3b7e2a1ad4",
+													"fieldType": "sap.m.Label",
+													"script": "",
+													"customComponent": false,
+													"bindingType": "h",
+													"request": [],
+													"response": [],
+													"attributes": [
+														{
+															"attribute": "visible",
+															"grouping": "Properties",
+															"value": "{= ${SelectedNode>/shape} === 'launchpad' ? true : false }",
+															"script": "",
+															"translation": []
+														}
+													],
+													"data": []
+												},
+												{
+													"fieldNo": "02463fdd-2d40-4c89-946e-63c123706d7c",
+													"fieldName": "BtnLaunch",
+													"fieldParent": "0767e2d8-5a70-44f6-b102-7a3b7e2a1ad4",
+													"fieldType": "sap.m.Button",
+													"script": "",
+													"customComponent": false,
+													"bindingType": "h",
+													"request": [],
+													"response": [],
+													"attributes": [
+														{
+															"attribute": "visible",
+															"grouping": "Properties",
+															"value": "{= ${SelectedNode>/shape} === 'launchpad' ? true : false }",
+															"script": "",
+															"translation": []
+														},
+														{
+															"attribute": "text",
+															"grouping": "Properties",
+															"value": "Open Launchpad",
+															"script": "",
+															"translation": []
+														},
+														{
+															"attribute": "icon",
+															"grouping": "Properties",
+															"value": "sap-icon://fa-solid/external-link-alt",
+															"script": "",
+															"translation": []
+														},
+														{
+															"attribute": "press",
+															"grouping": "Events",
+															"value": "Anonymous Function",
+															"script": "file://event/sap.m.Button/BtnLaunch/press.script",
+															"translation": []
+														}
+													],
+													"data": []
+												},
+												{
 													"fieldNo": "166a1b0f-527d-4383-c717-867277904e21",
 													"fieldName": "LabelNavigate",
 													"fieldParent": "0767e2d8-5a70-44f6-b102-7a3b7e2a1ad4",
@@ -2369,7 +2530,7 @@
 														{
 															"attribute": "text",
 															"grouping": "Properties",
-															"value": "Open",
+															"value": "Open Artifact",
 															"script": "",
 															"translation": []
 														},
@@ -2650,7 +2811,7 @@
 		}
 	],
 	"componentInterface": [],
-	"ver": "24.08.01.1242",
+	"ver": "24.08.07.1032",
 	"application": "launchpadvis",
 	"title": "",
 	"description": "",

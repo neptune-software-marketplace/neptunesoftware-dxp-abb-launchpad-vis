@@ -3,7 +3,7 @@ const context = this.getContextByIndex(this.getSelectedIndex());
 if (context) {
     const data = context.getObject();
     modelData.getData().selectedLaunchpad = data;
-    const json = Transform.showUsage(data.id.toLowerCase(), data.name, data.title, data.description);
+    const json = await Transform.showUsage(data.id.toLowerCase(), data.name, data.title, data.description);
     const appData = modelData.getData();
 
     appData.mode = "view";

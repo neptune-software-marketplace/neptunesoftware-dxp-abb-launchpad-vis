@@ -28,6 +28,9 @@ namespace ArtifactScraperDirect {
         "actionApplication",
         "settings",
         "actionType",
+        "actionURL",
+        "actiongroup",
+        "actionWebApp",
         "settings",
         "type",
         "tileApplication",
@@ -68,7 +71,7 @@ namespace ArtifactScraperDirect {
             artifactType: "tile",
             repositoryName: "tile",
             selectInfo: artifactInfoTile,
-            artifactMapFn: mapLaunchpad,
+            artifactMapFn: mapTile, // mapLaunchpad
             usingFn: [{ propertyExtractFn: (x) => x.roles, artifactType: "role" }, mapTileChildren],
         },
         {
@@ -76,7 +79,7 @@ namespace ArtifactScraperDirect {
             repositoryName: "app_runtime",
             selectInfo: artifactInfoApp,
             artifactMapFn: mapApp,
-            usingFn: [mapAppUsing],
+            usingFn: [],
         },
         {
             artifactType: "adaptive",
@@ -100,25 +103,6 @@ namespace ArtifactScraperDirect {
     complete({
         scrapeArtifacts,
     });
-
-    function mapAppUsing(application) {
-        const using = [];
-
-        const apiObjects = application.objects.filter(
-            (object) => object.fieldType === "neptune.restapi"
-        );
-
-        for (let i = 0; i < apiObjects.length; i++) {
-            using.push({
-                id: apiObjects[i].restOperation,
-                type: "api_operation",
-                parentId: apiObjects[i].restSource,
-                parentType: "api",
-            });
-        }
-
-        return using;
-    }
 
     function mapApp({ id, application, package, title, description }) {
         const app = apps.find((x) => x.id === id);
@@ -165,6 +149,29 @@ namespace ArtifactScraperDirect {
                 used_by: [],
                 title: title,
                 description: description,
+            },
+        ];
+    }
+
+    function mapTile({ id, name, package, title, description, actionType, actionURL, actiongroup, actionWebApp }) {
+        return [
+            {
+                type: "",
+                packageId: package,
+                packageName: null,
+                objectId: id,
+                name: name,
+                id: uuid(),
+                parents: [package],
+                children: [],
+                using: [],
+                used_by: [],
+                title: title,
+                description: description,
+                actionType: actionType,
+                actionURL: actionURL,
+                actiongroup: actiongroup,
+                actionWebApp: actionWebApp,
             },
         ];
     }

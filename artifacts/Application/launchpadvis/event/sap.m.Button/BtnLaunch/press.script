@@ -1,0 +1,3 @@
+const launchpadName = modelSelectedNode.getData().name;
+const origin = window.location.origin;
+window.open(`${origin}/launchpad/${launchpadName}`,"_blank");

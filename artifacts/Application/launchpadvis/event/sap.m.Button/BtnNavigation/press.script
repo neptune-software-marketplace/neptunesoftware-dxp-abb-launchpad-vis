@@ -11,11 +11,24 @@ switch (cellType) {
     case "application":
         const origin = window.location.origin;
         const appType = modelSelectedNode.getData().appType;
-        const file = appType === "application" ? "appdesigner.html" : "adaptivedesigner.html";
-        const fullURL = `${origin}/${file}?application=${artifactName}`;
+        let file;
+
+        if (appType === "application") {
+            file = "appdesigner.html";
+        } else if (appType === "webapp") {
+            file = "appeditor.html";
+        } else {
+            file = "adaptivedesigner.html";
+        }
+
+        const fullURL = appType === "webapp" ? `${origin}/${file}` : `${origin}/${file}?application=${artifactName}`;
         window.open(fullURL, "_blank");
+        break;
+    case "dynamic":
+        window.open(/^https?:\/\//i.test(artifactName) ? artifactName : "https://" + artifactName, "_blank");
         break;
     default:
         artifactType = cellType;
         Functions.navigate("run", artifactType, artifactName, artifactId);
+        break;
 }

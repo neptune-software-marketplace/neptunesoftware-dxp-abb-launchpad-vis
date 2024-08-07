@@ -157,6 +157,12 @@ function createTree(sourceArray, parentId, level, navMode) {
             treeItem.parent = parentId;
             treeItem.level = level;
             treeItem.navMode = navMode;
+
+            treeItem.actionType = sourceArtifact.actionType;
+            treeItem.actionURL = sourceArtifact.actionURL;
+            treeItem.actiongroup = sourceArtifact.actiongroup;
+            treeItem.actionWebApp = sourceArtifact.actionWebApp;
+            
             artifactTree.push(treeItem);
 
             if (sourceArtifact.used_by) {

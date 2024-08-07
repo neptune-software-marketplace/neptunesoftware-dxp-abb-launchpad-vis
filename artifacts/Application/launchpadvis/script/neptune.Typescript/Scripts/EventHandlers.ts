@@ -149,7 +149,7 @@ namespace Events {
             nodes.forEach((node) => {
                 let cellPorts = node.getPorts();
 
-                cellPorts.forEach((port) => {
+                cellPorts.forEach((port:any) => {
                     node.portProp(port.id, "attrs/circle", {
                         stroke: "none",
                         fill: "none",

@@ -1,5 +1,5 @@
 namespace Transform {
-    export function showUsage(id: string, name: string, title: string, description: string) {
+    export async function showUsage(id: string, name: string, title: string, description: string) {
         const tree = [];
 
         getUsingTree(id, "", 0, tree);
@@ -15,7 +15,61 @@ namespace Transform {
 
         const neptuneGraph = processGraph(preProcessedJSON);
 
+        await addNodeIfActionType(neptuneGraph);
+
         return neptuneGraph;
+    }
+
+    async function addNodeIfActionType(node: any) {
+        const newNode = {
+            id: crypto.randomUUID(),
+            name: "",
+            shape: "",
+            title: "",
+            description: "",
+            actionURL: null,
+            actiongroup: null,
+            actionWebApp: null,
+            children: [],
+        };
+
+        if (node.actionType === "T") {
+            const tilegroup = await Functions.artifactAPI(null, "Category", "Get");
+
+            // @ts-ignore
+            newNode.name = tilegroup.name;
+            // @ts-ignore
+            newNode.id = tilegroup.id;
+            // @ts-ignore
+            newNode.title = tilegroup.title;
+            // @ts-ignore
+            newNode.description = tilegroup.description;
+
+            newNode.shape = "dynamic";
+            node.children.push(newNode);
+        }
+        if (node.actionType === "U") {
+            // @ts-ignore
+            newNode.name = node.actionURL;
+            // @ts-ignore
+            newNode.actionURL = node.actionURL;
+
+            newNode.shape = "dynamic";
+            node.children.push(newNode);
+        }
+        if (node.actionType === "W") {
+            // @ts-ignore
+            newNode.name = node.actionWebApp;
+            // @ts-ignore
+            newNode.actionWebApp = node.actionWebApp;
+
+            newNode.shape = "webapp";
+            node.children.push(newNode);
+        }
+
+        if (node.children && node.children.length > 0) {
+            node.children.forEach((child: any) => addNodeIfActionType(child));
+        }
     }
 
     function processGraph(data: any) {
@@ -48,11 +102,8 @@ namespace Transform {
         const source = modelArtifactRelations
             .getData()
             .usingData.find((x) => x.objectId === objectId);
-        // const sourceArtifact = modelartifactsData.getData().find((z) => z.objectId === objectId);
-        // find users
-        const usingTabData = source?.using.map((y: any) => {
-            // const usingID = y.type === "adaptive" ? y.id.toLowerCase() : y.id;
 
+        const usingTabData = source?.using.map((y: any) => {
             const artifact = modelArtifactRelations
                 .getData()
                 .artifactsData.find((z: any) => z.objectId === y.id);
@@ -63,6 +114,11 @@ namespace Transform {
                     type: artifact.type,
                     title: artifact.title,
                     description: artifact.description,
+
+                    actionType: artifact.actionType,
+                    actionURL: artifact.actionURL,
+                    actiongroup: artifact.actiongroup,
+                    actionWebApp: artifact.actionWebApp,
                 };
             }
         });
@@ -80,6 +136,11 @@ namespace Transform {
                         objectId: element.objectId,
                         title: element.title,
                         description: element.description,
+
+                        actionType: element.actionType,
+                        actionURL: element.actionURL,
+                        actiongroup: element.actiongroup,
+                        actionWebApp: element.actionWebApp,
                     };
                     tree.push(treeNode);
                     if (!recursive) {
@@ -90,7 +151,7 @@ namespace Transform {
         }
     }
 
-    function isRecursive(tree, nodeId, objectId) {
+    function isRecursive(tree: any, nodeId: string, objectId: string) {
         if (nodeId === "") {
             return false;
         }
@@ -102,15 +163,8 @@ namespace Transform {
     }
 
     export async function renderSymmetricGraph(data: any) {
-
         const calculateSizes = (data: any) => {
-            // const sizes = Functions.calculateCellSize(data.name);
-            // data.nodeSize = sizes.cellSize;
-            // data.iconSize = sizes.iconSize;
-            // if (data.children) {
-            //     data.children.forEach(calculateSizes);
-            // }
-            const sizes = Functions.setSize(data.name,data.title);
+            const sizes = Functions.setSize(data.name, data.title);
             data.nodeSize = sizes.cell;
             data.iconSize = sizes.icon;
             if (data.children) {
@@ -135,23 +189,31 @@ namespace Transform {
         const traverse = (data: HierarchyResult) => {
             if (data) {
                 let nodeShape = data.data.shape;
-                const nodeName = data.data.name;
+                let nodeName = data.data.name;
                 const nodeSize = data.data.nodeSize;
                 const iconSize = data.data.iconSize;
+                let nodeTitle = data.data.name;
+                let nodeText = data.data.title;
                 let appType = null;
                 let icon: string;
 
                 if (nodeShape === "application") {
                     appType = "application";
+                    nodeShape = "application";
                     icon = `/public/images/platform/bare/${Init.systemTheme}/app-designer.svg`;
                 } else if (nodeShape === "adaptive") {
                     appType = "adaptive";
+                    nodeShape = "application";
                     icon = `/public/images/platform/bare/${Init.systemTheme}/adaptive-app-designer.svg`;
+                } else if (nodeShape === "webapp") {
+                    appType = "webapp";
+                    nodeShape = "application";
+                    icon = `/public/images/platform/bare/${Init.systemTheme}/app-editor.svg`;
+                } else if (nodeShape === "dynamic") {
+                    nodeTitle = "URL";
                 } else {
                     icon = null;
-                }
-
-                if (nodeShape === "adaptive") nodeShape = "application";
+                };
 
                 model.nodes.push({
                     id: data.data.id, // node id and artifact id
@@ -163,10 +225,10 @@ namespace Transform {
                     attrs: {
                         title: {
                             // text
-                            text: data.data.name,
+                            text: nodeTitle,
                         },
                         text: {
-                            text: data.data.title,
+                            text: nodeText,
                         },
                         metadata: {
                             nodeID: data.data.id,

@@ -6,7 +6,17 @@ switch (shape) {
     case "tile-group":
         return "Tile Group";
     case "application":
-        return appType === "application" ? "Application" : "Adaptive";
+        if (appType === "application") {
+            return "Application";
+        }
+        if (appType === "adaptive") {
+            return "Adaptive";
+        }
+        if (appType === "webapp") {
+            return "Webapp";
+        }
+    case "dynamic":
+        return "Dynamic"
     default:
         return shape;
 }

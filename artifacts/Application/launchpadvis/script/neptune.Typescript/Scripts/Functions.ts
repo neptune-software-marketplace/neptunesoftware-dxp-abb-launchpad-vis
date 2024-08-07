@@ -208,7 +208,7 @@ namespace Functions {
         return await processNode(data);
     }
 
-    async function artifactAPI(payload, tool, method) {
+    export async function artifactAPI(payload:any, tool:string, method:string) {
         return new Promise((resolve, reject) => {
             sap.n.Planet9.function({
                 id: tool,
@@ -387,8 +387,12 @@ namespace Functions {
 
                 const size = Math.max(widthForName, widthForTitle);
 
-                defaultCellSize.width = size;
-                defaultIconSize = size - 78;
+                if (size > defaultCellSize.width) {
+                    defaultCellSize.width = size;
+                    defaultIconSize = size - 78;
+                } else {
+                    defaultIconSize = defaultCellSize.width - 78;
+                }
                 return { cell: defaultCellSize, icon: defaultIconSize };
             }
 
@@ -396,8 +400,12 @@ namespace Functions {
 
             const widthForName = (39 * nameSize + 2369) / 28;
 
-            defaultCellSize.width = widthForName;
-            defaultIconSize = widthForName - 78;
+            if (widthForName > defaultCellSize.width) {
+                defaultCellSize.width = widthForName;
+                defaultIconSize = widthForName - 78;
+            } else {
+                defaultIconSize = defaultCellSize.width - 78;
+            }
             return { cell: defaultCellSize, icon: defaultIconSize };
         }
 
@@ -413,50 +421,15 @@ namespace Functions {
 
             const size = Math.max(widthForName, widthForTitle);
 
-            defaultCellSize.width = size;
-            cell.setSize(defaultCellSize);
-            cell.attr("icon/refX", size - 78);
+            if (size > defaultCellSize.width) {
+                defaultCellSize.width = size;
+                cell.setSize(defaultCellSize);
+                cell.attr("icon/refX", size - 78);
+            } else {
+                cell.setSize(defaultCellSize);
+                cell.attr("icon/refX", defaultCellSize.width - 78);
+            }
             return;
-        }
-    }
-    export function setCellSize(cel: any, str: any) {
-        let defaultCellSize = {
-            width: 180,
-            height: 75,
-        };
-
-        if (str.length <= 9) {
-            cel.setSize(defaultCellSize);
-            cel.attr("icon/refX", 100);
-            return;
-        }
-
-        let currentCellSize = cel.getSize();
-
-        let newCellWidth = defaultCellSize.width + (24 / 3) * (str.length - 9);
-        let newRefX = 100 + (24 / 3) * (str.length - 9);
-
-        cel.setSize({ width: newCellWidth, height: currentCellSize.height });
-        cel.attr("icon/refX", newRefX);
-    }
-
-    export function calculateCellSize(str: string, cel = null) {
-        let defaultCellSize = {
-            width: 180,
-            height: 75,
-        };
-        let defaultRefX = 100;
-        if (str.length > 9) {
-            // 19
-            let newCellWidth = defaultCellSize.width + (24 / 3) * (str.length - 9);
-            defaultRefX = 100 + (24 / 3) * (str.length - 9);
-            defaultCellSize.width = newCellWidth;
-        }
-        if (!cel) {
-            return { cellSize: defaultCellSize, iconSize: defaultRefX };
-        } else {
-            cel.setSize(defaultCellSize);
-            cel.attr("icon/refX", defaultRefX);
         }
     }
 
@@ -467,7 +440,7 @@ namespace Functions {
                 case "view":
                     await Init.render(true);
                     const data = modelData.getData().selectedLaunchpad;
-                    const json = Transform.showUsage(
+                    const json = await Transform.showUsage(
                         data.id.toLowerCase(),
                         data.name,
                         data.title,

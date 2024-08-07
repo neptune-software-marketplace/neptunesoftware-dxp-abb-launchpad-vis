@@ -564,6 +564,81 @@ namespace Init {
             true
         );
 
+        Graph.registerNode(
+            "dynamic",
+            {
+                width: 180,
+                height: 75, // 60
+                attrs: {
+                    body: {
+                        stroke: "#ff9e33",
+                        strokeWidth: 1,
+                        fill: "rgba(255, 210, 94, 0.05)", //rgba(95,149,255,0.05)
+                        refWidth: 1,
+                        refHeight: 1,
+                    },
+                    title: {
+                        text: "Dynamic",
+                        refX: 20,
+                        refY: 20,
+                        fill: textColor, // rgba(0,0,0,0.85)
+                        fontSize: 18,
+                        "text-anchor": "start",
+                    },
+                    text: {
+                        text: "",
+                        refX: 20,
+                        refY: 55,
+                        fontSize: 12,
+                        fill: textColor,
+                        "text-anchor": "start",
+                    },
+                    metadata: {
+                        nodeID: null,
+                        shape: null,
+                        name: null,
+                        title: null,
+                        description: null,
+                        artifactID: null,
+                        appType: null,
+                    },
+                    icon: {
+                        xlinkHref: `/public/images/platform/bare/${systemTheme}/information.svg`,
+                        refX: 100,
+                        refY: -10,
+                        width: 80,
+                        height: 80,
+                        fill: "#FF5733",
+                    },
+                },
+                markup: [
+                    {
+                        tagName: "rect",
+                        selector: "body",
+                    },
+                    {
+                        tagName: "text",
+                        selector: "title",
+                    },
+                    {
+                        tagName: "text",
+                        selector: "text",
+                    },
+                    {
+                        tagName: "image",
+                        selector: "icon",
+                    },
+                ],
+                ports: {
+                    groups: {
+                        in: cellPorts.groups.in,
+                    },
+                    items: cellPorts.items.filter((item) => item.group === "in"),
+                },
+            },
+            true
+        );
+
         const r3 = graph.createNode({
             shape: "tile-group",
             attrs: {
