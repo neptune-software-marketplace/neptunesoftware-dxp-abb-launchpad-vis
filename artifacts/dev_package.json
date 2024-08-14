@@ -5,7 +5,7 @@
 	"git": {
 		"remote": "https://github.com/neptune-software-marketplace/neptunesoftware-launchpad-vis"
 	},
-	"name": "neptunesoftware-launchpad-vis",
+	"name": "neptunesoftware-dxp-abb-launchpad-vis",
 	"description": null,
 	"ver": "24.08.07.1435",
 	"enableCICD": true,
