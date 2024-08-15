@@ -32,7 +32,7 @@ namespace Init {
             History = X6Objects.History;
             Model = X6Objects.Model;
 
-            Functions.refreshMainPage();
+            await Functions.refreshMainPage();
             modelData.setData({
                 mode: "none", // none, create, view, edit
                 focusedCell: false,
@@ -59,7 +59,10 @@ namespace Init {
     export async function render(themeChange: boolean = false) {
         //@ts-ignore
         systemTheme = poSettings.getData().cockpit.theme;
-        if (systemTheme === "system") systemTheme = "dark";
+        if (systemTheme === "system") {
+            const query = window.matchMedia("(prefers-color-scheme: dark)");
+            systemTheme = query.matches ? "dark" : "light";
+        }
         if (systemTheme === "light") {
             textColor = "#191919";
         } else {

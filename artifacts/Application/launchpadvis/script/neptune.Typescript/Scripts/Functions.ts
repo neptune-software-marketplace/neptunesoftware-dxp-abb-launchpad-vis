@@ -314,18 +314,17 @@ namespace Functions {
         sap.n.HashNavigation.toExternal(redirectDetails);
     }
 
-    export function refreshMainPage() {
+    export async function refreshMainPage() {
         Table.setBusy(true);
-        $.ajax({
-            url: "/api/functions/Launchpad/List",
-            method: "POST",
-            success: function (data) {
-                modelLaunchpads.setData(data.launchpad);
-            },
-            error: function (er) {
-                console.error(er);
-            },
-        });
+        const response = await artifactAPI({},"Launchpad","List");
+
+        if (Array.isArray(response)) {
+            modelLaunchpads.setData(response);
+        } else {
+            //@ts-ignore
+            modelLaunchpads.setData(response.launchpad);
+        }
+
         apiartifactTree();
     }
 
@@ -511,6 +510,7 @@ namespace Functions {
         }
     }
 
-    //@ts-ignore
-    poSettings_s_cpTheme.attachChange(changeColor);
+    sap.ui.getCore().attachThemeChanged(()=>{
+        changeColor();
+    })
 }

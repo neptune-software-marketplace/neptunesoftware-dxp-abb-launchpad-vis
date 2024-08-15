@@ -416,8 +416,8 @@
 												{
 													"attribute": "press",
 													"grouping": "Events",
-													"value": "Functions.refreshMainPage();",
-													"script": "Functions.refreshMainPage();",
+													"value": "await Functions.refreshMainPage();",
+													"script": "await Functions.refreshMainPage();",
 													"translation": []
 												}
 											],
@@ -2915,7 +2915,7 @@
 		}
 	],
 	"componentInterface": [],
-	"ver": "24.08.07.2211",
+	"ver": "24.08.15.1004",
 	"application": "launchpadvis",
 	"title": "",
 	"description": "",

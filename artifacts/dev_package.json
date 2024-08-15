@@ -7,7 +7,7 @@
 	},
 	"name": "neptunesoftware-dxp-abb-launchpad-vis",
 	"description": null,
-	"ver": "24.08.07.1435",
+	"ver": "24.08.15.0944",
 	"enableCICD": true,
 	"apps": [
 		{
