@@ -7,62 +7,47 @@
 	},
 	"name": "neptunesoftware-dxp-abb-launchpad-vis",
 	"description": null,
-	"ver": "24.08.15.0944",
+	"ver": "24.10.25.1301",
 	"enableCICD": true,
+	"internalReadOnly": false,
+	"excludeTemplateFiles": false,
+	"roles": [],
 	"apps": [
 		{
 			"id": "efc888cf-518b-458b-89b5-b5bf15314ede",
 			"application": "launchpadvis_modules",
 			"title": "",
-			"description": "",
-			"package": {
-				"id": "c05ddc61-813c-4e8d-a97e-fa72b3d210ae"
-			}
+			"description": ""
 		},
 		{
 			"id": "ecb12b6a-37fe-45d8-bf25-2a25f0cb3bd0",
 			"application": "launchpadvis_table",
 			"title": "",
-			"description": "",
-			"package": {
-				"id": "c05ddc61-813c-4e8d-a97e-fa72b3d210ae"
-			}
+			"description": ""
 		},
 		{
 			"id": "9674bdd5-68a2-407c-f94f-727afb9cc843",
 			"application": "launchpadvis_header",
 			"title": "",
-			"description": "",
-			"package": {
-				"id": "c05ddc61-813c-4e8d-a97e-fa72b3d210ae"
-			}
+			"description": ""
 		},
 		{
 			"id": "80791cb2-643b-45e0-8081-ec301c2a8fe8",
 			"application": "launchpadvis_dialogapp",
 			"title": "",
-			"description": "",
-			"package": {
-				"id": "c05ddc61-813c-4e8d-a97e-fa72b3d210ae"
-			}
+			"description": ""
 		},
 		{
 			"id": "6fa63206-89c0-4f80-9e88-b77ea2a04c44",
 			"application": "launchpadvis_toolbar",
 			"title": "",
-			"description": "",
-			"package": {
-				"id": "c05ddc61-813c-4e8d-a97e-fa72b3d210ae"
-			}
+			"description": ""
 		},
 		{
 			"id": "5d5c5acb-bea0-4001-84f2-356d90d37007",
 			"application": "launchpadvis",
 			"title": "",
-			"description": "",
-			"package": {
-				"id": "c05ddc61-813c-4e8d-a97e-fa72b3d210ae"
-			}
+			"description": ""
 		}
 	],
 	"api": [
@@ -108,6 +93,7 @@
 			"name": "launchpad-vis-tile"
 		}
 	],
+	"tile_layout": [],
 	"category": [
 		{
 			"id": "4f558f41-74a3-4fe6-8caf-1d708554c25f",
@@ -115,7 +101,9 @@
 			"name": "launchpad-vis-tilegroup"
 		}
 	],
+	"tilegroup_layout": [],
 	"launchpad": [],
+	"launchpad_layout": [],
 	"certificates": [],
 	"role": [],
 	"systems": [],
@@ -128,5 +116,6 @@
 	"events": [],
 	"code_snippets": [],
 	"wf_determination": [],
-	"wf_taskaction": []
+	"wf_taskaction": [],
+	"theme_ui5": []
 }

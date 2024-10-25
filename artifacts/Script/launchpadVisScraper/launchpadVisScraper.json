@@ -12,7 +12,6 @@
 	"folder": "",
 	"content": "file:///content.ts",
 	"useAsGlobalScript": true,
-	"transpiledContent": "file:///transpiledContent.ts",
 	"lastRunSuccessful": false,
 	"isTypescript": false,
 	"language": "typescript",

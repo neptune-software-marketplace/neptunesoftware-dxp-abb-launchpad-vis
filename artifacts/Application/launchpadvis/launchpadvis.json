@@ -1668,6 +1668,13 @@
 													"value": "true",
 													"script": "",
 													"translation": []
+												},
+												{
+													"attribute": "width",
+													"grouping": "Properties",
+													"value": "95%",
+													"script": "",
+													"translation": []
 												}
 											],
 											"data": []
@@ -1694,6 +1701,13 @@
 													"attribute": "styleClassMargin",
 													"grouping": "Properties",
 													"value": "sapUiLargeMarginBottom",
+													"script": "",
+													"translation": []
+												},
+												{
+													"attribute": "width",
+													"grouping": "Properties",
+													"value": "95%",
 													"script": "",
 													"translation": []
 												}
@@ -1883,6 +1897,13 @@
 													"attribute": "editable",
 													"grouping": "Properties",
 													"value": "true",
+													"script": "",
+													"translation": []
+												},
+												{
+													"attribute": "width",
+													"grouping": "Properties",
+													"value": "95%",
 													"script": "",
 													"translation": []
 												}
@@ -2689,7 +2710,7 @@
 							"attribute": "clearPress",
 							"grouping": "Select",
 							"value": "Anonymous Function",
-							"script": "file://event/launchpadvis_dialogapp/appDialog/clearPress.js",
+							"script": "file://event/launchpadvis_dialogapp/appDialog/8c2ab412-769b-48df-f4a8-2d8424f5d289-clearPress.js",
 							"fieldId": "8c2ab412-769b-48df-f4a8-2d8424f5d289",
 							"language": "javascript",
 							"translation": []
@@ -2698,7 +2719,7 @@
 							"attribute": "itemPress",
 							"grouping": "Select",
 							"value": "Anonymous Function",
-							"script": "file://event/launchpadvis_dialogapp/appDialog/itemPress.script",
+							"script": "file://event/launchpadvis_dialogapp/appDialog/8c2ab412-769b-48df-f4a8-2d8424f5d289-itemPress.script",
 							"fieldId": "8c2ab412-769b-48df-f4a8-2d8424f5d289",
 							"translation": []
 						}
@@ -2915,7 +2936,7 @@
 		}
 	],
 	"componentInterface": [],
-	"ver": "24.08.15.1004",
+	"ver": "24.10.25.1300",
 	"application": "launchpadvis",
 	"title": "",
 	"description": "",
@@ -2940,7 +2961,7 @@
 	"ui5_url": "",
 	"cus_theme": "",
 	"css": "file:///css.css",
-	"compiledCss": "file://script/undefined/undefined.script",
+	"compiledCss": "file:///compiledCss.css",
 	"header": "",
 	"manifest": "",
 	"globalScript": null,
@@ -2956,12 +2977,12 @@
 	"printWidth": null,
 	"generateVersionOnActivation": false,
 	"activationHistoryCount": 0,
+	"package": "c05ddc61-813c-4e8d-a97e-fa72b3d210ae",
 	"apis": [
 		{
 			"id": "22d01e25-fa5b-4236-89e2-4ed7e3aa1ca7",
 			"name": "launchpad-vis-apis",
 			"ver": "24.07.04.0756"
 		}
-	],
-	"package": "c05ddc61-813c-4e8d-a97e-fa72b3d210ae"
+	]
 }

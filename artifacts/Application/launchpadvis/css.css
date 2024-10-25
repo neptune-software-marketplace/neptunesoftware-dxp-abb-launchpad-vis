@@ -1,7 +1,28 @@
-.launchpadvis-VBox {
+.launchpadvis-VBox-23 {
     background-image: url('/public/images/background.svg');
     background-position: center top;
-    background-repeat: no-repeat
+    background-repeat: no-repeat;
+    height: calc(98% + 4px);
+}
+
+.launchpadvis-VBox-24-dark {
+    background-image: url('/public/images/connect/neptune-connect-background-dark.svg');
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 2px solid #cdd2d7;
+    border-radius: 10px;
+    height: calc(98% + 4px);
+}
+
+.launchpadvis-VBox-24-light {
+    background-image: url('/public/images/connect/neptune-connect-background-light.svg');
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 2px solid #cdd2d7;
+    border-radius: 10px;
+    height: calc(98% + 4px);
 }
 
 .launchpadvis-headerIcon {
@@ -11,12 +32,17 @@
 
 .launchpadvis-TitlePressCell {
     font-size: 1.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 }
 
 #container {
     display: flex;
-    height: calc(100%);
-    border: 1px solid #dfe3e8;
+    border: 2px solid #cdd2d7;
+    border-radius: 10px;
+    height: calc(98%);
 }
 
 #stencil {

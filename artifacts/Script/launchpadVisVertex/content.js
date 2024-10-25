@@ -57,6 +57,9 @@ function processPackages(packages) {
     artifactTree.push(packageRootItem);
 
     packages.sort((a, b) => {
+            if (!a.name) return 1;
+            if (!b.name) return -1;
+            
             const nameA = a.name.toUpperCase();
             const nameB = b.name.toUpperCase();
             if (nameA < nameB) {
@@ -110,8 +113,12 @@ function processArtifactLists(artifacts, parent, level, navMode) {
         artifactTree.push(treeItem);
 
         artifacts[type].sort((a, b) => {
+            if (!a.name) return 1;
+            if (!b.name) return -1;
+
             const nameA = a.name.toUpperCase();
             const nameB = b.name.toUpperCase();
+            
             if (nameA < nameB) {
                 return -1;
             }

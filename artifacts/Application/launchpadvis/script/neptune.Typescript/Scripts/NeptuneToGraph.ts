@@ -4,13 +4,21 @@ namespace Transform {
 
         getUsingTree(id, "", 0, tree);
 
+        let childrenArray: any;
+
+        if (typeof _convertFlatToNested === "function") {
+            childrenArray = _convertFlatToNested(tree, "key", "parent");
+        } else {
+            childrenArray = neptune.Utils.convertFlatToNested(tree, "key", "parent");
+        };
+
         const preProcessedJSON = {
             id: id,
             name: name,
             shape: "launchpad",
             title: title,
             description: description,
-            children: _convertFlatToNested(tree, "key", "parent"),
+            children: childrenArray,
         };
 
         const neptuneGraph = processGraph(preProcessedJSON);
@@ -50,29 +58,39 @@ namespace Transform {
         }
         if (node.actionType === "U") {
             // @ts-ignore
-            newNode.name = (node.actionURL === "" || node.actionURL === null) ? "No selected Webapp" : node.actionURL;
+            newNode.name =
+                node.actionURL === "" || node.actionURL === null
+                    ? "No selected Webapp"
+                    : node.actionURL;
             // @ts-ignore
-            newNode.actionURL = (node.actionURL === "" || node.actionURL === null) ? "No selected Webapp" : node.actionURL;
+            newNode.actionURL =
+                node.actionURL === "" || node.actionURL === null
+                    ? "No selected Webapp"
+                    : node.actionURL;
 
             newNode.shape = "dynamic";
             node.children.push(newNode);
         }
         if (node.actionType === "W") {
             // @ts-ignore
-            newNode.name = (node.actionWebApp === "" || node.actionWebApp === null) ? "No selected Webapp" : node.actionWebApp;
+            newNode.name =
+                node.actionWebApp === "" || node.actionWebApp === null
+                    ? "No selected Webapp"
+                    : node.actionWebApp;
             // @ts-ignore
-            newNode.actionWebApp = (node.actionWebApp === "" || node.actionWebApp === null) ? "No selected Webapp" : node.actionWebApp;
+            newNode.actionWebApp =
+                node.actionWebApp === "" || node.actionWebApp === null
+                    ? "No selected Webapp"
+                    : node.actionWebApp;
 
             newNode.shape = "webapp";
             node.children.push(newNode);
         }
 
         if (node.shape === "launchpad") {
-            const usingLaunch = modelArtifactRelations.getData().usingData.find(
-                (item:any) => {
-                    return item.objectId === node.id
-                }
-            ).using
+            const usingLaunch = modelArtifactRelations.getData().usingData.find((item: any) => {
+                return item.objectId === node.id;
+            }).using;
             if (usingLaunch.length === 1) {
                 const usingItem = usingLaunch[0];
                 if (usingItem.type === "app") {
@@ -80,7 +98,7 @@ namespace Transform {
                     newNode.name = usingItem.id;
                     newNode.shape = "application";
                     node.children.push(newNode);
-                }   
+                }
             }
         }
 
@@ -237,7 +255,7 @@ namespace Transform {
                     nodeTitle = "URL";
                 } else {
                     icon = null;
-                };
+                }
 
                 model.nodes.push({
                     id: data.data.id, // node id and artifact id

@@ -46,23 +46,36 @@ namespace Init {
                     title: null,
                     subTitle: "View existing launchpads and understand their structure breakdown",
                 },
-                selectedLaunchpad : null,
+                selectedLaunchpad: null,
             });
         } catch (error) {
             console.error("Error during core setup:", error);
         }
     }
-    
+
     export let textColor: string;
-    export let systemTheme : string;
+    export let systemTheme: string;
 
     export async function render(themeChange: boolean = false) {
         //@ts-ignore
-        systemTheme = poSettings.getData().cockpit.theme;
-        if (systemTheme === "system") {
-            const query = window.matchMedia("(prefers-color-scheme: dark)");
-            systemTheme = query.matches ? "dark" : "light";
+        if (poSettings.getData().cockpit.theme) {
+            systemTheme = poSettings.getData().cockpit.theme;
+            if (systemTheme === "system") {
+                const query = window.matchMedia("(prefers-color-scheme: dark)");
+                systemTheme = query.matches ? "dark" : "light";
+                VBox.addStyleClass("launchpadvis-VBox-23");
+            }
+        } else {
+            const neptuneTheme = sap.ui.getCore().getConfiguration().getTheme();
+            const result = neptuneTheme.includes("dark");
+            systemTheme = result ? "dark" : "light";
+
+            VBox.removeStyleClass("launchpadvis-VBox-24-light");
+            VBox.removeStyleClass("launchpadvis-VBox-24-dark");
+
+            VBox.addStyleClass(`launchpadvis-VBox-24-${systemTheme}`);
         }
+
         if (systemTheme === "light") {
             textColor = "#191919";
         } else {
