@@ -60,11 +60,7 @@ namespace Init {
         //@ts-ignore
         if (poSettings.getData().cockpit.theme) {
             systemTheme = poSettings.getData().cockpit.theme;
-            if (systemTheme === "system") {
-                const query = window.matchMedia("(prefers-color-scheme: dark)");
-                systemTheme = query.matches ? "dark" : "light";
-                VBox.addStyleClass("launchpadvis-VBox-23");
-            }
+            VBox.addStyleClass("launchpadvis-VBox-23");
         } else {
             const neptuneTheme = sap.ui.getCore().getConfiguration().getTheme();
             const result = neptuneTheme.includes("dark");
