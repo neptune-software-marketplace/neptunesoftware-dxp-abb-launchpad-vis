@@ -100,10 +100,6 @@ namespace ArtifactScraperDirect {
     let apps = [];
     const noPackageId = uuid().toUpperCase();
 
-    complete({
-        scrapeArtifacts,
-    });
-
     function mapApp({ id, application, package, title, description }) {
         const app = apps.find((x) => x.id === id);
         return [
@@ -224,7 +220,7 @@ namespace ArtifactScraperDirect {
         ];
     }
 
-    async function scrapeArtifacts() {
+    export async function scrapeArtifacts() {
         const manager = p9.manager ? p9.manager : modules.typeorm.getConnection().manager;
 
         apps = await manager.find("app", { select: ["id", "package"] });
@@ -348,3 +344,8 @@ namespace ArtifactScraperDirect {
         }
     }
 }
+
+const scrapeArtifacts = ArtifactScraperDirect.scrapeArtifacts;
+complete({
+    scrapeArtifacts,
+});
